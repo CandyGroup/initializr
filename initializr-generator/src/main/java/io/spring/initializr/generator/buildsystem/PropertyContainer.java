@@ -16,13 +16,14 @@
 
 package io.spring.initializr.generator.buildsystem;
 
+import io.spring.initializr.generator.version.VersionProperty;
+
+import java.util.AbstractMap.SimpleEntry;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
-
-import io.spring.initializr.generator.version.VersionProperty;
 
 /**
  * A container for properties. Arbitrary properties can be specified as well as ones that
@@ -32,9 +33,9 @@ import io.spring.initializr.generator.version.VersionProperty;
  */
 public class PropertyContainer {
 
-	private final Map<String, String> properties = new TreeMap<>();
+	private final Map<String, String> properties = new LinkedHashMap<>();
 
-	private final Map<VersionProperty, String> versions = new TreeMap<>();
+	private final Map<VersionProperty, String> versions = new LinkedHashMap<>();
 
 	/**
 	 * Specify if this container is empty.
@@ -109,9 +110,8 @@ public class PropertyContainer {
 	 * @return the version entries.
 	 */
 	public Stream<Entry<String, String>> versions(Function<VersionProperty, String> nameFactory) {
-		return this.versions.entrySet()
-			.stream()
-			.map((entry) -> Map.entry(nameFactory.apply(entry.getKey()), entry.getValue()));
+		return this.versions.entrySet().stream()
+				.map((entry) -> Map.entry(nameFactory.apply(entry.getKey()), entry.getValue()));
 	}
 
 }

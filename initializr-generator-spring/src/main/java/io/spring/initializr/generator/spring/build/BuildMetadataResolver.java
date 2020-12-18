@@ -48,11 +48,8 @@ public class BuildMetadataResolver {
 	 * @return a stream of dependency metadata
 	 */
 	public Stream<Dependency> dependencies(Build build) {
-		return build.dependencies()
-			.ids()
-			.map((id) -> this.metadata.getDependencies().get(id))
-			.filter(Objects::nonNull)
-			.map((dependency) -> dependency.resolve(this.platformVersion));
+		return build.dependencies().ids().map((id) -> this.metadata.getDependencies().get(id)).filter(Objects::nonNull)
+				.map((dependency) -> dependency.resolve(this.platformVersion));
 	}
 
 	/**

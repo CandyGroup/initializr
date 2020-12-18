@@ -51,10 +51,8 @@ class KotlinJpaMavenBuildCustomizerTests {
 			assertThat(plugin.getGroupId()).isEqualTo("org.jetbrains.kotlin");
 			assertThat(plugin.getArtifactId()).isEqualTo("kotlin-maven-plugin");
 			MavenPlugin.Setting settings = plugin.getConfiguration().getSettings().get(0);
-			assertThat(settings.getValue()).asInstanceOf(InstanceOfAssertFactories.LIST)
-				.element(0)
-				.hasFieldOrPropertyWithValue("name", "plugin")
-				.hasFieldOrPropertyWithValue("value", "jpa");
+			assertThat(settings.getValue()).asInstanceOf(InstanceOfAssertFactories.LIST).element(0)
+					.hasFieldOrPropertyWithValue("name", "plugin").hasFieldOrPropertyWithValue("value", "jpa");
 			assertThat(plugin.getDependencies()).hasSize(1);
 			MavenPlugin.Dependency pluginDependency = plugin.getDependencies().get(0);
 			assertThat(pluginDependency.getGroupId()).isEqualTo("org.jetbrains.kotlin");
@@ -80,14 +78,13 @@ class KotlinJpaMavenBuildCustomizerTests {
 			MavenPlugin.Configuration configuration = plugin.getConfiguration();
 
 			assertThat(configuration.getSettings()).filteredOn((setting) -> setting.getName().equals("pluginOptions"))
-				.isNotEmpty()
-				.first()
-				.satisfies((pluginOptions) -> assertThat(((List<MavenPlugin.Setting>) pluginOptions.getValue()))
-					.filteredOn((option) -> Objects.equals(option.getName(), "option"))
-					.map(MavenPlugin.Setting::getValue)
-					.containsExactlyInAnyOrder("all-open:annotation=jakarta.persistence.Entity",
-							"all-open:annotation=jakarta.persistence.MappedSuperclass",
-							"all-open:annotation=jakarta.persistence.Embeddable"));
+					.isNotEmpty().first()
+					.satisfies((pluginOptions) -> assertThat(((List<MavenPlugin.Setting>) pluginOptions.getValue()))
+							.filteredOn((option) -> Objects.equals(option.getName(), "option"))
+							.map(MavenPlugin.Setting::getValue)
+							.containsExactlyInAnyOrder("all-open:annotation=jakarta.persistence.Entity",
+									"all-open:annotation=jakarta.persistence.MappedSuperclass",
+									"all-open:annotation=jakarta.persistence.Embeddable"));
 		});
 	}
 
@@ -100,8 +97,7 @@ class KotlinJpaMavenBuildCustomizerTests {
 
 	private MavenBuild getCustomizedBuild(Dependency dependency) {
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", dependency)
-			.build();
+				.addDependencyGroup("test", dependency).build();
 		MutableProjectDescription projectDescription = new MutableProjectDescription();
 		projectDescription.setPlatformVersion(Version.parse("1.0.0"));
 		KotlinJpaMavenBuildCustomizer customizer = new KotlinJpaMavenBuildCustomizer(metadata, projectDescription);

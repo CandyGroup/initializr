@@ -208,10 +208,8 @@ public class Dependency {
 		}
 
 		protected B initialize(Dependency dependency) {
-			version(dependency.getVersion()).scope(dependency.getScope())
-				.classifier(dependency.getClassifier())
-				.type(dependency.getType())
-				.exclusions(dependency.getExclusions());
+			version(dependency.getVersion()).scope(dependency.getScope()).classifier(dependency.getClassifier())
+					.type(dependency.getType()).exclusions(dependency.getExclusions());
 			return self();
 		}
 

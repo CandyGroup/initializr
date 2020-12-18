@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GitProjectGenerationConfigurationTests {
 
 	private final ProjectAssetTester projectTester = new ProjectAssetTester()
-		.withConfiguration(GitProjectGenerationConfiguration.class);
+			.withConfiguration(GitProjectGenerationConfiguration.class);
 
 	@Test
 	void gitIgnoreIsContributedToProject(@TempDir Path directory) {
@@ -69,10 +69,10 @@ class GitProjectGenerationConfigurationTests {
 		description.setBuildSystem(new GradleBuildSystem());
 		description.setPlatformVersion(Version.parse("2.1.0.RELEASE"));
 		assertThat(generateGitIgnore(description))
-			.contains(".gradle", "build/", "!gradle/wrapper/gradle-wrapper.jar", "out/", "!**/src/main/**/build/",
-					"!**/src/test/**/build/", "!**/src/main/**/out/", "!**/src/test/**/out/", "bin/",
-					"!**/src/main/**/bin/", "!**/src/test/**/bin/")
-			.doesNotContain("/target/", "!.mvn/wrapper/maven-wrapper.jar");
+				.contains(".gradle", "build/", "!gradle/wrapper/gradle-wrapper.jar", "out/", "!**/src/main/**/build/",
+						"!**/src/test/**/build/", "!**/src/main/**/out/", "!**/src/test/**/out/", "bin/",
+						"!**/src/main/**/bin/", "!**/src/test/**/bin/")
+				.doesNotContain("/target/", "!.mvn/wrapper/maven-wrapper.jar");
 	}
 
 	@Test
@@ -81,9 +81,9 @@ class GitProjectGenerationConfigurationTests {
 		description.setBuildSystem(new MavenBuildSystem());
 		description.setPlatformVersion(Version.parse("2.1.0.RELEASE"));
 		assertThat(generateGitIgnore(description))
-			.contains("target/", "!.mvn/wrapper/maven-wrapper.jar", "!**/src/main/**/target/",
-					"!**/src/test/**/target/")
-			.doesNotContain(".gradle", "!gradle/wrapper/gradle-wrapper.jar", "/out/");
+				.contains("target/", "!.mvn/wrapper/maven-wrapper.jar", "!**/src/main/**/target/",
+						"!**/src/test/**/target/")
+				.doesNotContain(".gradle", "!gradle/wrapper/gradle-wrapper.jar", "/out/");
 	}
 
 	@Test
@@ -104,8 +104,8 @@ class GitProjectGenerationConfigurationTests {
 		description.setBuildSystem(new GradleBuildSystem());
 		description.setPlatformVersion(Version.parse("3.4.0"));
 		assertThat(generateGitAttributes(description))
-			.contains("/gradlew text eol=lf", "*.bat text eol=crlf", "*.jar binary")
-			.doesNotContain("/mvnw text eol=lf", "*.cmd text eol=crlf");
+				.contains("/gradlew text eol=lf", "*.bat text eol=crlf", "*.jar binary")
+				.doesNotContain("/mvnw text eol=lf", "*.cmd text eol=crlf");
 	}
 
 	@Test
@@ -114,7 +114,7 @@ class GitProjectGenerationConfigurationTests {
 		description.setBuildSystem(new MavenBuildSystem());
 		description.setPlatformVersion(Version.parse("3.3.0"));
 		assertThat(generateGitAttributes(description)).contains("/mvnw text eol=lf", "*.cmd text eol=crlf")
-			.doesNotContain("/gradlew text eol=lf", "*.bat text eol=crlf", "*.jar binary");
+				.doesNotContain("/gradlew text eol=lf", "*.bat text eol=crlf", "*.jar binary");
 	}
 
 	private List<String> generateGitIgnore(MutableProjectDescription description) {

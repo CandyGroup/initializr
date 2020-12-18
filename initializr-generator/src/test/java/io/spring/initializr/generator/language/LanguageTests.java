@@ -61,7 +61,7 @@ class LanguageTests {
 	@Test
 	void unknownLanguage() {
 		assertThatIllegalStateException().isThrownBy(() -> Language.forId("unknown", null))
-			.withMessageContaining("Unrecognized language id 'unknown'");
+				.withMessageContaining("Unrecognized language id 'unknown'");
 	}
 
 }

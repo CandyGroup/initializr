@@ -80,17 +80,17 @@ public class TestSourceCodeProjectContributor<T extends TypeDeclaration, C exten
 	@SuppressWarnings("unchecked")
 	private void customizeTestApplicationType(TypeDeclaration testApplicationType) {
 		List<TestApplicationTypeCustomizer<?>> customizers = this.testApplicationTypeCustomizers.orderedStream()
-			.collect(Collectors.toList());
+				.collect(Collectors.toList());
 		LambdaSafe.callbacks(TestApplicationTypeCustomizer.class, customizers, testApplicationType)
-			.invoke((customizer) -> customizer.customize(testApplicationType));
+				.invoke((customizer) -> customizer.customize(testApplicationType));
 	}
 
 	@SuppressWarnings("unchecked")
 	private void customizeTestSourceCode(S sourceCode) {
 		List<TestSourceCodeCustomizer<?, ?, ?>> customizers = this.testSourceCodeCustomizers.orderedStream()
-			.collect(Collectors.toList());
+				.collect(Collectors.toList());
 		LambdaSafe.callbacks(TestSourceCodeCustomizer.class, customizers, sourceCode)
-			.invoke((customizer) -> customizer.customize(sourceCode));
+				.invoke((customizer) -> customizer.customize(sourceCode));
 	}
 
 }

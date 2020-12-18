@@ -130,9 +130,8 @@ public abstract class AbstractJvmModuleAssert<SELF extends AbstractJvmModuleAsse
 	private Path validateAndGetAsset(Path baseDir, String packageName, String name) {
 		Path source = resolveSource(baseDir, packageName, name);
 		new PathAssert(source)
-			.as("Source '%s.%s' not found in package '%s'", name, this.sourceFileExtension, packageName)
-			.exists()
-			.isRegularFile();
+				.as("Source '%s.%s' not found in package '%s'", name, this.sourceFileExtension, packageName).exists()
+				.isRegularFile();
 		return source;
 	}
 

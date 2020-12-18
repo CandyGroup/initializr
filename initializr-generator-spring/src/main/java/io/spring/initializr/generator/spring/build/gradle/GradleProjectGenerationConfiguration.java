@@ -80,7 +80,7 @@ public class GradleProjectGenerationConfiguration {
 			List<BuildCustomizer<?>> buildCustomizers) {
 		GradleBuild build = (buildItemResolver != null) ? new GradleBuild(buildItemResolver) : new GradleBuild();
 		LambdaSafe.callbacks(BuildCustomizer.class, buildCustomizers, build)
-			.invoke((customizer) -> customizer.customize(build));
+				.invoke((customizer) -> customizer.customize(build));
 		return build;
 	}
 
@@ -117,7 +117,7 @@ public class GradleProjectGenerationConfiguration {
 	BuildCustomizer<GradleBuild> springBootPluginContributor(ProjectDescription description,
 			ObjectProvider<DependencyManagementPluginVersionResolver> versionResolver, InitializrMetadata metadata) {
 		return new SpringBootPluginBuildCustomizer(description, versionResolver
-			.getIfAvailable(() -> new InitializrDependencyManagementPluginVersionResolver(metadata)));
+				.getIfAvailable(() -> new InitializrDependencyManagementPluginVersionResolver(metadata)));
 	}
 
 	@Bean

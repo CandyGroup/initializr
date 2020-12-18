@@ -133,8 +133,8 @@ public class KotlinSourceCodeWriter implements SourceCodeWriter<KotlinSourceCode
 
 	private String escapeKotlinKeywords(String packageName) {
 		return Arrays.stream(packageName.split("\\."))
-			.map((segment) -> this.language.isKeyword(segment) ? "`" + segment + "`" : segment)
-			.collect(Collectors.joining("."));
+				.map((segment) -> this.language.isKeyword(segment) ? "`" + segment + "`" : segment)
+				.collect(Collectors.joining("."));
 	}
 
 	private void writeProperty(IndentingWriter writer, KotlinPropertyDeclaration propertyDeclaration) {
@@ -220,11 +220,8 @@ public class KotlinSourceCodeWriter implements SourceCodeWriter<KotlinSourceCode
 	}
 
 	private void writeModifiers(IndentingWriter writer, List<KotlinModifier> declaredModifiers) {
-		String modifiers = declaredModifiers.stream()
-			.filter((entry) -> !entry.equals(KotlinModifier.PUBLIC))
-			.sorted()
-			.map((entry) -> entry.toString().toLowerCase(Locale.ENGLISH))
-			.collect(Collectors.joining(" "));
+		String modifiers = declaredModifiers.stream().filter((entry) -> !entry.equals(KotlinModifier.PUBLIC)).sorted()
+				.map((entry) -> entry.toString().toLowerCase(Locale.ENGLISH)).collect(Collectors.joining(" "));
 		if (!modifiers.isEmpty()) {
 			writer.print(modifiers);
 			writer.print(" ");
@@ -237,16 +234,14 @@ public class KotlinSourceCodeWriter implements SourceCodeWriter<KotlinSourceCode
 			imports.add(typeDeclaration.getExtends());
 			imports.addAll(appendImports(typeDeclaration.annotations().values(), Annotation::getImports));
 			typeDeclaration.getPropertyDeclarations()
-				.forEach(((propertyDeclaration) -> imports.addAll(determinePropertyImports(propertyDeclaration))));
+					.forEach(((propertyDeclaration) -> imports.addAll(determinePropertyImports(propertyDeclaration))));
 			typeDeclaration.getFunctionDeclarations()
-				.forEach((functionDeclaration) -> imports.addAll(determineFunctionImports(functionDeclaration)));
+					.forEach((functionDeclaration) -> imports.addAll(determineFunctionImports(functionDeclaration)));
 		}
 		compilationUnit.getTopLevelFunctions()
-			.forEach((functionDeclaration) -> imports.addAll(determineFunctionImports(functionDeclaration)));
-		return imports.stream()
-			.filter((candidate) -> isImportCandidate(compilationUnit, candidate))
-			.sorted()
-			.collect(Collectors.toCollection(LinkedHashSet::new));
+				.forEach((functionDeclaration) -> imports.addAll(determineFunctionImports(functionDeclaration)));
+		return imports.stream().filter((candidate) -> isImportCandidate(compilationUnit, candidate)).sorted()
+				.collect(Collectors.toCollection(LinkedHashSet::new));
 	}
 
 	private Set<String> determinePropertyImports(KotlinPropertyDeclaration propertyDeclaration) {

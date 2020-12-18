@@ -61,10 +61,11 @@ class GradleProjectGenerationConfigurationTests {
 	@BeforeEach
 	void setup(@TempDir Path directory) {
 		this.projectTester = new ProjectAssetTester().withIndentingWriterFactory()
-			.withConfiguration(BuildProjectGenerationConfiguration.class, GradleProjectGenerationConfiguration.class)
-			.withDirectory(directory)
-			.withBean(InitializrMetadata.class, () -> InitializrMetadataTestBuilder.withDefaults().build())
-			.withDescriptionCustomizer((description) -> description.setBuildSystem(new GradleBuildSystem()));
+				.withConfiguration(BuildProjectGenerationConfiguration.class,
+						GradleProjectGenerationConfiguration.class)
+				.withDirectory(directory)
+				.withBean(InitializrMetadata.class, () -> InitializrMetadataTestBuilder.withDefaults().build())
+				.withDescriptionCustomizer((description) -> description.setBuildSystem(new GradleBuildSystem()));
 	}
 
 	static Stream<Arguments> supportedPlatformVersions() {
@@ -78,11 +79,10 @@ class GradleProjectGenerationConfigurationTests {
 		description.setPlatformVersion(Version.parse(platformVersion));
 		description.setLanguage(new JavaLanguage());
 		this.projectTester.configure(description, (context) -> {
-			assertThat(context).hasSingleBean(BuildWriter.class)
-				.getBean(BuildWriter.class)
-				.isInstanceOf(GradleBuildProjectContributor.class);
+			assertThat(context).hasSingleBean(BuildWriter.class).getBean(BuildWriter.class)
+					.isInstanceOf(GradleBuildProjectContributor.class);
 			assertThat(ReflectionTestUtils.getField(context.getBean(BuildWriter.class), "buildWriter"))
-				.isInstanceOf(GroovyDslGradleBuildWriter.class);
+					.isInstanceOf(GroovyDslGradleBuildWriter.class);
 		});
 	}
 
@@ -101,7 +101,7 @@ class GradleProjectGenerationConfigurationTests {
 		assertThat(project).containsFiles("gradlew", "gradlew.bat", "gradle/wrapper/gradle-wrapper.properties",
 				"gradle/wrapper/gradle-wrapper.jar");
 		assertThat(project).textFile("gradle/wrapper/gradle-wrapper.properties")
-			.containsOnlyOnce(String.format("gradle-%s-bin.zip", expectedGradleVersion));
+				.containsOnlyOnce(String.format("gradle-%s-bin.zip", expectedGradleVersion));
 	}
 
 	@Test
@@ -170,9 +170,8 @@ class GradleProjectGenerationConfigurationTests {
 		description.setPlatformVersion(Version.parse("2.2.4.RELEASE"));
 		description.setLanguage(new JavaLanguage());
 		ProjectStructure project = this.projectTester.generate(description);
-		assertThat(project).textFile("build.gradle")
-			.lines()
-			.containsSequence("tasks.named('test') {", "    useJUnitPlatform()", "}");
+		assertThat(project).textFile("build.gradle").lines().containsSequence("tasks.named('test') {",
+				"    useJUnitPlatform()", "}");
 	}
 
 	@Test
@@ -181,10 +180,9 @@ class GradleProjectGenerationConfigurationTests {
 		description.setPlatformVersion(Version.parse("2.2.4.RELEASE"));
 		description.setLanguage(new JavaLanguage());
 		ProjectStructure project = this.projectTester.generate(description);
-		assertThat(project).textFile("build.gradle")
-			.lines()
-			.containsSequence("    testImplementation('org.springframework.boot:spring-boot-starter-test') {",
-					"        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'", "    }");
+		assertThat(project).textFile("build.gradle").lines().containsSequence(
+				"    testImplementation('org.springframework.boot:spring-boot-starter-test') {",
+				"        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'", "    }");
 	}
 
 	@Test

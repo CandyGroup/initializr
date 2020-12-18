@@ -69,7 +69,7 @@ class BuildSystemTests {
 	@Test
 	void unknownBuildSystem() {
 		assertThatIllegalStateException().isThrownBy(() -> BuildSystem.forId("unknown"))
-			.withMessageContaining("Unrecognized build system id 'unknown'");
+				.withMessageContaining("Unrecognized build system id 'unknown'");
 	}
 
 }

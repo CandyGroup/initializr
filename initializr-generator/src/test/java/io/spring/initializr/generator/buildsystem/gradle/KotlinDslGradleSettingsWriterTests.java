@@ -56,9 +56,8 @@ class KotlinDslGradleSettingsWriterTests {
 	@Test
 	void gradleBuildWithPluginRepository() {
 		GradleBuild build = new GradleBuild();
-		build.pluginRepositories()
-			.add(MavenRepository.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone")
-				.name("Spring Milestones"));
+		build.pluginRepositories().add(MavenRepository
+				.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone").name("Spring Milestones"));
 		assertThat(generateSettings(build)).contains("""
 				pluginManagement {
 					repositories {
@@ -72,9 +71,8 @@ class KotlinDslGradleSettingsWriterTests {
 	void gradleBuildWithSnapshotPluginRepository() {
 		GradleBuild build = new GradleBuild();
 		build.pluginRepositories()
-			.add(MavenRepository.withIdAndUrl("spring-snapshots", "https://repo.spring.io/snapshot")
-				.name("Spring Snapshots")
-				.onlySnapshots());
+				.add(MavenRepository.withIdAndUrl("spring-snapshots", "https://repo.spring.io/snapshot")
+						.name("Spring Snapshots").onlySnapshots());
 		assertThat(generateSettings(build)).contains("""
 				pluginManagement {
 					repositories {
@@ -88,14 +86,11 @@ class KotlinDslGradleSettingsWriterTests {
 	void gradleBuildWithPluginMappings() {
 		GradleBuild build = new GradleBuild();
 		build.settings()
-			.mapPlugin("com.example",
-					Dependency.withCoordinates("com.example", "gradle-plugin")
-						.version(VersionReference.ofValue("1.0.0"))
-						.build())
-			.mapPlugin("org.acme",
-					Dependency.withCoordinates("org.acme.plugin", "gradle")
-						.version(VersionReference.ofValue("2.0.0"))
-						.build());
+				.mapPlugin("com.example",
+						Dependency.withCoordinates("com.example", "gradle-plugin")
+								.version(VersionReference.ofValue("1.0.0")).build())
+				.mapPlugin("org.acme", Dependency.withCoordinates("org.acme.plugin", "gradle")
+						.version(VersionReference.ofValue("2.0.0")).build());
 		assertThat(generateSettings(build)).contains("""
 				pluginManagement {
 					resolutionStrategy {

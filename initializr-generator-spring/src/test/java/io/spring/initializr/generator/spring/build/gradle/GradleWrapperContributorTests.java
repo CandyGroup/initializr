@@ -45,9 +45,9 @@ class GradleWrapperContributorTests {
 		assertThat(projectDir.resolve("gradlew")).isRegularFile().isExecutable();
 		assertThat(projectDir.resolve("gradlew.bat")).isRegularFile().isExecutable();
 		assertThat(projectDir.resolve("gradle/wrapper/gradle-wrapper.jar")).isRegularFile()
-			.satisfies(isNotExecutable());
+				.satisfies(isNotExecutable());
 		assertThat(projectDir.resolve("gradle/wrapper/gradle-wrapper.properties")).isRegularFile()
-			.satisfies(isNotExecutable());
+				.satisfies(isNotExecutable());
 	}
 
 	private Consumer<Path> isNotExecutable() {

@@ -48,9 +48,8 @@ public class KotlinJacksonBuildCustomizer implements BuildCustomizer<Build> {
 	public void customize(Build build) {
 		boolean isKotlin = ClassUtils.isAssignableValue(KotlinLanguage.class, this.description.getLanguage());
 		if (this.buildMetadataResolver.hasFacet(build, "json") && isKotlin) {
-			build.dependencies()
-				.add("jackson-module-kotlin", "com.fasterxml.jackson.module", "jackson-module-kotlin",
-						DependencyScope.COMPILE);
+			build.dependencies().add("jackson-module-kotlin", "com.fasterxml.jackson.module", "jackson-module-kotlin",
+					DependencyScope.COMPILE);
 		}
 	}
 

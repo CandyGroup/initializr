@@ -62,9 +62,8 @@ public class GitProjectGenerationConfiguration {
 	@ConditionalOnBuildSystem(MavenBuildSystem.ID)
 	public GitIgnoreCustomizer mavenGitIgnoreCustomizer() {
 		return (gitIgnore) -> {
-			gitIgnore.getGeneral()
-				.add("target/", "!.mvn/wrapper/maven-wrapper.jar", "!**/src/main/**/target/",
-						"!**/src/test/**/target/");
+			gitIgnore.getGeneral().add("target/", "!.mvn/wrapper/maven-wrapper.jar", "!**/src/main/**/target/",
+					"!**/src/test/**/target/");
 			gitIgnore.getNetBeans().add("build/", "!**/src/main/**/build/", "!**/src/test/**/build/");
 		};
 	}
@@ -73,9 +72,8 @@ public class GitProjectGenerationConfiguration {
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	public GitIgnoreCustomizer gradleGitIgnoreCustomizer() {
 		return (gitIgnore) -> {
-			gitIgnore.getGeneral()
-				.add(".gradle", "build/", "!gradle/wrapper/gradle-wrapper.jar", "!**/src/main/**/build/",
-						"!**/src/test/**/build/");
+			gitIgnore.getGeneral().add(".gradle", "build/", "!gradle/wrapper/gradle-wrapper.jar",
+					"!**/src/main/**/build/", "!**/src/test/**/build/");
 			gitIgnore.getIntellijIdea().add("out/", "!**/src/main/**/out/", "!**/src/test/**/out/");
 			gitIgnore.getSts().add("bin/", "!**/src/main/**/bin/", "!**/src/test/**/bin/");
 		};
@@ -102,9 +100,8 @@ public class GitProjectGenerationConfiguration {
 
 	private GitIgnore createGitIgnore() {
 		GitIgnore gitIgnore = new GitIgnore();
-		gitIgnore.getSts()
-			.add(".apt_generated", ".classpath", ".factorypath", ".project", ".settings", ".springBeans",
-					".sts4-cache");
+		gitIgnore.getSts().add(".apt_generated", ".classpath", ".factorypath", ".project", ".settings", ".springBeans",
+				".sts4-cache");
 		gitIgnore.getIntellijIdea().add(".idea", "*.iws", "*.iml", "*.ipr");
 		gitIgnore.getNetBeans().add("/nbproject/private/", "/nbbuild/", "/dist/", "/nbdist/", "/.nb-gradle/");
 		gitIgnore.getVscode().add(".vscode/");

@@ -34,36 +34,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConditionalOnGradleVersionTests {
 
 	private final ProjectAssetTester projectTester = new ProjectAssetTester()
-		.withConfiguration(GradleVersionTestConfiguration.class);
+			.withConfiguration(GradleVersionTestConfiguration.class);
 
 	@Test
 	void outcomeWithSpringBootLate27() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("2.7.10"));
-		this.projectTester.configure(description,
-				(context) -> assertThat(context).hasSingleBean(String.class)
-					.getBean(String.class)
-					.isEqualTo("testGradle8"));
+		this.projectTester.configure(description, (context) -> assertThat(context).hasSingleBean(String.class)
+				.getBean(String.class).isEqualTo("testGradle8"));
 	}
 
 	@Test
 	void outcomeWithSpringBoot30() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("3.0.0"));
-		this.projectTester.configure(description,
-				(context) -> assertThat(context).hasSingleBean(String.class)
-					.getBean(String.class)
-					.isEqualTo("testGradle8"));
+		this.projectTester.configure(description, (context) -> assertThat(context).hasSingleBean(String.class)
+				.getBean(String.class).isEqualTo("testGradle8"));
 	}
 
 	@Test
 	void outcomeWithSpringBoot31() {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("3.1.0"));
-		this.projectTester.configure(description,
-				(context) -> assertThat(context).hasSingleBean(String.class)
-					.getBean(String.class)
-					.isEqualTo("testGradle8"));
+		this.projectTester.configure(description, (context) -> assertThat(context).hasSingleBean(String.class)
+				.getBean(String.class).isEqualTo("testGradle8"));
 	}
 
 	@Test

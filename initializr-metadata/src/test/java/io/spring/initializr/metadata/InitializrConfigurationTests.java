@@ -97,31 +97,31 @@ class InitializrConfigurationTests {
 	@Test
 	void generateApplicationNameNull() {
 		assertThat(this.properties.generateApplicationName(null))
-			.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
+				.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
 	}
 
 	@Test
 	void generateApplicationNameInvalidStartCharacter() {
 		assertThat(this.properties.generateApplicationName("1MyDemo"))
-			.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
+				.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
 	}
 
 	@Test
 	void generateApplicationNameInvalidPartCharacter() {
 		assertThat(this.properties.generateApplicationName("MyDe|mo"))
-			.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
+				.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
 	}
 
 	@Test
 	void generateApplicationNameInvalidApplicationName() {
 		assertThat(this.properties.generateApplicationName("SpringBoot"))
-			.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
+				.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
 	}
 
 	@Test
 	void generateApplicationNameAnotherInvalidApplicationName() {
 		assertThat(this.properties.generateApplicationName("Spring"))
-			.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
+				.isEqualTo(this.properties.getEnv().getFallbackApplicationName());
 	}
 
 	@Test
@@ -172,13 +172,13 @@ class InitializrConfigurationTests {
 	@Test
 	void generatePackageNameVersion() {
 		assertThat(this.properties.cleanPackageName("com.foo.test-1.4.5", JAVA, "com.example"))
-			.isEqualTo("com.foo.test_145");
+				.isEqualTo("com.foo.test_145");
 	}
 
 	@Test
 	void generatePackageNameInvalidPackageName() {
 		assertThat(this.properties.cleanPackageName("org.springframework", JAVA, "com.example"))
-			.isEqualTo("com.example");
+				.isEqualTo("com.example");
 	}
 
 	@Test
@@ -249,19 +249,19 @@ class InitializrConfigurationTests {
 	@Test
 	void generateKotlinPackageNameVersion() {
 		assertThat(this.properties.cleanPackageName("com.foo.test-1.4.5", KOTLIN, "com.example"))
-			.isEqualTo("com.foo.test_145");
+				.isEqualTo("com.foo.test_145");
 	}
 
 	@Test
 	void generateKotlinPackageNameInvalidPackageName() {
 		assertThat(this.properties.cleanPackageName("org.springframework", KOTLIN, "com.example"))
-			.isEqualTo("com.example");
+				.isEqualTo("com.example");
 	}
 
 	@Test
 	void generateKotlinPackageNameReservedKeywordsMiddleOfPackageName() {
 		assertThat(this.properties.cleanPackageName("com.return.foo", KOTLIN, "com.example"))
-			.isEqualTo("com.return.foo");
+				.isEqualTo("com.return.foo");
 	}
 
 	@Test
@@ -287,7 +287,7 @@ class InitializrConfigurationTests {
 	@Test
 	void generateKotlinPackageNameJavaReservedKeywordsEntirePackageName() {
 		assertThat(this.properties.cleanPackageName("public.package", KOTLIN, "com.example"))
-			.isEqualTo("public.package");
+				.isEqualTo("public.package");
 	}
 
 	@Test

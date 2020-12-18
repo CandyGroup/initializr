@@ -66,11 +66,8 @@ public interface Language {
 
 	static Language forId(String id, String jvmVersion) {
 		return SpringFactoriesLoader.loadFactories(LanguageFactory.class, LanguageFactory.class.getClassLoader())
-			.stream()
-			.map((factory) -> factory.createLanguage(id, jvmVersion))
-			.filter(Objects::nonNull)
-			.findFirst()
-			.orElseThrow(() -> new IllegalStateException("Unrecognized language id '" + id + "'"));
+				.stream().map((factory) -> factory.createLanguage(id, jvmVersion)).filter(Objects::nonNull).findFirst()
+				.orElseThrow(() -> new IllegalStateException("Unrecognized language id '" + id + "'"));
 	}
 
 }

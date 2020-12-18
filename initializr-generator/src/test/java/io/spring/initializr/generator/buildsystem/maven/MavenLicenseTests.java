@@ -40,10 +40,8 @@ class MavenLicenseTests {
 	@Test
 	void licenseWithFullDetails() {
 		MavenLicense license = new MavenLicense.Builder().name("Apache License, Version 2.0")
-			.url("https://www.apache.org/licenses/LICENSE-2.0")
-			.distribution(Distribution.MANUAL)
-			.comments("A business-friendly OSS license")
-			.build();
+				.url("https://www.apache.org/licenses/LICENSE-2.0").distribution(Distribution.MANUAL)
+				.comments("A business-friendly OSS license").build();
 		assertThat(license.getName()).isEqualTo("Apache License, Version 2.0");
 		assertThat(license.getUrl()).isEqualTo("https://www.apache.org/licenses/LICENSE-2.0");
 		assertThat(license.getDistribution()).isEqualTo(Distribution.MANUAL);

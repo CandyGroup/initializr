@@ -277,11 +277,8 @@ public final class Annotation {
 		}
 
 		static AttributeType of(Object... values) {
-			List<AttributeType> types = Arrays.stream(values)
-				.map(AttributeType::determineAttributeType)
-				.filter((type) -> type != CODE)
-				.distinct()
-				.toList();
+			List<AttributeType> types = Arrays.stream(values).map(AttributeType::determineAttributeType)
+					.filter((type) -> type != CODE).distinct().toList();
 			if (types.size() > 1) {
 				throw new IllegalArgumentException("Parameter value must not have mixed types, got ["
 						+ types.stream().map(AttributeType::name).collect(Collectors.joining(", ")) + "]");
@@ -311,7 +308,7 @@ public final class Annotation {
 			else {
 				throw new IllegalArgumentException(
 						"Incompatible type. Found: '%s', required: primitive, String, Class, an Enum, an Annotation, or a CodeBlock"
-							.formatted(value.getClass().getName()));
+								.formatted(value.getClass().getName()));
 			}
 		}
 
@@ -339,9 +336,8 @@ public final class Annotation {
 				code.add("($L)", generateAttributeValuesCode(annotation.attributes.get(0)));
 			}
 			else if (!annotation.attributes.isEmpty()) {
-				CodeBlock attributes = annotation.attributes.stream()
-					.map(this::generateAttributeCode)
-					.collect(CodeBlock.joining(", "));
+				CodeBlock attributes = annotation.attributes.stream().map(this::generateAttributeCode)
+						.collect(CodeBlock.joining(", "));
 				code.add("($L)", attributes);
 			}
 			return code.build();
@@ -352,9 +348,8 @@ public final class Annotation {
 		}
 
 		private CodeBlock generateAttributeValuesCode(Attribute attribute) {
-			CodeBlock[] values = attribute.values.stream()
-				.map((value) -> generateValueCode(attribute.type, value))
-				.toArray(CodeBlock[]::new);
+			CodeBlock[] values = attribute.values.stream().map((value) -> generateValueCode(attribute.type, value))
+					.toArray(CodeBlock[]::new);
 			return (values.length == 1) ? values[0] : this.formattingOptions.arrayOf(values);
 		}
 
@@ -365,25 +360,25 @@ public final class Annotation {
 				return codeBlock;
 			}
 			return switch (attributeType) {
-				case PRIMITIVE -> {
-					if (valueType == Character.class) {
-						yield CodeBlock.of("'$L'", value);
-					}
-					else {
-						yield CodeBlock.of("$L", value);
-					}
+			case PRIMITIVE -> {
+				if (valueType == Character.class) {
+					yield CodeBlock.of("'$L'", value);
 				}
-				case STRING -> CodeBlock.of("$S", value);
-				case CLASS -> {
-					ClassName className = (value instanceof Class clazz) ? ClassName.of(clazz) : (ClassName) value;
-					yield this.formattingOptions.classReference(className);
+				else {
+					yield CodeBlock.of("$L", value);
 				}
-				case ENUM -> {
-					Enum<?> enumValue = (Enum<?>) value;
-					yield CodeBlock.of("$T.$L", enumValue.getClass(), enumValue.name());
-				}
-				case ANNOTATION -> generateAnnotationCode((Annotation) value);
-				case CODE -> (CodeBlock) value;
+			}
+			case STRING -> CodeBlock.of("$S", value);
+			case CLASS -> {
+				ClassName className = (value instanceof Class clazz) ? ClassName.of(clazz) : (ClassName) value;
+				yield this.formattingOptions.classReference(className);
+			}
+			case ENUM -> {
+				Enum<?> enumValue = (Enum<?>) value;
+				yield CodeBlock.of("$T.$L", enumValue.getClass(), enumValue.name());
+			}
+			case ANNOTATION -> generateAnnotationCode((Annotation) value);
+			case CODE -> (CodeBlock) value;
 			};
 		}
 

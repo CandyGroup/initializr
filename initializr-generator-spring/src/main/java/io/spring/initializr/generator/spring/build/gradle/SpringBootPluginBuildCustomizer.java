@@ -46,11 +46,9 @@ public final class SpringBootPluginBuildCustomizer implements BuildCustomizer<Gr
 
 	@Override
 	public void customize(GradleBuild build) {
-		build.plugins()
-			.add("org.springframework.boot",
-					(plugin) -> plugin.setVersion(this.description.getPlatformVersion().toString()));
-		build.plugins()
-			.add("io.spring.dependency-management", (plugin) -> plugin
+		build.plugins().add("org.springframework.boot",
+				(plugin) -> plugin.setVersion(this.description.getPlatformVersion().toString()));
+		build.plugins().add("io.spring.dependency-management", (plugin) -> plugin
 				.setVersion(this.versionResolver.resolveDependencyManagementPluginVersion(this.description)));
 	}
 

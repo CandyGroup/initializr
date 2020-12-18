@@ -51,8 +51,7 @@ class MustacheSectionTests {
 		MustacheSection section = new MustacheSection(this.renderer, "test",
 				Collections.singletonMap("another", "hello"));
 		assertThatThrownBy(() -> section.write(new PrintWriter(new StringWriter())))
-			.isInstanceOf(MustacheException.class)
-			.hasMessageContaining("key");
+				.isInstanceOf(MustacheException.class).hasMessageContaining("key");
 	}
 
 	@Test

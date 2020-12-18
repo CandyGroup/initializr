@@ -22,7 +22,7 @@ public class TestProjectGenerationConfiguration2ExcludingTypeFilter
 		implements ProjectGenerationConfigurationTypeFilter {
 
 	private final ProjectGenerationConfigurationTypeFilter delegate = ProjectGenerationConfigurationTypeFilter
-		.exclude(TestProjectGenerationConfiguration2.class);
+			.exclude(TestProjectGenerationConfiguration2.class);
 
 	@Override
 	public boolean test(Class<?> type) {

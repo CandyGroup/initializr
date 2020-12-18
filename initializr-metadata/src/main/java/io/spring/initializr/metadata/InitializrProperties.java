@@ -16,13 +16,12 @@
 
 package io.spring.initializr.metadata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Configuration of the initializr service.
@@ -104,6 +103,12 @@ public class InitializrProperties extends InitializrConfiguration {
 	@JsonIgnore
 	private final SimpleElement packageName = new SimpleElement(null);
 
+	/**
+	 * ddl.
+	 */
+	@JsonIgnore
+	private final SimpleElement ddl = new SimpleElement(null);
+
 	public List<DependencyGroup> getDependencies() {
 		return this.dependencies;
 	}
@@ -150,6 +155,10 @@ public class InitializrProperties extends InitializrConfiguration {
 
 	public SimpleElement getPackageName() {
 		return this.packageName;
+	}
+
+	public SimpleElement getDdl() {
+		return ddl;
 	}
 
 	/**

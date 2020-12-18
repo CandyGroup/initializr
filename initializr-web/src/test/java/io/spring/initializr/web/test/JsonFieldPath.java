@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 final class JsonFieldPath {
 
 	private static final Pattern BRACKETS_AND_ARRAY_PATTERN = Pattern
-		.compile("\\[\'(.+?)\'\\]|\\[([0-9]+|\\*){0,1}\\]");
+			.compile("\\[\'(.+?)\'\\]|\\[([0-9]+|\\*){0,1}\\]");
 
 	private static final Pattern ARRAY_INDEX_PATTERN = Pattern.compile("\\[([0-9]+|\\*){0,1}\\]");
 

@@ -50,10 +50,10 @@ class ComposeHelpDocumentCustomizerTests {
 
 	@Test
 	void addsDockerComposeSection() throws IOException {
-		this.dockerComposeFile.services()
-			.add("test2", (service) -> service.imageAndTag("image-2:4.5.6").imageWebsite("https:/example.com/image-2"));
-		this.dockerComposeFile.services()
-			.add("test", (service) -> service.imageAndTag("image-1:1.2.3").imageWebsite("https:/example.com/image-1"));
+		this.dockerComposeFile.services().add("test2",
+				(service) -> service.imageAndTag("image-2:4.5.6").imageWebsite("https:/example.com/image-2"));
+		this.dockerComposeFile.services().add("test",
+				(service) -> service.imageAndTag("image-1:1.2.3").imageWebsite("https:/example.com/image-1"));
 		HelpDocument helpDocument = helpDocument();
 		this.customizer.customize(helpDocument);
 		assertThat(helpDocument.getSections()).hasSize(1);

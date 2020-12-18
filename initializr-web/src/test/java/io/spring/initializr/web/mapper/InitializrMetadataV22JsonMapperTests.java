@@ -59,9 +59,7 @@ class InitializrMetadataV22JsonMapperTests {
 	@Test
 	void platformVersionUsingSemVerUIsNotChanged() throws JsonProcessingException {
 		InitializrMetadata metadata = new InitializrMetadataTestBuilder().addBootVersion("2.5.0-SNAPSHOT", false)
-			.addBootVersion("2.5.0-M2", false)
-			.addBootVersion("2.4.2", true)
-			.build();
+				.addBootVersion("2.5.0-M2", false).addBootVersion("2.4.2", true).build();
 		String json = this.jsonMapper.write(metadata, null);
 		JsonNode result = objectMapper.readTree(json);
 		JsonNode platformVersions = result.get("bootVersion");

@@ -52,20 +52,17 @@ class GroovyProjectGenerationDefaultContributorsConfiguration {
 
 	@Bean
 	MainApplicationTypeCustomizer<GroovyTypeDeclaration> mainMethodContributor() {
-		return (typeDeclaration) -> typeDeclaration.addMethodDeclaration(GroovyMethodDeclaration.method("main")
-			.modifiers(Modifier.PUBLIC | Modifier.STATIC)
-			.returning("void")
-			.parameters(Parameter.of("args", String[].class))
-			.body(CodeBlock.ofStatement("$T.run($L, args)", "org.springframework.boot.SpringApplication",
-					typeDeclaration.getName())));
+		return (typeDeclaration) -> typeDeclaration.addMethodDeclaration(
+				GroovyMethodDeclaration.method("main").modifiers(Modifier.PUBLIC | Modifier.STATIC).returning("void")
+						.parameters(Parameter.of("args", String[].class)).body(CodeBlock.ofStatement("$T.run($L, args)",
+								"org.springframework.boot.SpringApplication", typeDeclaration.getName())));
 	}
 
 	@Bean
 	TestApplicationTypeCustomizer<GroovyTypeDeclaration> junitJupiterTestMethodContributor() {
 		return (typeDeclaration) -> {
-			GroovyMethodDeclaration method = GroovyMethodDeclaration.method("contextLoads")
-				.returning("void")
-				.body(CodeBlock.of(""));
+			GroovyMethodDeclaration method = GroovyMethodDeclaration.method("contextLoads").returning("void")
+					.body(CodeBlock.of(""));
 			method.annotations().add(ClassName.of("org.junit.jupiter.api.Test"));
 			typeDeclaration.addMethodDeclaration(method);
 		};
@@ -88,11 +85,11 @@ class GroovyProjectGenerationDefaultContributorsConfiguration {
 				ProjectDescription description) {
 			return (typeDeclaration) -> {
 				GroovyMethodDeclaration configure = GroovyMethodDeclaration.method("configure")
-					.modifiers(Modifier.PROTECTED)
-					.returning("org.springframework.boot.builder.SpringApplicationBuilder")
-					.parameters(
-							Parameter.of("application", "org.springframework.boot.builder.SpringApplicationBuilder"))
-					.body(CodeBlock.ofStatement("application.sources($L)", description.getApplicationName()));
+						.modifiers(Modifier.PROTECTED)
+						.returning("org.springframework.boot.builder.SpringApplicationBuilder")
+						.parameters(Parameter.of("application",
+								"org.springframework.boot.builder.SpringApplicationBuilder"))
+						.body(CodeBlock.ofStatement("application.sources($L)", description.getApplicationName()));
 				configure.annotations().add(ClassName.of(Override.class));
 				typeDeclaration.addMethodDeclaration(configure);
 			};

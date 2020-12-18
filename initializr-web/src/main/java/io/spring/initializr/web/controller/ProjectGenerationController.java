@@ -220,10 +220,8 @@ public abstract class ProjectGenerationController<R extends ProjectRequest> {
 
 	private ResponseEntity<byte[]> createResponseEntity(byte[] content, String contentType, String fileName) {
 		String contentDispositionValue = "attachment; filename=\"" + fileName + "\"";
-		return ResponseEntity.ok()
-			.header("Content-Type", contentType)
-			.header("Content-Disposition", contentDispositionValue)
-			.body(content);
+		return ResponseEntity.ok().header("Content-Type", contentType)
+				.header("Content-Disposition", contentDispositionValue).body(content);
 	}
 
 }

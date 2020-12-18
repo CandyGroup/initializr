@@ -32,12 +32,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DevelopmentOnlyDependencyGradleBuildCustomizerTests {
 
 	private static final Dependency WEB_DEPENDENCY = Dependency
-		.withCoordinates("org.springframework.boot", "spring-boot-starter-web")
-		.build();
+			.withCoordinates("org.springframework.boot", "spring-boot-starter-web").build();
 
 	private static final Dependency DEVTOOLS_DEPENDENCY = Dependency
-		.withCoordinates("org.springframework.boot", "spring-boot-devtools")
-		.build();
+			.withCoordinates("org.springframework.boot", "spring-boot-devtools").build();
 
 	@Test
 	void shouldAddDevelopmentOnlyConfiguration() {

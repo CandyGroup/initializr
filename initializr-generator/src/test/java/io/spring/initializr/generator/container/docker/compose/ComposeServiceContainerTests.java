@@ -94,7 +94,7 @@ class ComposeServiceContainerTests {
 		container.add("test", (service) -> service.imageAndTag("my-image").ports(8080));
 		container.add("test", (service) -> service.ports(7070));
 		assertThat(container.values()).singleElement()
-			.satisfies((service) -> assertThat(service.getPorts()).containsExactly(7070, 8080));
+				.satisfies((service) -> assertThat(service.getPorts()).containsExactly(7070, 8080));
 	}
 
 	@Test
@@ -102,9 +102,8 @@ class ComposeServiceContainerTests {
 		ComposeServiceContainer container = new ComposeServiceContainer();
 		container.add("test", (service) -> service.imageAndTag("my-image").environment("z", "zz"));
 		container.add("test", (service) -> service.environment("a", "aa"));
-		assertThat(container.values()).singleElement()
-			.satisfies((service) -> assertThat(service.getEnvironment()).containsExactly(entry("a", "aa"),
-					entry("z", "zz")));
+		assertThat(container.values()).singleElement().satisfies(
+				(service) -> assertThat(service.getEnvironment()).containsExactly(entry("a", "aa"), entry("z", "zz")));
 	}
 
 	@Test
@@ -112,9 +111,8 @@ class ComposeServiceContainerTests {
 		ComposeServiceContainer container = new ComposeServiceContainer();
 		container.add("test", (service) -> service.imageAndTag("my-image").environment(Map.of("a", "aa", "z", "zz")));
 		container.add("test", (service) -> service.environment(Map.of("a", "aaa", "b", "bb")));
-		assertThat(container.values()).singleElement()
-			.satisfies((service) -> assertThat(service.getEnvironment()).containsExactly(entry("a", "aaa"),
-					entry("b", "bb"), entry("z", "zz")));
+		assertThat(container.values()).singleElement().satisfies((service) -> assertThat(service.getEnvironment())
+				.containsExactly(entry("a", "aaa"), entry("b", "bb"), entry("z", "zz")));
 	}
 
 	@Test
@@ -192,9 +190,8 @@ class ComposeServiceContainerTests {
 		ComposeServiceContainer container = new ComposeServiceContainer();
 		container.add("test", (service) -> service.imageAndTag("my-image").label("z", "zz"));
 		container.add("test", (service) -> service.label("a", "aa"));
-		assertThat(container.values()).singleElement()
-			.satisfies(
-					(service) -> assertThat(service.getLabels()).containsExactly(entry("a", "aa"), entry("z", "zz")));
+		assertThat(container.values()).singleElement().satisfies(
+				(service) -> assertThat(service.getLabels()).containsExactly(entry("a", "aa"), entry("z", "zz")));
 	}
 
 	@Test
@@ -202,9 +199,8 @@ class ComposeServiceContainerTests {
 		ComposeServiceContainer container = new ComposeServiceContainer();
 		container.add("test", (service) -> service.imageAndTag("my-image").labels(Map.of("a", "aa", "z", "zz")));
 		container.add("test", (service) -> service.labels(Map.of("a", "aaa", "b", "bb")));
-		assertThat(container.values()).singleElement()
-			.satisfies((service) -> assertThat(service.getLabels()).containsExactly(entry("a", "aaa"), entry("b", "bb"),
-					entry("z", "zz")));
+		assertThat(container.values()).singleElement().satisfies((service) -> assertThat(service.getLabels())
+				.containsExactly(entry("a", "aaa"), entry("b", "bb"), entry("z", "zz")));
 	}
 
 }

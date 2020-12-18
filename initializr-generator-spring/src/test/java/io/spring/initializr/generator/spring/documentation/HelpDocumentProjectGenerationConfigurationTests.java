@@ -48,10 +48,9 @@ class HelpDocumentProjectGenerationConfigurationTests {
 	@BeforeEach
 	void setup(@TempDir Path directory) {
 		this.projectTester = new ProjectAssetTester()
-			.withConfiguration(HelpDocumentProjectGenerationConfiguration.class)
-			.withBean(MustacheTemplateRenderer.class, () -> new MustacheTemplateRenderer("classpath:/templates"))
-			.withBean(InitializrMetadata.class, () -> this.metadataBuilder.build())
-			.withDirectory(directory);
+				.withConfiguration(HelpDocumentProjectGenerationConfiguration.class)
+				.withBean(MustacheTemplateRenderer.class, () -> new MustacheTemplateRenderer("classpath:/templates"))
+				.withBean(InitializrMetadata.class, () -> this.metadataBuilder.build()).withDirectory(directory);
 	}
 
 	@Test
@@ -77,8 +76,7 @@ class HelpDocumentProjectGenerationConfigurationTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		this.projectTester.configure(description,
 				(context) -> assertThat(context).hasSingleBean(GitIgnoreCustomizer.class)
-					.getBean(GitIgnoreCustomizer.class)
-					.isInstanceOf(HelpDocumentGitIgnoreCustomizer.class));
+						.getBean(GitIgnoreCustomizer.class).isInstanceOf(HelpDocumentGitIgnoreCustomizer.class));
 	}
 
 }

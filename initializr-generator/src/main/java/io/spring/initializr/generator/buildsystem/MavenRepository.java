@@ -30,10 +30,8 @@ public class MavenRepository {
 	 * Maven Central.
 	 */
 	public static final MavenRepository MAVEN_CENTRAL = MavenRepository
-		.withIdAndUrl("maven-central", "https://repo.maven.apache.org/maven2")
-		.name("Maven Central")
-		.onlyReleases()
-		.build();
+			.withIdAndUrl("maven-central", "https://repo.maven.apache.org/maven2").name("Maven Central").onlyReleases()
+			.build();
 
 	private final String id;
 

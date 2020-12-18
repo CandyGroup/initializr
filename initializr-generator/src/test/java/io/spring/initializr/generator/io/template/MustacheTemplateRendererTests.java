@@ -56,9 +56,8 @@ class MustacheTemplateRendererTests {
 		MustacheTemplateRenderer render = new MustacheTemplateRenderer("classpath:/templates/mustache",
 				this.templatesCache);
 		assertThatExceptionOfType(IllegalStateException.class)
-			.isThrownBy(() -> render.render("does-not-exist", Collections.emptyMap()))
-			.withMessageContaining("Cannot load template")
-			.withMessageContaining("does-not-exist");
+				.isThrownBy(() -> render.render("does-not-exist", Collections.emptyMap()))
+				.withMessageContaining("Cannot load template").withMessageContaining("does-not-exist");
 	}
 
 	@Test
@@ -67,7 +66,7 @@ class MustacheTemplateRendererTests {
 				this.templatesCache);
 		assertThat(this.templatesCache.get("classpath:/templates/mustache/test")).isNull();
 		assertThat(render.render("test", Collections.singletonMap("key", "it's a `<div>`")))
-			.isEqualTo("it's a `<div>`");
+				.isEqualTo("it's a `<div>`");
 	}
 
 }

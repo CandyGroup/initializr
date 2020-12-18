@@ -51,16 +51,11 @@ class ComposeFileWriterTests {
 	@Test
 	void writeDetailedService() {
 		ComposeFile file = new ComposeFile();
-		file.services()
-			.add("elasticsearch",
-					(builder) -> builder.image("elasticsearch")
-						.imageTag("8.6.1")
+		file.services().add("elasticsearch",
+				(builder) -> builder.image("elasticsearch").imageTag("8.6.1")
 						.imageWebsite("https://www.docker.elastic.co/r/elasticsearch")
-						.environment("ELASTIC_PASSWORD", "secret")
-						.environment("discovery.type", "single-node")
-						.ports(9200, 9300)
-						.command("bin/run thing")
-						.label("foo", "bar"));
+						.environment("ELASTIC_PASSWORD", "secret").environment("discovery.type", "single-node")
+						.ports(9200, 9300).command("bin/run thing").label("foo", "bar"));
 		assertThat(write(file)).isEqualToIgnoringNewLines("""
 				services:
 					elasticsearch:

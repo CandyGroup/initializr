@@ -40,7 +40,7 @@ class KotlinMavenFullBuildCustomizerTests {
 		MavenBuild build = new MavenBuild();
 		new KotlinMavenFullBuildCustomizer(new SimpleKotlinProjectSettings("1.2.70")).customize(build);
 		assertThat(build.properties().versions(VersionProperty::toStandardFormat))
-			.containsOnly(entry("kotlin.version", "1.2.70"));
+				.containsOnly(entry("kotlin.version", "1.2.70"));
 	}
 
 	@Test
@@ -65,17 +65,13 @@ class KotlinMavenFullBuildCustomizerTests {
 			Setting args = configuration.getSettings().get(0);
 			assertThat(args.getName()).isEqualTo("args");
 			assertThat(args.getValue()).asInstanceOf(InstanceOfAssertFactories.LIST).hasSize(1);
-			assertThat(args.getValue()).asInstanceOf(InstanceOfAssertFactories.LIST)
-				.element(0)
-				.hasFieldOrPropertyWithValue("name", "arg")
-				.hasFieldOrPropertyWithValue("value", "-Xjsr305=strict");
+			assertThat(args.getValue()).asInstanceOf(InstanceOfAssertFactories.LIST).element(0)
+					.hasFieldOrPropertyWithValue("name", "arg").hasFieldOrPropertyWithValue("value", "-Xjsr305=strict");
 			Setting compilerPlugins = configuration.getSettings().get(1);
 			assertThat(compilerPlugins.getName()).isEqualTo("compilerPlugins");
 			assertThat(compilerPlugins.getValue()).asInstanceOf(InstanceOfAssertFactories.LIST).hasSize(1);
-			assertThat(compilerPlugins.getValue()).asInstanceOf(InstanceOfAssertFactories.LIST)
-				.element(0)
-				.hasFieldOrPropertyWithValue("name", "plugin")
-				.hasFieldOrPropertyWithValue("value", "spring");
+			assertThat(compilerPlugins.getValue()).asInstanceOf(InstanceOfAssertFactories.LIST).element(0)
+					.hasFieldOrPropertyWithValue("name", "plugin").hasFieldOrPropertyWithValue("value", "spring");
 			Setting jvmTarget = configuration.getSettings().get(2);
 			assertThat(jvmTarget.getName()).isEqualTo("jvmTarget");
 			assertThat(jvmTarget.getValue()).isEqualTo("1.6");

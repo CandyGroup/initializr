@@ -41,25 +41,25 @@ class CodeBlockTests {
 	@Test
 	void codeBlockWithPlaceholderAndTooFewArguments() {
 		assertThatIllegalArgumentException().isThrownBy(() -> CodeBlock.of("$T.doStuff()"))
-			.withMessage("Argument mismatch for '$T.doStuff()', expected at least 1 argument, got 0");
+				.withMessage("Argument mismatch for '$T.doStuff()', expected at least 1 argument, got 0");
 	}
 
 	@Test
 	void codeBlockWithPlaceholderAndTooManyArguments() {
 		assertThatIllegalArgumentException().isThrownBy(() -> CodeBlock.of("$T.doStuff()", String.class, Integer.class))
-			.withMessage("Argument mismatch for '$T.doStuff()', expected 1 argument, got 2");
+				.withMessage("Argument mismatch for '$T.doStuff()', expected 1 argument, got 2");
 	}
 
 	@Test
 	void codeBlockWithInvalidPlaceholder() {
 		assertThatIllegalArgumentException().isThrownBy(() -> CodeBlock.of("$X.doStuff()", 123))
-			.withMessage("Unsupported placeholder '$X' for '$X.doStuff()'");
+				.withMessage("Unsupported placeholder '$X' for '$X.doStuff()'");
 	}
 
 	@Test
 	void codeBlockWithTrailingDollarSign() {
 		assertThatIllegalArgumentException().isThrownBy(() -> CodeBlock.of("doStuff()$"))
-			.withMessage("Should not end with '$': 'doStuff()$'");
+				.withMessage("Should not end with '$': 'doStuff()$'");
 	}
 
 	@Test
@@ -140,7 +140,7 @@ class CodeBlockTests {
 	@Test
 	void codeBlockWithTypePlaceholderAndNonResolvableType() {
 		assertThatIllegalArgumentException().isThrownBy(() -> CodeBlock.of("return $T.truncate(myString)", true))
-			.withMessageContaining("Failed to extract type from 'true'");
+				.withMessageContaining("Failed to extract type from 'true'");
 	}
 
 	@Test
@@ -168,10 +168,8 @@ class CodeBlockTests {
 
 	@Test
 	void codeBlockWithMultipleStatements() {
-		CodeBlock code = CodeBlock.builder()
-			.addStatement("myInstance.sayHello(123)")
-			.addStatement(CodeBlock.of("myInstance.sayHello(456)"))
-			.build();
+		CodeBlock code = CodeBlock.builder().addStatement("myInstance.sayHello(123)")
+				.addStatement(CodeBlock.of("myInstance.sayHello(456)")).build();
 		assertThat(writeJava(code)).isEqualToNormalizingNewlines("""
 				myInstance.sayHello(123);
 				myInstance.sayHello(456);

@@ -41,8 +41,8 @@ class ProjectGenerationDescriptionCustomizerTests extends AbstractInitializrCont
 		ProjectStructure project = downloadZip("/starter.zip?bootVersion=2.0.4.RELEASE&javaVersion=1.8");
 		assertDefaultJavaProject(project);
 		assertThat(project).mavenBuild()
-			.hasParent("org.springframework.boot", "spring-boot-starter-parent", "2.2.3.RELEASE")
-			.hasProperty("java.version", "1.7");
+				.hasParent("org.springframework.boot", "spring-boot-starter-parent", "2.2.3.RELEASE")
+				.hasProperty("java.version", "1.7");
 	}
 
 	@Configuration

@@ -33,7 +33,7 @@ class OnRequestedDependencyCondition extends ProjectGenerationCondition {
 	protected boolean matches(ProjectDescription description, ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
 		String id = (String) metadata.getAnnotationAttributes(ConditionalOnRequestedDependency.class.getName())
-			.get("value");
+				.get("value");
 		return description.getRequestedDependencies().containsKey(id);
 	}
 

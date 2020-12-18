@@ -85,25 +85,25 @@ public class MainSourceCodeProjectContributor<T extends TypeDeclaration, C exten
 	@SuppressWarnings("unchecked")
 	private void customizeMainApplicationType(T mainApplicationType) {
 		List<MainApplicationTypeCustomizer<?>> customizers = this.mainTypeCustomizers.orderedStream()
-			.collect(Collectors.toList());
+				.collect(Collectors.toList());
 		LambdaSafe.callbacks(MainApplicationTypeCustomizer.class, customizers, mainApplicationType)
-			.invoke((customizer) -> customizer.customize(mainApplicationType));
+				.invoke((customizer) -> customizer.customize(mainApplicationType));
 	}
 
 	@SuppressWarnings("unchecked")
 	private void customizeMainCompilationUnit(C compilationUnit) {
 		List<MainCompilationUnitCustomizer<?, ?>> customizers = this.mainCompilationUnitCustomizers.orderedStream()
-			.collect(Collectors.toList());
+				.collect(Collectors.toList());
 		LambdaSafe.callbacks(MainCompilationUnitCustomizer.class, customizers, compilationUnit)
-			.invoke((customizer) -> customizer.customize(compilationUnit));
+				.invoke((customizer) -> customizer.customize(compilationUnit));
 	}
 
 	@SuppressWarnings("unchecked")
 	private void customizeMainSourceCode(S sourceCode) {
 		List<MainSourceCodeCustomizer<?, ?, ?>> customizers = this.mainSourceCodeCustomizers.orderedStream()
-			.collect(Collectors.toList());
+				.collect(Collectors.toList());
 		LambdaSafe.callbacks(MainSourceCodeCustomizer.class, customizers, sourceCode)
-			.invoke((customizer) -> customizer.customize(sourceCode));
+				.invoke((customizer) -> customizer.customize(sourceCode));
 	}
 
 }

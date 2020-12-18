@@ -49,7 +49,7 @@ class PackagingTests {
 	@Test
 	void unknownPackaging() {
 		assertThatIllegalStateException().isThrownBy(() -> Packaging.forId("unknown"))
-			.withMessageContaining("Unrecognized packaging id 'unknown'");
+				.withMessageContaining("Unrecognized packaging id 'unknown'");
 	}
 
 }

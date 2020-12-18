@@ -42,7 +42,7 @@ public class OnGradleVersionCondition extends ProjectGenerationCondition {
 			return false;
 		}
 		String[] values = (String[]) metadata.getAnnotationAttributes(ConditionalOnGradleVersion.class.getName())
-			.get("value");
+				.get("value");
 		return Arrays.asList(values).contains(gradleGeneration);
 	}
 

@@ -145,7 +145,7 @@ public class InitializrAutoConfiguration {
 				ApplicationContext applicationContext) {
 			ProjectGenerationInvoker<ProjectRequest> projectGenerationInvoker = new ProjectGenerationInvoker<>(
 					applicationContext, new DefaultProjectRequestToDescriptionConverter(platformVersionTransformer
-						.getIfAvailable(DefaultProjectRequestPlatformVersionTransformer::new)));
+							.getIfAvailable(DefaultProjectRequestPlatformVersionTransformer::new)));
 			return new DefaultProjectGenerationController(metadataProvider, projectGenerationInvoker);
 		}
 
@@ -205,16 +205,15 @@ public class InitializrAutoConfiguration {
 		private void createMissingCache(javax.cache.CacheManager cacheManager, String cacheName,
 				Supplier<MutableConfiguration<Object, Object>> config) {
 			boolean cacheExist = StreamSupport.stream(cacheManager.getCacheNames().spliterator(), true)
-				.anyMatch((name) -> name.equals(cacheName));
+					.anyMatch((name) -> name.equals(cacheName));
 			if (!cacheExist) {
 				cacheManager.createCache(cacheName, config.get());
 			}
 		}
 
 		private MutableConfiguration<Object, Object> config() {
-			return new MutableConfiguration<>().setStoreByValue(false)
-				.setManagementEnabled(true)
-				.setStatisticsEnabled(true);
+			return new MutableConfiguration<>().setStoreByValue(false).setManagementEnabled(true)
+					.setStatisticsEnabled(true);
 		}
 
 	}

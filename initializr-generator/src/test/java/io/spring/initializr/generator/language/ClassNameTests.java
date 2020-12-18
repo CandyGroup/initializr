@@ -148,7 +148,7 @@ class ClassNameTests {
 	@ValueSource(strings = { "com.example.Tes(t", "com.example..Test" })
 	void classNameWithInvalidClassName(String invalidClassName) {
 		assertThatIllegalStateException().isThrownBy(() -> ClassName.of(invalidClassName))
-			.withMessageContaining("Invalid class name");
+				.withMessageContaining("Invalid class name");
 	}
 
 	@Test

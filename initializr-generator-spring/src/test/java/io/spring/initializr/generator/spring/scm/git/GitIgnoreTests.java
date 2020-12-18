@@ -54,8 +54,8 @@ class GitIgnoreTests {
 	void shouldFailIfSectionAlreadyExists() {
 		this.gitIgnore.addSection(new GitIgnore.GitIgnoreSection("test"));
 		assertThatIllegalStateException()
-			.isThrownBy(() -> this.gitIgnore.addSection(new GitIgnore.GitIgnoreSection("test")))
-			.withMessageContaining("Section with name 'test' already exists");
+				.isThrownBy(() -> this.gitIgnore.addSection(new GitIgnore.GitIgnoreSection("test")))
+				.withMessageContaining("Section with name 'test' already exists");
 	}
 
 	@Test

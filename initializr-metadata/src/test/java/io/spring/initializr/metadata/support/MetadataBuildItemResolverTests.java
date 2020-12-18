@@ -65,15 +65,15 @@ class MetadataBuildItemResolverTests {
 		DependencyGroup group = DependencyGroup.create("test");
 		Dependency dependency = Dependency.withId("test-dep", "com.example", "test");
 		dependency.getMappings()
-			.add(Mapping.create("[1.0.0.RELEASE, 2.0.0.RELEASE)", null, null, "1.0.0.RELEASE", null, null, null));
+				.add(Mapping.create("[1.0.0.RELEASE, 2.0.0.RELEASE)", null, null, "1.0.0.RELEASE", null, null, null));
 		dependency.getMappings()
-			.add(Mapping.create("2.0.0.RELEASE", "com.example.override", "test-override", null, null, null, null));
+				.add(Mapping.create("2.0.0.RELEASE", "com.example.override", "test-override", null, null, null, null));
 		group.getContent().add(dependency);
 		metadata.getDependencies().getContent().add(group);
 		metadata.validate();
 		MetadataBuildItemResolver resolver = new MetadataBuildItemResolver(metadata, VERSION_2_0_0);
 		io.spring.initializr.generator.buildsystem.Dependency resolveDependency = resolver
-			.resolveDependency("test-dep");
+				.resolveDependency("test-dep");
 		assertThat(resolveDependency.getGroupId()).isEqualTo("com.example.override");
 		assertThat(resolveDependency.getArtifactId()).isEqualTo("test-override");
 		assertThat(resolveDependency.getVersion()).isNull();
@@ -111,10 +111,8 @@ class MetadataBuildItemResolverTests {
 		bom.getMappings().add(BillOfMaterials.Mapping.create("[1.0.0.RELEASE, 2.0.0.RELEASE)", "1.0.0"));
 		bom.getMappings().add(BillOfMaterials.Mapping.create("2.0.0.RELEASE", "1.1.0"));
 		metadata.getConfiguration().getEnv().getBoms().put("test-bom", bom);
-		metadata.getConfiguration()
-			.getEnv()
-			.getRepositories()
-			.put("test-repo", new Repository("test", new URL("https://example.com/repo")));
+		metadata.getConfiguration().getEnv().getRepositories().put("test-repo",
+				new Repository("test", new URL("https://example.com/repo")));
 		metadata.validate();
 		MetadataBuildItemResolver resolver = new MetadataBuildItemResolver(metadata, VERSION_2_0_0);
 		io.spring.initializr.generator.buildsystem.BillOfMaterials resolvedBom = resolver.resolveBom("test-bom");
@@ -136,10 +134,8 @@ class MetadataBuildItemResolverTests {
 	@Test
 	void resoleRepositoryWithMatchingReleasesOnlyRepository() throws MalformedURLException {
 		InitializrMetadata metadata = new InitializrMetadata();
-		metadata.getConfiguration()
-			.getEnv()
-			.getRepositories()
-			.put("test-repo", new Repository("test", new URL("https://example.com/repo")));
+		metadata.getConfiguration().getEnv().getRepositories().put("test-repo",
+				new Repository("test", new URL("https://example.com/repo")));
 		metadata.validate();
 		MetadataBuildItemResolver resolver = new MetadataBuildItemResolver(metadata, VERSION_2_0_0);
 		MavenRepository repository = resolver.resolveRepository("test-repo");
@@ -153,10 +149,8 @@ class MetadataBuildItemResolverTests {
 	@Test
 	void resoleRepositoryWithMatchingSnapshotsOnlyRepository() throws MalformedURLException {
 		InitializrMetadata metadata = new InitializrMetadata();
-		metadata.getConfiguration()
-			.getEnv()
-			.getRepositories()
-			.put("test-repo", new Repository("test", new URL("https://example.com/repo"), false, true));
+		metadata.getConfiguration().getEnv().getRepositories().put("test-repo",
+				new Repository("test", new URL("https://example.com/repo"), false, true));
 		metadata.validate();
 		MetadataBuildItemResolver resolver = new MetadataBuildItemResolver(metadata, VERSION_2_0_0);
 		MavenRepository repository = resolver.resolveRepository("test-repo");
@@ -170,10 +164,8 @@ class MetadataBuildItemResolverTests {
 	@Test
 	void resoleRepositoryWithNonMatchingEntry() throws MalformedURLException {
 		InitializrMetadata metadata = new InitializrMetadata();
-		metadata.getConfiguration()
-			.getEnv()
-			.getRepositories()
-			.put("test-repo", new Repository("test", new URL("https://example.com/repo")));
+		metadata.getConfiguration().getEnv().getRepositories().put("test-repo",
+				new Repository("test", new URL("https://example.com/repo")));
 		metadata.validate();
 		MetadataBuildItemResolver resolver = new MetadataBuildItemResolver(metadata, VERSION_2_0_0);
 		assertThat(resolver.resolveRepository("does-not-exist")).isNull();

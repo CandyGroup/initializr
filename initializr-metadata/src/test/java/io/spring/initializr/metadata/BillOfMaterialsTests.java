@@ -120,8 +120,7 @@ class BillOfMaterialsTests {
 		bom.getMappings().add(Mapping.create("[1.3.0.M1, 1.4.0.M1)", "1.2.0"));
 		bom.validate();
 		assertThatExceptionOfType(InvalidInitializrMetadataException.class)
-			.isThrownBy(() -> bom.resolve(Version.parse("1.4.1.RELEASE")))
-			.withMessageContaining("1.4.1.RELEASE");
+				.isThrownBy(() -> bom.resolve(Version.parse("1.4.1.RELEASE"))).withMessageContaining("1.4.1.RELEASE");
 	}
 
 	@Test

@@ -56,7 +56,7 @@ class VersionPropertyTests {
 	@Test
 	void testInvalidPropertyIllegalCharacter() {
 		assertThatIllegalArgumentException().isThrownBy(() -> VersionProperty.of("spring-boot_version"))
-			.withMessageContaining("Unsupported character");
+				.withMessageContaining("Unsupported character");
 	}
 
 }

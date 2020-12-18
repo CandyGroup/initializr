@@ -16,11 +16,7 @@
 
 package io.spring.initializr.generator.buildsystem.maven;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -331,15 +327,12 @@ public class MavenPlugin {
 		 * @see #add(String, Consumer)
 		 */
 		public ConfigurationBuilder configure(String name, Consumer<ConfigurationBuilder> consumer) {
-			Object value = this.settings.stream()
-				.filter((candidate) -> candidate.getName().equals(name))
-				.findFirst()
-				.orElseGet(() -> {
-					Setting nestedSetting = new Setting(name, new ConfigurationBuilder());
-					this.settings.add(nestedSetting);
-					return nestedSetting;
-				})
-				.getValue();
+			Object value = this.settings.stream().filter((candidate) -> candidate.getName().equals(name)).findFirst()
+					.orElseGet(() -> {
+						Setting nestedSetting = new Setting(name, new ConfigurationBuilder());
+						this.settings.add(nestedSetting);
+						return nestedSetting;
+					}).getValue();
 			if (!(value instanceof ConfigurationBuilder nestedConfiguration)) {
 				throw new IllegalArgumentException(String.format(
 						"Could not customize parameter '%s', a single value %s is already registered", name, value));
@@ -360,8 +353,7 @@ public class MavenPlugin {
 		private Setting resolve(String key, Object value) {
 			if (value instanceof ConfigurationBuilder configurationBuilder) {
 				List<Setting> values = configurationBuilder.settings.stream()
-					.map((entry) -> resolve(entry.getName(), entry.getValue()))
-					.toList();
+						.map((entry) -> resolve(entry.getName(), entry.getValue())).toList();
 				return new Setting(key, values);
 			}
 			else {

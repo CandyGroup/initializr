@@ -31,14 +31,9 @@ class GroovyMavenBuildCustomizer implements BuildCustomizer<MavenBuild> {
 		build.plugins().add("org.codehaus.gmavenplus", "gmavenplus-plugin", (groovyMavenPlugin) -> {
 			groovyMavenPlugin.version("1.13.1");
 			groovyMavenPlugin.execution(null,
-					(execution) -> execution.goal("addSources")
-						.goal("addTestSources")
-						.goal("generateStubs")
-						.goal("compile")
-						.goal("generateTestStubs")
-						.goal("compileTests")
-						.goal("removeStubs")
-						.goal("removeTestStubs"));
+					(execution) -> execution.goal("addSources").goal("addTestSources").goal("generateStubs")
+							.goal("compile").goal("generateTestStubs").goal("compileTests").goal("removeStubs")
+							.goal("removeTestStubs"));
 		});
 	}
 

@@ -36,17 +36,17 @@ class GradleBuildSettingsTests {
 		Builder settingsBuilder = new Builder();
 		assertThatIllegalArgumentException().isThrownBy(
 				() -> settingsBuilder.mapPlugin("test", Dependency.withCoordinates("com.example", "plugin").build()))
-			.withMessage("Mapping for plugin 'test' must have a version");
+				.withMessage("Mapping for plugin 'test' must have a version");
 	}
 
 	@Test
 	void mapPluginWithVersionReferenceIsNotAllowed() {
 		Builder settingsBuilder = new Builder();
-		assertThatIllegalArgumentException().isThrownBy(() -> settingsBuilder.mapPlugin("test",
-				Dependency.withCoordinates("com.example", "plugin")
-					.version(VersionReference.ofProperty("test.version"))
-					.build()))
-			.withMessage("Mapping for plugin 'test' must have a version");
+		assertThatIllegalArgumentException()
+				.isThrownBy(() -> settingsBuilder.mapPlugin("test",
+						Dependency.withCoordinates("com.example", "plugin")
+								.version(VersionReference.ofProperty("test.version")).build()))
+				.withMessage("Mapping for plugin 'test' must have a version");
 	}
 
 	@Test
@@ -55,12 +55,10 @@ class GradleBuildSettingsTests {
 		settingsBuilder.mapPlugin("test",
 				Dependency.withCoordinates("com.example", "plugin").version(VersionReference.ofValue("1.0.0")).build());
 		GradleBuildSettings firstSettings = settingsBuilder.build();
-		settingsBuilder.mapPlugin("another",
-				Dependency.withCoordinates("com.example", "another")
-					.version(VersionReference.ofValue("2.0.0"))
-					.build());
+		settingsBuilder.mapPlugin("another", Dependency.withCoordinates("com.example", "another")
+				.version(VersionReference.ofValue("2.0.0")).build());
 		assertThat(firstSettings.getPluginMappings()).singleElement()
-			.satisfies((pluginMapping) -> assertThat(pluginMapping.getId()).isEqualTo("test"));
+				.satisfies((pluginMapping) -> assertThat(pluginMapping.getId()).isEqualTo("test"));
 	}
 
 }

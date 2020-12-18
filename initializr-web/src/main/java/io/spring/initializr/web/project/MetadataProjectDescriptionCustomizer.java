@@ -44,8 +44,8 @@ public class MetadataProjectDescriptionCustomizer implements ProjectDescriptionC
 	@Override
 	public void customize(MutableProjectDescription description) {
 		if (!StringUtils.hasText(description.getApplicationName())) {
-			description
-				.setApplicationName(this.metadata.getConfiguration().generateApplicationName(description.getName()));
+			description.setApplicationName(
+					this.metadata.getConfiguration().generateApplicationName(description.getName()));
 		}
 		String targetArtifactId = determineValue(description.getArtifactId(),
 				() -> this.metadata.getArtifactId().getContent());
@@ -64,9 +64,8 @@ public class MetadataProjectDescriptionCustomizer implements ProjectDescriptionC
 		else if (targetArtifactId.equals(description.getName())) {
 			description.setName(cleanMavenCoordinate(targetArtifactId, "-"));
 		}
-		description.setPackageName(this.metadata.getConfiguration()
-			.cleanPackageName(description.getPackageName(), description.getLanguage(),
-					this.metadata.getPackageName().getContent()));
+		description.setPackageName(this.metadata.getConfiguration().cleanPackageName(description.getPackageName(),
+				description.getLanguage(), this.metadata.getPackageName().getContent()));
 		if (description.getPlatformVersion() == null) {
 			description.setPlatformVersion(Version.parse(this.metadata.getBootVersions().getDefault().getId()));
 		}

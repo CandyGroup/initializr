@@ -72,9 +72,8 @@ class MavenBuildTests {
 	@Test
 	void mavenPluginCanBeConfigured() {
 		MavenBuild build = new MavenBuild();
-		build.plugins()
-			.add("com.example", "test-plugin",
-					(plugin) -> plugin.execution("first", (first) -> first.goal("run-this")));
+		build.plugins().add("com.example", "test-plugin",
+				(plugin) -> plugin.execution("first", (first) -> first.goal("run-this")));
 		assertThat(build.plugins().values()).singleElement().satisfies((testPlugin) -> {
 			assertThat(testPlugin.getGroupId()).isEqualTo("com.example");
 			assertThat(testPlugin.getArtifactId()).isEqualTo("test-plugin");
@@ -125,12 +124,10 @@ class MavenBuildTests {
 	@Test
 	void mavenPluginExecutionCanBeAmended() {
 		MavenBuild build = new MavenBuild();
-		build.plugins()
-			.add("com.example", "test-plugin",
-					(plugin) -> plugin.execution("first", (first) -> first.goal("run-this")));
-		build.plugins()
-			.add("com.example", "test-plugin",
-					(plugin) -> plugin.execution("first", (first) -> first.goal("run-that")));
+		build.plugins().add("com.example", "test-plugin",
+				(plugin) -> plugin.execution("first", (first) -> first.goal("run-this")));
+		build.plugins().add("com.example", "test-plugin",
+				(plugin) -> plugin.execution("first", (first) -> first.goal("run-that")));
 		assertThat(build.plugins().values()).singleElement().satisfies((testPlugin) -> {
 			assertThat(testPlugin.getExecutions()).hasSize(1);
 			assertThat(testPlugin.getExecutions().get(0).getId()).isEqualTo("first");
@@ -143,7 +140,7 @@ class MavenBuildTests {
 		MavenBuild build = new MavenBuild();
 		build.plugins().add("com.example", "test-plugin");
 		assertThat(build.plugins().values()).singleElement()
-			.satisfies((testPlugin) -> assertThat(testPlugin.isInherited()).isTrue());
+				.satisfies((testPlugin) -> assertThat(testPlugin.isInherited()).isTrue());
 	}
 
 	@Test
@@ -151,7 +148,7 @@ class MavenBuildTests {
 		MavenBuild build = new MavenBuild();
 		build.plugins().add("com.example", "test-plugin", (plugin) -> plugin.inherited(false));
 		assertThat(build.plugins().values()).singleElement()
-			.satisfies((testPlugin) -> assertThat(testPlugin.isInherited()).isFalse());
+				.satisfies((testPlugin) -> assertThat(testPlugin.isInherited()).isFalse());
 	}
 
 	@Test
@@ -159,7 +156,7 @@ class MavenBuildTests {
 		MavenBuild build = new MavenBuild();
 		build.plugins().add("com.example", "test-plugin");
 		assertThat(build.plugins().values()).singleElement()
-			.satisfies((testPlugin) -> assertThat(testPlugin.isExtensions()).isFalse());
+				.satisfies((testPlugin) -> assertThat(testPlugin.isExtensions()).isFalse());
 	}
 
 	@Test
@@ -167,7 +164,7 @@ class MavenBuildTests {
 		MavenBuild build = new MavenBuild();
 		build.plugins().add("com.example", "test-plugin", (plugin) -> plugin.extensions(true));
 		assertThat(build.plugins().values()).singleElement()
-			.satisfies((testPlugin) -> assertThat(testPlugin.isExtensions()).isTrue());
+				.satisfies((testPlugin) -> assertThat(testPlugin.isExtensions()).isTrue());
 	}
 
 	@Test
@@ -215,17 +212,15 @@ class MavenBuildTests {
 	@Test
 	void mavenPluginManagementInProfileCanBeConfigured() {
 		MavenBuild build = new MavenBuild();
-		build.profiles()
-			.id("test")
-			.pluginManagementPlugins()
-			.add("com.example", "test-plugin", (plugin) -> plugin.version("1.2.3"));
+		build.profiles().id("test").pluginManagementPlugins().add("com.example", "test-plugin",
+				(plugin) -> plugin.version("1.2.3"));
 		assertThat(build.profiles().values()).singleElement()
-			.satisfies((profile) -> assertThat(profile.pluginManagementPlugins().values()).singleElement()
-				.satisfies((testPlugin) -> {
-					assertThat(testPlugin.getGroupId()).isEqualTo("com.example");
-					assertThat(testPlugin.getArtifactId()).isEqualTo("test-plugin");
-					assertThat(testPlugin.getVersion()).isEqualTo("1.2.3");
-				}));
+				.satisfies((profile) -> assertThat(profile.pluginManagementPlugins().values()).singleElement()
+						.satisfies((testPlugin) -> {
+							assertThat(testPlugin.getGroupId()).isEqualTo("com.example");
+							assertThat(testPlugin.getArtifactId()).isEqualTo("test-plugin");
+							assertThat(testPlugin.getVersion()).isEqualTo("1.2.3");
+						}));
 	}
 
 }

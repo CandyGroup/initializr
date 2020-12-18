@@ -16,10 +16,6 @@
 
 package io.spring.initializr.web.mapper;
 
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -27,22 +23,15 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.Version.Format;
 import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.metadata.DefaultMetadataElement;
-import io.spring.initializr.metadata.DependenciesCapability;
-import io.spring.initializr.metadata.Dependency;
-import io.spring.initializr.metadata.DependencyGroup;
-import io.spring.initializr.metadata.Describable;
-import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.metadata.MetadataElement;
-import io.spring.initializr.metadata.SingleSelectCapability;
-import io.spring.initializr.metadata.TextCapability;
-import io.spring.initializr.metadata.Type;
-import io.spring.initializr.metadata.TypeCapability;
-
+import io.spring.initializr.metadata.*;
 import org.springframework.hateoas.TemplateVariable;
 import org.springframework.hateoas.TemplateVariables;
 import org.springframework.hateoas.UriTemplate;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * A {@link InitializrMetadataJsonMapper} handling the metadata format for v2.
@@ -68,7 +57,8 @@ public class InitializrMetadataV2JsonMapper implements InitializrMetadataJsonMap
 				new TemplateVariable("version", TemplateVariable.VariableType.REQUEST_PARAM),
 				new TemplateVariable("name", TemplateVariable.VariableType.REQUEST_PARAM),
 				new TemplateVariable("description", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("packageName", TemplateVariable.VariableType.REQUEST_PARAM));
+				new TemplateVariable("packageName", TemplateVariable.VariableType.REQUEST_PARAM),
+				new TemplateVariable("ddl", TemplateVariable.VariableType.REQUEST_PARAM));
 	}
 
 	protected JsonNodeFactory nodeFactory() {
@@ -91,6 +81,7 @@ public class InitializrMetadataV2JsonMapper implements InitializrMetadataJsonMap
 		text(delegate, metadata.getName());
 		text(delegate, metadata.getDescription());
 		text(delegate, metadata.getPackageName());
+		text(delegate, metadata.getDdl());
 		return delegate.toString();
 	}
 

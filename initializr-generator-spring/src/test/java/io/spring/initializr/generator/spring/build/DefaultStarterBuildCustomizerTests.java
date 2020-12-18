@@ -51,8 +51,7 @@ class DefaultStarterBuildCustomizerTests {
 		Dependency dependency = Dependency.withId("acme", "com.example", "acme");
 		dependency.setStarter(false);
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", dependency)
-			.build();
+				.addDependencyGroup("test", dependency).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("acme");
 		new DefaultStarterBuildCustomizer(metadata, this.projectDescription).customize(build);
@@ -64,8 +63,7 @@ class DefaultStarterBuildCustomizerTests {
 		Dependency dependency = Dependency.withId("runtime", "org.springframework.boot", "runtime-starter", null,
 				Dependency.SCOPE_RUNTIME);
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", dependency)
-			.build();
+				.addDependencyGroup("test", dependency).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("runtime");
 		new DefaultStarterBuildCustomizer(metadata, this.projectDescription).customize(build);
@@ -75,8 +73,7 @@ class DefaultStarterBuildCustomizerTests {
 	@Test
 	void defaultStarterIsNotAddedIfCompileScopedStarterExists() {
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", "web", "security")
-			.build();
+				.addDependencyGroup("test", "web", "security").build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("web");
 		new DefaultStarterBuildCustomizer(metadata, this.projectDescription).customize(build);

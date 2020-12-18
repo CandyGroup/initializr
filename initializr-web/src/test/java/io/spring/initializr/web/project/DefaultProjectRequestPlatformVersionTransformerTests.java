@@ -35,16 +35,14 @@ class DefaultProjectRequestPlatformVersionTransformerTests {
 	@Test
 	void formatV1WhenV2IsExpected() {
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.setPlatformVersionFormatCompatibilityRange("[2.0.0.RELEASE,2.4.0-M1)", "2.4.0-M1")
-			.build();
+				.setPlatformVersionFormatCompatibilityRange("[2.0.0.RELEASE,2.4.0-M1)", "2.4.0-M1").build();
 		assertThat(this.transformer.transform(Version.parse("2.4.0.RELEASE"), metadata)).hasToString("2.4.0");
 	}
 
 	@Test
 	void formatV1WhenV1IsExpected() {
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.setPlatformVersionFormatCompatibilityRange("[2.0.0.RELEASE,2.4.0-M1)", "2.4.0-M1")
-			.build();
+				.setPlatformVersionFormatCompatibilityRange("[2.0.0.RELEASE,2.4.0-M1)", "2.4.0-M1").build();
 		Version version = Version.parse("2.2.0.RELEASE");
 		assertThat(this.transformer.transform(version, metadata)).isSameAs(version);
 	}
@@ -52,17 +50,15 @@ class DefaultProjectRequestPlatformVersionTransformerTests {
 	@Test
 	void formatV2WhenV1IsExpected() {
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.setPlatformVersionFormatCompatibilityRange("[2.0.0.RELEASE,2.4.0-M1)", "2.4.0-M1")
-			.build();
+				.setPlatformVersionFormatCompatibilityRange("[2.0.0.RELEASE,2.4.0-M1)", "2.4.0-M1").build();
 		assertThat(this.transformer.transform(Version.parse("2.3.0-SNAPSHOT"), metadata))
-			.hasToString("2.3.0.BUILD-SNAPSHOT");
+				.hasToString("2.3.0.BUILD-SNAPSHOT");
 	}
 
 	@Test
 	void formatV2WhenV2IsExpected() {
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.setPlatformVersionFormatCompatibilityRange("[2.0.0.RELEASE,2.4.0-M1)", "2.4.0-M1")
-			.build();
+				.setPlatformVersionFormatCompatibilityRange("[2.0.0.RELEASE,2.4.0-M1)", "2.4.0-M1").build();
 		Version version = Version.parse("2.4.0");
 		assertThat(this.transformer.transform(version, metadata)).isSameAs(version);
 	}

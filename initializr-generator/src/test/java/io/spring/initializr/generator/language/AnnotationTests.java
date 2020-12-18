@@ -44,23 +44,24 @@ class AnnotationTests {
 	@Test
 	void annotationWithInvalidParameterValue() {
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> Annotation.of(ClassName.of("com.example.Test")).set("test", new StringWriter()))
-			.withMessage(
-					"Incompatible type. Found: 'java.io.StringWriter', required: primitive, String, Class, an Enum, an Annotation, or a CodeBlock");
+				.isThrownBy(() -> Annotation.of(ClassName.of("com.example.Test")).set("test", new StringWriter()))
+				.withMessage(
+						"Incompatible type. Found: 'java.io.StringWriter', required: primitive, String, Class, an Enum, an Annotation, or a CodeBlock");
 	}
 
 	@Test
 	void annotationWithMixedParameterValues() {
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> Annotation.of(ClassName.of("com.example.Test")).set("test", "value", true))
-			.withMessage("Parameter value must not have mixed types, got [STRING, PRIMITIVE]");
+				.isThrownBy(() -> Annotation.of(ClassName.of("com.example.Test")).set("test", "value", true))
+				.withMessage("Parameter value must not have mixed types, got [STRING, PRIMITIVE]");
 	}
 
 	@Test
 	void annotationWithAmendedValueAndTypeMismatch() {
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> Annotation.of(ClassName.of("com.example.Test")).set("test", "value").add("test", true))
-			.withMessage("Incompatible type. 'STRING' is not compatible with 'PRIMITIVE'");
+				.isThrownBy(
+						() -> Annotation.of(ClassName.of("com.example.Test")).set("test", "value").add("test", true))
+				.withMessage("Incompatible type. 'STRING' is not compatible with 'PRIMITIVE'");
 	}
 
 	@Test
@@ -127,8 +128,7 @@ class AnnotationTests {
 	@Test
 	void annotationWithEnumCodeBlock() {
 		Annotation test = Annotation.of(ClassName.of("com.example.Test"))
-			.set("test", CodeBlock.of("$T.CENTURIES", ChronoUnit.class))
-			.build();
+				.set("test", CodeBlock.of("$T.CENTURIES", ChronoUnit.class)).build();
 		assertThat(write(test)).isEqualTo("@Test(test = ChronoUnit.CENTURIES)");
 		assertThat(test.getImports()).containsOnly("com.example.Test", ChronoUnit.class.getName());
 	}
@@ -150,10 +150,8 @@ class AnnotationTests {
 
 	@Test
 	void annotationWithSeveralParameters() {
-		Annotation test = Annotation.of(ClassName.of("com.example.Test"))
-			.set("enabled", false)
-			.set("counter", 42)
-			.build();
+		Annotation test = Annotation.of(ClassName.of("com.example.Test")).set("enabled", false).set("counter", 42)
+				.build();
 		assertThat(write(test)).isEqualTo("@Test(enabled = false, counter = 42)");
 	}
 
@@ -172,8 +170,7 @@ class AnnotationTests {
 	@Test
 	void annotationWithParameterClassAndCodeBlock() {
 		Annotation test = Annotation.of(ClassName.of("com.example.Test"))
-			.set("types", StringWriter.class, CodeBlock.of("$T.class", "com.example.io.AnotherWriter"))
-			.build();
+				.set("types", StringWriter.class, CodeBlock.of("$T.class", "com.example.io.AnotherWriter")).build();
 		assertThat(write(test)).isEqualTo("@Test(types = { StringWriter.class, AnotherWriter.class })");
 		assertThat(test.getImports()).containsOnly("com.example.Test", StringWriter.class.getName(),
 				"com.example.io.AnotherWriter");
@@ -181,10 +178,8 @@ class AnnotationTests {
 
 	@Test
 	void annotationWithAmendedValues() {
-		Annotation test = Annotation.of(ClassName.of("com.example.Test"))
-			.add("types", StringWriter.class)
-			.add("types", CodeBlock.of("$T.class", "com.example.io.AnotherWriter"))
-			.build();
+		Annotation test = Annotation.of(ClassName.of("com.example.Test")).add("types", StringWriter.class)
+				.add("types", CodeBlock.of("$T.class", "com.example.io.AnotherWriter")).build();
 		assertThat(write(test)).isEqualTo("@Test(types = { StringWriter.class, AnotherWriter.class })");
 		assertThat(test.getImports()).containsOnly("com.example.Test", StringWriter.class.getName(),
 				"com.example.io.AnotherWriter");

@@ -117,11 +117,8 @@ public class VersionRange {
 			return "";
 		}
 		if (this.higherVersion != null) {
-			sb.append(this.lowerInclusive ? "[" : "(")
-				.append(this.lowerVersion)
-				.append(",")
-				.append(this.higherVersion)
-				.append(this.higherInclusive ? "]" : ")");
+			sb.append(this.lowerInclusive ? "[" : "(").append(this.lowerVersion).append(",").append(this.higherVersion)
+					.append(this.higherInclusive ? "]" : ")");
 		}
 		else {
 			sb.append(this.lowerVersion);

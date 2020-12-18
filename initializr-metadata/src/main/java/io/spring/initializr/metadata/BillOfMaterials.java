@@ -200,9 +200,9 @@ public class BillOfMaterials {
 				resolvedBom.setVersionProperty(this.versionProperty);
 				resolvedBom.setOrder(this.order);
 				resolvedBom.repositories
-					.addAll(!mapping.repositories.isEmpty() ? mapping.repositories : this.repositories);
+						.addAll(!mapping.repositories.isEmpty() ? mapping.repositories : this.repositories);
 				resolvedBom.additionalBoms
-					.addAll(!mapping.additionalBoms.isEmpty() ? mapping.additionalBoms : this.additionalBoms);
+						.addAll(!mapping.additionalBoms.isEmpty() ? mapping.additionalBoms : this.additionalBoms);
 				return resolvedBom;
 			}
 		}

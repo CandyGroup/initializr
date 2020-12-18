@@ -46,21 +46,19 @@ class JavaProjectGenerationDefaultContributorsConfiguration {
 	MainApplicationTypeCustomizer<JavaTypeDeclaration> mainMethodContributor() {
 		return (typeDeclaration) -> {
 			typeDeclaration.modifiers(Modifier.PUBLIC);
-			typeDeclaration.addMethodDeclaration(JavaMethodDeclaration.method("main")
-				.modifiers(Modifier.PUBLIC | Modifier.STATIC)
-				.returning("void")
-				.parameters(Parameter.of("args", String[].class))
-				.body(CodeBlock.ofStatement("$T.run($L.class, args)", "org.springframework.boot.SpringApplication",
-						typeDeclaration.getName())));
+			typeDeclaration.addMethodDeclaration(
+					JavaMethodDeclaration.method("main").modifiers(Modifier.PUBLIC | Modifier.STATIC).returning("void")
+							.parameters(Parameter.of("args", String[].class))
+							.body(CodeBlock.ofStatement("$T.run($L.class, args)",
+									"org.springframework.boot.SpringApplication", typeDeclaration.getName())));
 		};
 	}
 
 	@Bean
 	TestApplicationTypeCustomizer<JavaTypeDeclaration> junitJupiterTestMethodContributor() {
 		return (typeDeclaration) -> {
-			JavaMethodDeclaration method = JavaMethodDeclaration.method("contextLoads")
-				.returning("void")
-				.body(CodeBlock.of(""));
+			JavaMethodDeclaration method = JavaMethodDeclaration.method("contextLoads").returning("void")
+					.body(CodeBlock.of(""));
 			method.annotations().add(ClassName.of("org.junit.jupiter.api.Test"));
 			typeDeclaration.addMethodDeclaration(method);
 		};
@@ -79,12 +77,12 @@ class JavaProjectGenerationDefaultContributorsConfiguration {
 			return (typeDeclaration) -> {
 				typeDeclaration.modifiers(Modifier.PUBLIC);
 				JavaMethodDeclaration configure = JavaMethodDeclaration.method("configure")
-					.modifiers(Modifier.PROTECTED)
-					.returning("org.springframework.boot.builder.SpringApplicationBuilder")
-					.parameters(
-							Parameter.of("application", "org.springframework.boot.builder.SpringApplicationBuilder"))
-					.body(CodeBlock.ofStatement("return application.sources($L.class)",
-							description.getApplicationName()));
+						.modifiers(Modifier.PROTECTED)
+						.returning("org.springframework.boot.builder.SpringApplicationBuilder")
+						.parameters(Parameter.of("application",
+								"org.springframework.boot.builder.SpringApplicationBuilder"))
+						.body(CodeBlock.ofStatement("return application.sources($L.class)",
+								description.getApplicationName()));
 				configure.annotations().add(ClassName.of(Override.class));
 				typeDeclaration.addMethodDeclaration(configure);
 			};

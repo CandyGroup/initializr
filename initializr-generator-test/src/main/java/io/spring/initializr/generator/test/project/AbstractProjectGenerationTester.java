@@ -126,7 +126,7 @@ public abstract class AbstractProjectGenerationTester<SELF extends AbstractProje
 
 	private Consumer<ProjectGenerationContext> beansConfigurer() {
 		return (context) -> this.beanDefinitions
-			.forEach((type, definition) -> register(context, type, definition.get()));
+				.forEach((type, definition) -> register(context, type, definition.get()));
 	}
 
 	// Restore proper generic signature to make sure the context resolve the bean properly

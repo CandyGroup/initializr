@@ -135,11 +135,8 @@ public class ProjectMetadataController extends AbstractMetadataController {
 		}
 		DependencyMetadata dependencyMetadata = this.dependencyMetadataProvider.get(metadata, v);
 		String content = new DependencyMetadataV21JsonMapper().write(dependencyMetadata);
-		return ResponseEntity.ok()
-			.contentType(version.getMediaType())
-			.eTag(createUniqueId(content))
-			.cacheControl(determineCacheControlFor(metadata))
-			.body(content);
+		return ResponseEntity.ok().contentType(version.getMediaType()).eTag(createUniqueId(content))
+				.cacheControl(determineCacheControlFor(metadata)).body(content);
 	}
 
 	private ResponseEntity<String> serviceCapabilitiesFor(InitializrMetadataVersion version) {
@@ -150,22 +147,18 @@ public class ProjectMetadataController extends AbstractMetadataController {
 		String appUrl = generateAppUrl();
 		InitializrMetadata metadata = this.metadataProvider.get();
 		String content = getJsonMapper(version).write(metadata, appUrl);
-		return ResponseEntity.ok()
-			.contentType(contentType)
-			.eTag(createUniqueId(content))
-			.varyBy("Accept")
-			.cacheControl(determineCacheControlFor(metadata))
-			.body(content);
+		return ResponseEntity.ok().contentType(contentType).eTag(createUniqueId(content)).varyBy("Accept")
+				.cacheControl(determineCacheControlFor(metadata)).body(content);
 	}
 
 	private static InitializrMetadataJsonMapper getJsonMapper(InitializrMetadataVersion version) {
 		switch (version) {
-			case V2:
-				return new InitializrMetadataV2JsonMapper();
-			case V2_1:
-				return new InitializrMetadataV21JsonMapper();
-			default:
-				return new InitializrMetadataV22JsonMapper();
+		case V2:
+			return new InitializrMetadataV2JsonMapper();
+		case V2_1:
+			return new InitializrMetadataV21JsonMapper();
+		default:
+			return new InitializrMetadataV22JsonMapper();
 		}
 	}
 

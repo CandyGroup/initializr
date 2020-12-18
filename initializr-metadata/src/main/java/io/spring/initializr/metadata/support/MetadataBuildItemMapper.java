@@ -45,23 +45,20 @@ public final class MetadataBuildItemMapper {
 		VersionReference versionReference = (dependency.getVersion() != null)
 				? VersionReference.ofValue(dependency.getVersion()) : null;
 		return io.spring.initializr.generator.buildsystem.Dependency
-			.withCoordinates(dependency.getGroupId(), dependency.getArtifactId())
-			.version(versionReference)
-			.scope(toDependencyScope(dependency.getScope()))
-			.classifier(dependency.getClassifier())
-			.type(dependency.getType())
-			.build();
+				.withCoordinates(dependency.getGroupId(), dependency.getArtifactId()).version(versionReference)
+				.scope(toDependencyScope(dependency.getScope())).classifier(dependency.getClassifier())
+				.type(dependency.getType()).build();
 	}
 
 	private static DependencyScope toDependencyScope(String scope) {
 		return switch (scope) {
-			case Dependency.SCOPE_ANNOTATION_PROCESSOR -> DependencyScope.ANNOTATION_PROCESSOR;
-			case Dependency.SCOPE_COMPILE -> DependencyScope.COMPILE;
-			case Dependency.SCOPE_RUNTIME -> DependencyScope.RUNTIME;
-			case Dependency.SCOPE_COMPILE_ONLY -> DependencyScope.COMPILE_ONLY;
-			case Dependency.SCOPE_PROVIDED -> DependencyScope.PROVIDED_RUNTIME;
-			case Dependency.SCOPE_TEST -> DependencyScope.TEST_COMPILE;
-			default -> null;
+		case Dependency.SCOPE_ANNOTATION_PROCESSOR -> DependencyScope.ANNOTATION_PROCESSOR;
+		case Dependency.SCOPE_COMPILE -> DependencyScope.COMPILE;
+		case Dependency.SCOPE_RUNTIME -> DependencyScope.RUNTIME;
+		case Dependency.SCOPE_COMPILE_ONLY -> DependencyScope.COMPILE_ONLY;
+		case Dependency.SCOPE_PROVIDED -> DependencyScope.PROVIDED_RUNTIME;
+		case Dependency.SCOPE_TEST -> DependencyScope.TEST_COMPILE;
+		default -> null;
 		};
 	}
 
@@ -77,10 +74,7 @@ public final class MetadataBuildItemMapper {
 		VersionReference version = (bom.getVersionProperty() != null)
 				? VersionReference.ofProperty(bom.getVersionProperty()) : VersionReference.ofValue(bom.getVersion());
 		return io.spring.initializr.generator.buildsystem.BillOfMaterials
-			.withCoordinates(bom.getGroupId(), bom.getArtifactId())
-			.version(version)
-			.order(bom.getOrder())
-			.build();
+				.withCoordinates(bom.getGroupId(), bom.getArtifactId()).version(version).order(bom.getOrder()).build();
 	}
 
 	/**
@@ -95,11 +89,9 @@ public final class MetadataBuildItemMapper {
 			return null;
 		}
 		return io.spring.initializr.generator.buildsystem.MavenRepository
-			.withIdAndUrl(id, repository.getUrl().toExternalForm())
-			.name(repository.getName())
-			.releasesEnabled(repository.isReleasesEnabled())
-			.snapshotsEnabled(repository.isSnapshotsEnabled())
-			.build();
+				.withIdAndUrl(id, repository.getUrl().toExternalForm()).name(repository.getName())
+				.releasesEnabled(repository.isReleasesEnabled()).snapshotsEnabled(repository.isSnapshotsEnabled())
+				.build();
 	}
 
 }

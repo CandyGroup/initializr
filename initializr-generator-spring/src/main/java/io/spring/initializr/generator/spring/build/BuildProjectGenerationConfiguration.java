@@ -44,9 +44,8 @@ public class BuildProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnPlatformVersion("[2.2.0.M5,2.4.0-SNAPSHOT)")
 	public BuildCustomizer<Build> junit5TestStarterContributor() {
-		return (build) -> build.dependencies()
-			.add("test",
-					Dependency.withCoordinates("org.springframework.boot", "spring-boot-starter-test")
+		return (build) -> build.dependencies().add("test",
+				Dependency.withCoordinates("org.springframework.boot", "spring-boot-starter-test")
 						.scope(DependencyScope.TEST_COMPILE)
 						.exclusions(new Exclusion("org.junit.vintage", "junit-vintage-engine")));
 	}
@@ -54,17 +53,16 @@ public class BuildProjectGenerationConfiguration {
 	@Bean
 	@ConditionalOnPlatformVersion("2.4.0-M1")
 	public BuildCustomizer<Build> junitJupiterTestStarterContributor() {
-		return (build) -> build.dependencies()
-			.add("test", Dependency.withCoordinates("org.springframework.boot", "spring-boot-starter-test")
-				.scope(DependencyScope.TEST_COMPILE));
+		return (build) -> build.dependencies().add("test",
+				Dependency.withCoordinates("org.springframework.boot", "spring-boot-starter-test")
+						.scope(DependencyScope.TEST_COMPILE));
 	}
 
 	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	BuildCustomizer<Build> junitLauncherContributor() {
-		return (build) -> build.dependencies()
-			.add("junit-launcher", Dependency.withCoordinates("org.junit.platform", "junit-platform-launcher")
-				.scope(DependencyScope.TEST_RUNTIME));
+		return (build) -> build.dependencies().add("junit-launcher", Dependency
+				.withCoordinates("org.junit.platform", "junit-platform-launcher").scope(DependencyScope.TEST_RUNTIME));
 	}
 
 	@Bean

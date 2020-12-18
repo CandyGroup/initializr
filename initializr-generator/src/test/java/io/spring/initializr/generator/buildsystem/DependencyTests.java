@@ -43,10 +43,8 @@ class DependencyTests {
 
 	@Test
 	void dependencyWithScopeAndVersionValue() {
-		Dependency dependency = Dependency.withCoordinates("com.example", "acme")
-			.scope(DependencyScope.RUNTIME)
-			.version(VersionReference.ofValue("1.0.0"))
-			.build();
+		Dependency dependency = Dependency.withCoordinates("com.example", "acme").scope(DependencyScope.RUNTIME)
+				.version(VersionReference.ofValue("1.0.0")).build();
 		assertThat(dependency.getGroupId()).isEqualTo("com.example");
 		assertThat(dependency.getArtifactId()).isEqualTo("acme");
 		assertThat(dependency.getScope()).isEqualTo(DependencyScope.RUNTIME);
@@ -83,8 +81,7 @@ class DependencyTests {
 	@Test
 	void dependencyWithExclusions() {
 		Dependency dependency = Dependency.withCoordinates("com.example", "acme")
-			.exclusions(new Exclusion("com.example", "exclude1"), new Exclusion("com.example", "exclude2"))
-			.build();
+				.exclusions(new Exclusion("com.example", "exclude1"), new Exclusion("com.example", "exclude2")).build();
 		assertThat(dependency.getGroupId()).isEqualTo("com.example");
 		assertThat(dependency.getArtifactId()).isEqualTo("acme");
 		assertThat(dependency.getScope()).isNull();

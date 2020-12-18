@@ -37,7 +37,7 @@ class OnLanguageCondition extends ProjectGenerationCondition {
 			return false;
 		}
 		String languageId = (String) metadata.getAllAnnotationAttributes(ConditionalOnLanguage.class.getName())
-			.getFirst("value");
+				.getFirst("value");
 		Language language = Language.forId(languageId, null);
 		return description.getLanguage().id().equals(language.id());
 	}

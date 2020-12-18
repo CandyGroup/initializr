@@ -256,11 +256,8 @@ public final class Version implements Serializable, Comparable<Version> {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder().append(this.major)
-			.append(".")
-			.append(this.minor)
-			.append(".")
-			.append(this.patch);
+		StringBuilder sb = new StringBuilder().append(this.major).append(".").append(this.minor).append(".")
+				.append(this.patch);
 		if (this.qualifier != null) {
 			sb.append(this.qualifier.getSeparator()).append(this.qualifier.getId());
 			if (this.qualifier.getVersion() != null) {
@@ -324,9 +321,7 @@ public final class Version implements Serializable, Comparable<Version> {
 		@Override
 		public String toString() {
 			return new StringJoiner(", ", Qualifier.class.getSimpleName() + "[", "]").add("id='" + this.id + "'")
-				.add("version=" + this.version)
-				.add("separator='" + this.separator + "'")
-				.toString();
+					.add("version=" + this.version).add("separator='" + this.separator + "'").toString();
 		}
 
 	}

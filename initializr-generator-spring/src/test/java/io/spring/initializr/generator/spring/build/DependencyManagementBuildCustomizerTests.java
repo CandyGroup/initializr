@@ -43,11 +43,8 @@ class DependencyManagementBuildCustomizerTests {
 		BillOfMaterials bom = BillOfMaterials.create("com.example", "foo-bom", "1.0.0");
 		bom.getAdditionalBoms().add("bar-bom");
 		BillOfMaterials additionalBom = BillOfMaterials.create("com.example", "bar-bom", "1.1.0");
-		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addBom("foo-bom", bom)
-			.addBom("bar-bom", additionalBom)
-			.addDependencyGroup("test", dependency)
-			.build();
+		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addBom("foo-bom", bom)
+				.addBom("bar-bom", additionalBom).addDependencyGroup("test", dependency).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add(dependency.getId());
 		customizeBuild(build, metadata);
@@ -58,15 +55,12 @@ class DependencyManagementBuildCustomizerTests {
 	void contributeBomFromMapping() {
 		Dependency dependency = Dependency.withId("foo");
 		dependency.getMappings()
-			.add(Dependency.Mapping.create("[2.4.0,2.5.0-M1)", null, null, null, null, "foo-bom", null));
+				.add(Dependency.Mapping.create("[2.4.0,2.5.0-M1)", null, null, null, null, "foo-bom", null));
 		BillOfMaterials bom = BillOfMaterials.create("com.example", "foo-bom", "1.0.0");
 		bom.getAdditionalBoms().add("bar-bom");
 		BillOfMaterials additionalBom = BillOfMaterials.create("com.example", "bar-bom", "1.1.0");
-		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addBom("foo-bom", bom)
-			.addBom("bar-bom", additionalBom)
-			.addDependencyGroup("test", dependency)
-			.build();
+		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addBom("foo-bom", bom)
+				.addBom("bar-bom", additionalBom).addDependencyGroup("test", dependency).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add(dependency.getId());
 		customizeBuild(build, metadata);
@@ -80,12 +74,10 @@ class DependencyManagementBuildCustomizerTests {
 		dependency.setRepository("foo-repo");
 		BillOfMaterials bom = BillOfMaterials.create("com.example", "foo-bom", "1.0.0");
 		bom.getRepositories().add("bar-repo");
-		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addBom("foo-bom", bom)
-			.addReleasesRepository("foo-repo", "foo-repo", "https://example.com/foo")
-			.addReleasesRepository("bar-repo", "bar-repo", "https://example.com/bar")
-			.addDependencyGroup("test", dependency)
-			.build();
+		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addBom("foo-bom", bom)
+				.addReleasesRepository("foo-repo", "foo-repo", "https://example.com/foo")
+				.addReleasesRepository("bar-repo", "bar-repo", "https://example.com/bar")
+				.addDependencyGroup("test", dependency).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add(dependency.getId());
 		customizeBuild(build, metadata);
