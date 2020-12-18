@@ -74,7 +74,7 @@ class BuildItemContainerTests {
 		BuildItemContainer<String, String> container = createTestContainer(new LinkedHashMap<>(),
 				(id) -> id.equals("test") ? "value" : null);
 		assertThatIllegalArgumentException().isThrownBy(() -> container.add("unknown"))
-			.withMessageContaining("unknown");
+				.withMessageContaining("unknown");
 	}
 
 	@Test

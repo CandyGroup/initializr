@@ -45,7 +45,7 @@ class GradleBuildProjectContributorTests {
 	void groovyDslGradleBuildIsContributedInProjectStructure(@TempDir Path projectDir) throws IOException {
 		GradleBuild build = new GradleBuild();
 		groovyDslGradleBuildProjectContributor(build, IndentingWriterFactory.withDefaultSettings())
-			.contribute(projectDir);
+				.contribute(projectDir);
 		Path buildGradle = projectDir.resolve("build.gradle");
 		assertThat(buildGradle).isRegularFile();
 	}
@@ -75,7 +75,7 @@ class GradleBuildProjectContributorTests {
 	void kotlinDslGradleBuildIsContributedInProjectStructure(@TempDir Path projectDir) throws IOException {
 		GradleBuild build = new GradleBuild();
 		kotlinDslGradleBuildProjectContributor(build, IndentingWriterFactory.withDefaultSettings())
-			.contribute(projectDir);
+				.contribute(projectDir);
 		Path buildGradleKts = projectDir.resolve("build.gradle.kts");
 		assertThat(buildGradleKts).isRegularFile();
 	}

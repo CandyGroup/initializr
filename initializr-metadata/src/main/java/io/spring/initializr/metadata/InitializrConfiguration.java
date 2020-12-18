@@ -32,9 +32,13 @@ import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.Version.Format;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionRange;
-
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.util.StringUtils;
+
+import javax.lang.model.SourceVersion;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 /**
  * Various configuration options used by the service.
@@ -149,10 +153,8 @@ public class InitializrConfiguration {
 	}
 
 	private static String splitCamelCase(String text) {
-		return String.join("",
-				Arrays.stream(text.split("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])"))
-					.map((it) -> StringUtils.capitalize(it.toLowerCase()))
-					.toArray(String[]::new));
+		return String.join("", Arrays.stream(text.split("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])"))
+				.map((it) -> StringUtils.capitalize(it.toLowerCase())).toArray(String[]::new));
 	}
 
 	private static boolean hasInvalidChar(String text) {
@@ -551,8 +553,10 @@ public class InitializrConfiguration {
 			 * @return the parent POM
 			 */
 			public ParentPom resolveParentPom(String bootVersion) {
-				return (StringUtils.hasText(this.parent.groupId) ? this.parent
-						: new ParentPom(DEFAULT_PARENT_GROUP_ID, DEFAULT_PARENT_ARTIFACT_ID, bootVersion, ""));
+				ParentPom parentPom = new ParentPom(DEFAULT_PARENT_GROUP_ID, DEFAULT_PARENT_ARTIFACT_ID, bootVersion,
+						"");
+				parentPom.setIncludeSpringBootBom(this.parent.includeSpringBootBom);
+				return parentPom;
 			}
 
 			/**
@@ -595,7 +599,7 @@ public class InitializrConfiguration {
 				/**
 				 * Add the "spring-boot-dependencies" BOM to the project.
 				 */
-				private boolean includeSpringBootBom;
+				private boolean includeSpringBootBom = true;
 
 				public ParentPom(String groupId, String artifactId, String version, String relativePath) {
 					this.groupId = groupId;

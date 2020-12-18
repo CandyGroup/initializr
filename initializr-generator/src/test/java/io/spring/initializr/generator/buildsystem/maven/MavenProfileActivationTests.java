@@ -40,7 +40,7 @@ class MavenProfileActivationTests {
 	@Test
 	void profileActiveByDefaultCanBeAmended() {
 		assertThat(createProfileActivation().activeByDefault(true).activeByDefault(null).build().getActiveByDefault())
-			.isNull();
+				.isNull();
 	}
 
 	@Test
@@ -67,7 +67,7 @@ class MavenProfileActivationTests {
 	void profileActivationOsCanBeDisabled() {
 		assertThat(
 				createProfileActivation().os("test-name", null, null, null).os(null, null, null, null).build().getOs())
-			.isNull();
+						.isNull();
 	}
 
 	@Test

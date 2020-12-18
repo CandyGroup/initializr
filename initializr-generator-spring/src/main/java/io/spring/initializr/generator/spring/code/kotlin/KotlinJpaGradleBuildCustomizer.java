@@ -48,8 +48,8 @@ public class KotlinJpaGradleBuildCustomizer implements BuildCustomizer<GradleBui
 	@Override
 	public void customize(GradleBuild build) {
 		if (this.buildMetadataResolver.hasFacet(build, "jpa")) {
-			build.plugins()
-				.add("org.jetbrains.kotlin.plugin.jpa", (plugin) -> plugin.setVersion(this.settings.getVersion()));
+			build.plugins().add("org.jetbrains.kotlin.plugin.jpa",
+					(plugin) -> plugin.setVersion(this.settings.getVersion()));
 			build.extensions().customize("allOpen", (allOpen) -> {
 				allOpen.invoke("annotation", quote("jakarta.persistence.Entity"));
 				allOpen.invoke("annotation", quote("jakarta.persistence.MappedSuperclass"));

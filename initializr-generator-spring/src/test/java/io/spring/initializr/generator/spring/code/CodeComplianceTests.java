@@ -54,13 +54,12 @@ class CodeComplianceTests extends AbstractComplianceTests {
 	@MethodSource("parameters")
 	void currentGenerationJar(Language language) {
 		ProjectStructure project = generateProject(language, maven, "2.4.1");
-		assertThat(project).filePaths()
-			.contains(
-					String.format("src/main/%s/com/example/demo/DemoApplication.%s", language.id(),
-							language.sourceFileExtension()),
-					String.format("src/test/%s/com/example/demo/DemoApplicationTests.%s", language.id(),
-							language.sourceFileExtension()),
-					"src/main/resources/application.properties");
+		assertThat(project).filePaths().contains(
+				String.format("src/main/%s/com/example/demo/DemoApplication.%s", language.id(),
+						language.sourceFileExtension()),
+				String.format("src/test/%s/com/example/demo/DemoApplicationTests.%s", language.id(),
+						language.sourceFileExtension()),
+				"src/main/resources/application.properties");
 	}
 
 	@ParameterizedTest
@@ -68,33 +67,30 @@ class CodeComplianceTests extends AbstractComplianceTests {
 	void currentGenerationWar(Language language) {
 		ProjectStructure project = generateProject(language, maven, "2.4.1",
 				(description) -> description.setPackaging(Packaging.forId("war")));
-		assertThat(project).filePaths()
-			.contains(
-					String.format("src/main/%s/com/example/demo/DemoApplication.%s", language.id(),
-							language.sourceFileExtension()),
-					String.format("src/test/%s/com/example/demo/DemoApplicationTests.%s", language.id(),
-							language.sourceFileExtension()),
-					"src/main/resources/application.properties");
+		assertThat(project).filePaths().contains(
+				String.format("src/main/%s/com/example/demo/DemoApplication.%s", language.id(),
+						language.sourceFileExtension()),
+				String.format("src/test/%s/com/example/demo/DemoApplicationTests.%s", language.id(),
+						language.sourceFileExtension()),
+				"src/main/resources/application.properties");
 	}
 
 	@ParameterizedTest
 	@MethodSource("parameters")
 	void currentGenerationMainClass(Language language) {
 		ProjectStructure project = generateProject(language, maven, "2.4.1");
-		assertThat(project).asJvmModule(language)
-			.mainSource("com.example.demo", "DemoApplication")
-			.hasSameContentAs(new ClassPathResource(
-					"project/" + language + "/standard/DemoApplication." + getExpectedExtension(language)));
+		assertThat(project).asJvmModule(language).mainSource("com.example.demo", "DemoApplication")
+				.hasSameContentAs(new ClassPathResource(
+						"project/" + language + "/standard/DemoApplication." + getExpectedExtension(language)));
 	}
 
 	@ParameterizedTest
 	@MethodSource("parameters")
 	void currentGenerationTestClass(Language language) {
 		ProjectStructure project = generateProject(language, maven, "2.4.1");
-		assertThat(project).asJvmModule(language)
-			.testSource("com.example.demo", "DemoApplicationTests")
-			.hasSameContentAs(new ClassPathResource(
-					"project/" + language + "/standard/DemoApplicationTests." + getExpectedExtension(language)));
+		assertThat(project).asJvmModule(language).testSource("com.example.demo", "DemoApplicationTests")
+				.hasSameContentAs(new ClassPathResource(
+						"project/" + language + "/standard/DemoApplicationTests." + getExpectedExtension(language)));
 	}
 
 	@ParameterizedTest
@@ -102,10 +98,9 @@ class CodeComplianceTests extends AbstractComplianceTests {
 	void currentGenerationTestClassWeb(Language language) {
 		ProjectStructure project = generateProject(language, maven, "2.4.1",
 				(description) -> description.addDependency("web", MetadataBuildItemMapper.toDependency(WEB)));
-		assertThat(project).asJvmModule(language)
-			.testSource("com.example.demo", "DemoApplicationTests")
-			.hasSameContentAs(new ClassPathResource(
-					"project/" + language + "/standard/DemoApplicationTestsWeb." + getExpectedExtension(language)));
+		assertThat(project).asJvmModule(language).testSource("com.example.demo", "DemoApplicationTests")
+				.hasSameContentAs(new ClassPathResource(
+						"project/" + language + "/standard/DemoApplicationTestsWeb." + getExpectedExtension(language)));
 	}
 
 	@ParameterizedTest
@@ -113,10 +108,9 @@ class CodeComplianceTests extends AbstractComplianceTests {
 	void currentGenerationServletInitializer(Language language) {
 		ProjectStructure project = generateProject(language, maven, "2.4.1",
 				(description) -> description.setPackaging(Packaging.forId("war")));
-		assertThat(project).asJvmModule(language)
-			.mainSource("com.example.demo", "ServletInitializer")
-			.hasSameContentAs(new ClassPathResource(
-					"project/" + language + "/standard/" + "ServletInitializer." + getExpectedExtension(language)));
+		assertThat(project).asJvmModule(language).mainSource("com.example.demo", "ServletInitializer")
+				.hasSameContentAs(new ClassPathResource(
+						"project/" + language + "/standard/" + "ServletInitializer." + getExpectedExtension(language)));
 	}
 
 	@ParameterizedTest
@@ -128,14 +122,12 @@ class CodeComplianceTests extends AbstractComplianceTests {
 			description.setPackageName("com.example.acme.myproject");
 			description.setApplicationName("MyProjectApplication");
 		});
-		assertThat(project).asJvmModule(language)
-			.mainSource("com.example.acme.myproject", "MyProjectApplication")
-			.hasSameContentAs(new ClassPathResource(
-					"project/" + language + "/standard/MyProjectApplication." + getExpectedExtension(language)));
-		assertThat(project).asJvmModule(language)
-			.testSource("com.example.acme.myproject", "MyProjectApplicationTests")
-			.hasSameContentAs(new ClassPathResource(
-					"project/" + language + "/standard/MyProjectApplicationTests." + getExpectedExtension(language)));
+		assertThat(project).asJvmModule(language).mainSource("com.example.acme.myproject", "MyProjectApplication")
+				.hasSameContentAs(new ClassPathResource(
+						"project/" + language + "/standard/MyProjectApplication." + getExpectedExtension(language)));
+		assertThat(project).asJvmModule(language).testSource("com.example.acme.myproject", "MyProjectApplicationTests")
+				.hasSameContentAs(new ClassPathResource("project/" + language + "/standard/MyProjectApplicationTests."
+						+ getExpectedExtension(language)));
 	}
 
 	private String getExpectedExtension(Language language) {

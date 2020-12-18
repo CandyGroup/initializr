@@ -37,7 +37,7 @@ class OnPackagingCondition extends ProjectGenerationCondition {
 			return false;
 		}
 		String packagingId = (String) metadata.getAllAnnotationAttributes(ConditionalOnPackaging.class.getName())
-			.getFirst("value");
+				.getFirst("value");
 		Packaging packaging = Packaging.forId(packagingId);
 		return description.getPackaging().id().equals(packaging.id());
 	}

@@ -52,8 +52,7 @@ class WarPackagingWebStarterBuildCustomizerTests {
 	void addWebStarterWhenNoWebFacetIsPresent() {
 		Dependency dependency = Dependency.withId("test", "com.example", "acme", null, Dependency.SCOPE_COMPILE);
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", dependency)
-			.build();
+				.addDependencyGroup("test", dependency).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("test");
 		new WarPackagingWebStarterBuildCustomizer(metadata, this.projectDescription).customize(build);
@@ -65,8 +64,7 @@ class WarPackagingWebStarterBuildCustomizerTests {
 		Dependency dependency = Dependency.withId("test", "com.example", "acme", null, Dependency.SCOPE_COMPILE);
 		Dependency web = Dependency.withId("web", "com.example", "custom-web-starter", null, Dependency.SCOPE_COMPILE);
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", dependency, web)
-			.build();
+				.addDependencyGroup("test", dependency, web).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("test");
 		new WarPackagingWebStarterBuildCustomizer(metadata, this.projectDescription).customize(build);
@@ -78,8 +76,7 @@ class WarPackagingWebStarterBuildCustomizerTests {
 		Dependency dependency = Dependency.withId("test", "com.example", "acme", null, Dependency.SCOPE_COMPILE);
 		dependency.setFacets(Collections.singletonList("web"));
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", dependency)
-			.build();
+				.addDependencyGroup("test", dependency).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("test");
 		new WarPackagingWebStarterBuildCustomizer(metadata, this.projectDescription).customize(build);

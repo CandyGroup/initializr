@@ -59,17 +59,16 @@ class BuildMetadataResolverTests {
 		Dependency web = Dependency.withId("web", "group", "artifact");
 		web.setMappings(List.of(Dependency.Mapping.create("[1.0.0,2.0.0)", null, null, "1.0.0", null, null, null),
 				Dependency.Mapping.create("[2.0.0,3.0.0)", null, null, "2.0.0", null, null, null)));
-		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("web", web)
-			.build();
+		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addDependencyGroup("web", web)
+				.build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("web");
 		BuildMetadataResolver resolver = new BuildMetadataResolver(metadata, Version.parse("1.0.0"));
 		assertThat(resolver.dependencies(build)).singleElement()
-			.satisfies((dependency) -> assertThat(dependency.getVersion()).isEqualTo("1.0.0"));
+				.satisfies((dependency) -> assertThat(dependency.getVersion()).isEqualTo("1.0.0"));
 		resolver = new BuildMetadataResolver(metadata, Version.parse("2.0.0"));
 		assertThat(resolver.dependencies(build)).singleElement()
-			.satisfies((dependency) -> assertThat(dependency.getVersion()).isEqualTo("2.0.0"));
+				.satisfies((dependency) -> assertThat(dependency.getVersion()).isEqualTo("2.0.0"));
 	}
 
 	@Test
@@ -95,10 +94,8 @@ class BuildMetadataResolverTests {
 		web.getFacets().addAll(Arrays.asList("test", "web", "another"));
 		Dependency custom = Dependency.withId("my-custom");
 		custom.getFacets().add("custom");
-		return InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("core", "one", "two", "three")
-			.addDependencyGroup("test", web, custom)
-			.build();
+		return InitializrMetadataTestBuilder.withDefaults().addDependencyGroup("core", "one", "two", "three")
+				.addDependencyGroup("test", web, custom).build();
 	}
 
 	private Build createBuild(InitializrMetadata metadata) {

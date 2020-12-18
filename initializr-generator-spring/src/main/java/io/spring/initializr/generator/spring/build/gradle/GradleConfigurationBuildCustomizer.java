@@ -31,9 +31,8 @@ public class GradleConfigurationBuildCustomizer implements BuildCustomizer<Gradl
 
 	@Override
 	public void customize(GradleBuild build) {
-		boolean providedRuntimeUsed = build.dependencies()
-			.items()
-			.anyMatch((dependency) -> DependencyScope.PROVIDED_RUNTIME.equals(dependency.getScope()));
+		boolean providedRuntimeUsed = build.dependencies().items()
+				.anyMatch((dependency) -> DependencyScope.PROVIDED_RUNTIME.equals(dependency.getScope()));
 		boolean war = build.plugins().values().anyMatch((plugin) -> plugin.getId().equals("war"));
 		if (providedRuntimeUsed && !war) {
 			build.configurations().add("providedRuntime");

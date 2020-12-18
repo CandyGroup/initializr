@@ -30,16 +30,12 @@ import io.spring.initializr.generator.version.Version;
 class SpringBootVersionRepositoriesBuildCustomizer implements BuildCustomizer<Build> {
 
 	static final MavenRepository SPRING_MILESTONES = MavenRepository
-		.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone")
-		.name("Spring Milestones")
-		.onlyReleases()
-		.build();
+			.withIdAndUrl("spring-milestones", "https://repo.spring.io/milestone").name("Spring Milestones")
+			.onlyReleases().build();
 
 	static final MavenRepository SPRING_SNAPSHOTS = MavenRepository
-		.withIdAndUrl("spring-snapshots", "https://repo.spring.io/snapshot")
-		.name("Spring Snapshots")
-		.onlySnapshots()
-		.build();
+			.withIdAndUrl("spring-snapshots", "https://repo.spring.io/snapshot").name("Spring Snapshots")
+			.onlySnapshots().build();
 
 	private final Version springBootVersion;
 
@@ -51,16 +47,16 @@ class SpringBootVersionRepositoriesBuildCustomizer implements BuildCustomizer<Bu
 	public void customize(Build build) {
 		build.repositories().add("maven-central");
 		switch (getReleaseType()) {
-			case MILESTONE -> addMilestoneRepository(build);
-			case SNAPSHOT -> {
-				if (isMaintenanceRelease()) {
-					addSnapshotRepository(build);
-				}
-				else {
-					addMilestoneRepository(build);
-					addSnapshotRepository(build);
-				}
+		case MILESTONE -> addMilestoneRepository(build);
+		case SNAPSHOT -> {
+			if (isMaintenanceRelease()) {
+				addSnapshotRepository(build);
 			}
+			else {
+				addMilestoneRepository(build);
+				addSnapshotRepository(build);
+			}
+		}
 		}
 	}
 

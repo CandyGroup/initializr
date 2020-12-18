@@ -41,10 +41,8 @@ public class ComposeFileWriter {
 	 */
 	public void writeTo(IndentingWriter writer, ComposeFile compose) {
 		writer.println("services:");
-		compose.services()
-			.values()
-			.sorted(Comparator.comparing(ComposeService::getName))
-			.forEach((service) -> writeService(writer, service));
+		compose.services().values().sorted(Comparator.comparing(ComposeService::getName))
+				.forEach((service) -> writeService(writer, service));
 	}
 
 	private void writeService(IndentingWriter writer, ComposeService service) {

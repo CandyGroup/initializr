@@ -60,9 +60,9 @@ class ServletInitializerContributor implements
 	@SuppressWarnings("unchecked")
 	private void customizeServletInitializer(TypeDeclaration servletInitializer) {
 		List<ServletInitializerCustomizer<?>> customizers = this.servletInitializerCustomizers.orderedStream()
-			.collect(Collectors.toList());
+				.collect(Collectors.toList());
 		LambdaSafe.callbacks(ServletInitializerCustomizer.class, customizers, servletInitializer)
-			.invoke((customizer) -> customizer.customize(servletInitializer));
+				.invoke((customizer) -> customizer.customize(servletInitializer));
 	}
 
 }

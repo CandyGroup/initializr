@@ -31,7 +31,7 @@ public final class MockMvcClientHttpRequestFactoryTestExecutionListener extends 
 	@Override
 	public void beforeTestClass(TestContext testContext) throws Exception {
 		ConfigurableBeanFactory beanFactory = (ConfigurableBeanFactory) testContext.getApplicationContext()
-			.getAutowireCapableBeanFactory();
+				.getAutowireCapableBeanFactory();
 		if (!beanFactory.containsBean("mockMvcClientHttpRequestFactory")) {
 			this.factory = new MockMvcClientHttpRequestFactory(beanFactory.getBean(MockMvc.class));
 			beanFactory.registerSingleton("mockMvcClientHttpRequestFactory", this.factory);

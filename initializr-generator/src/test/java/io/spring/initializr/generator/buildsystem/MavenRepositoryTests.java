@@ -29,9 +29,8 @@ class MavenRepositoryTests {
 
 	@Test
 	void repositoryWithDetails() {
-		MavenRepository repo = MavenRepository.withIdAndUrl("test", "https://repo.example.com")
-			.name("Test repository")
-			.build();
+		MavenRepository repo = MavenRepository.withIdAndUrl("test", "https://repo.example.com").name("Test repository")
+				.build();
 		assertThat(repo.getId()).isEqualTo("test");
 		assertThat(repo.getUrl()).isEqualTo("https://repo.example.com");
 		assertThat(repo.getName()).isEqualTo("Test repository");
@@ -60,10 +59,8 @@ class MavenRepositoryTests {
 
 	@Test
 	void repositoryWithReleasesAndSnapshots() {
-		MavenRepository repo = MavenRepository.withIdAndUrl("test", "https://repo.example.com")
-			.releasesEnabled(true)
-			.snapshotsEnabled(true)
-			.build();
+		MavenRepository repo = MavenRepository.withIdAndUrl("test", "https://repo.example.com").releasesEnabled(true)
+				.snapshotsEnabled(true).build();
 		assertThat(repo.isReleasesEnabled()).isTrue();
 		assertThat(repo.isSnapshotsEnabled()).isTrue();
 	}

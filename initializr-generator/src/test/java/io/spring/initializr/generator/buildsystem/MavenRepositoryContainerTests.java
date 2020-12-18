@@ -46,9 +46,8 @@ class MavenRepositoryContainerTests {
 	@Test
 	void addMavenRepositoryInstance() {
 		MavenRepositoryContainer container = createTestContainer();
-		MavenRepository instance = MavenRepository.withIdAndUrl("test", "https://example.com/releases")
-			.name("my repo")
-			.build();
+		MavenRepository instance = MavenRepository.withIdAndUrl("test", "https://example.com/releases").name("my repo")
+				.build();
 		container.add(instance);
 		assertThat(container.ids()).containsOnly("test");
 		assertThat(container.items()).hasSize(1);
@@ -65,9 +64,8 @@ class MavenRepositoryContainerTests {
 	@Test
 	void addMavenRepositoryWithSnapshotsEnabled() {
 		MavenRepositoryContainer container = createTestContainer();
-		container.add(MavenRepository.withIdAndUrl("custom", "https://example.com/snapshots")
-			.name("custom-snapshots")
-			.onlySnapshots());
+		container.add(MavenRepository.withIdAndUrl("custom", "https://example.com/snapshots").name("custom-snapshots")
+				.onlySnapshots());
 		assertThat(container.ids()).containsOnly("custom");
 		assertThat(container.items()).hasSize(1);
 		assertThat(container.isEmpty()).isFalse();

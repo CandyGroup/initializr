@@ -44,19 +44,10 @@ class MavenDeveloperTests {
 
 	@Test
 	void developerWithFullDetails() {
-		MavenDeveloper developer = new MavenDeveloper.Builder().id("jsmith")
-			.name("John Smith")
-			.email("john@example.com")
-			.url("http://www.example.com/jsmith")
-			.organization("Acme Corp")
-			.organizationUrl("http://www.example.com")
-			.role("developer")
-			.role("tester")
-			.timezone("Asia/Karachi")
-			.property("prop1", "test1")
-			.property("prop2", "test2")
-			.property("prop3", "test3")
-			.build();
+		MavenDeveloper developer = new MavenDeveloper.Builder().id("jsmith").name("John Smith")
+				.email("john@example.com").url("http://www.example.com/jsmith").organization("Acme Corp")
+				.organizationUrl("http://www.example.com").role("developer").role("tester").timezone("Asia/Karachi")
+				.property("prop1", "test1").property("prop2", "test2").property("prop3", "test3").build();
 		assertThat(developer.getId()).isEqualTo("jsmith");
 		assertThat(developer.getName()).isEqualTo("John Smith");
 		assertThat(developer.getEmail()).isEqualTo("john@example.com");

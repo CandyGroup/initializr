@@ -37,8 +37,8 @@ class IndentingWriterFactoryTests {
 
 	@Test
 	void createWithSingleIndentStrategy() {
-		IndentingWriter writer = IndentingWriterFactory.create((SPACE_STRATEGY))
-			.createIndentingWriter("test", this.out);
+		IndentingWriter writer = IndentingWriterFactory.create((SPACE_STRATEGY)).createIndentingWriter("test",
+				this.out);
 		assertThat(writer).hasFieldOrPropertyWithValue("indentStrategy", SPACE_STRATEGY);
 	}
 
@@ -50,11 +50,11 @@ class IndentingWriterFactoryTests {
 			factory.indentingStrategy("pom", twoSpacesStrategy);
 		});
 		assertThat(indentingWriterFactory.createIndentingWriter("java", this.out))
-			.hasFieldOrPropertyWithValue("indentStrategy", TAB_STRATEGY);
+				.hasFieldOrPropertyWithValue("indentStrategy", TAB_STRATEGY);
 		assertThat(indentingWriterFactory.createIndentingWriter("pom", this.out))
-			.hasFieldOrPropertyWithValue("indentStrategy", twoSpacesStrategy);
+				.hasFieldOrPropertyWithValue("indentStrategy", twoSpacesStrategy);
 		assertThat(indentingWriterFactory.createIndentingWriter("c", this.out))
-			.hasFieldOrPropertyWithValue("indentStrategy", SPACE_STRATEGY);
+				.hasFieldOrPropertyWithValue("indentStrategy", SPACE_STRATEGY);
 	}
 
 }

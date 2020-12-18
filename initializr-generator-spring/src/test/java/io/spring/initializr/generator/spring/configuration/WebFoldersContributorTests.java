@@ -54,8 +54,7 @@ class WebFoldersContributorTests {
 		Dependency web = Dependency.withId("web", "com.example", "web", null, Dependency.SCOPE_COMPILE);
 		web.setFacets(Collections.singletonList("web"));
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", simple, web)
-			.build();
+				.addDependencyGroup("test", simple, web).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("simple");
 		build.dependencies().add("web");
@@ -70,8 +69,7 @@ class WebFoldersContributorTests {
 		Dependency web = Dependency.withId("web", "com.example", "web", null, Dependency.SCOPE_COMPILE);
 		web.setFacets(Collections.singletonList("web"));
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", simple, web)
-			.build();
+				.addDependencyGroup("test", simple, web).build();
 		Build build = createBuild(metadata);
 		build.dependencies().add("simple");
 		Path projectDir = contribute(build, metadata);

@@ -100,8 +100,7 @@ public abstract class AbstractInitializrIntegrationTests {
 		MediaType actual = response.getHeaders().getContentType();
 		assertThat(actual).isNotNull();
 		assertThat(actual.isCompatibleWith(expected))
-			.as("Non compatible media-type, expected " + expected + ", got " + actual)
-			.isTrue();
+				.as("Non compatible media-type, expected " + expected + ", got " + actual).isTrue();
 	}
 
 	protected JsonNode parseJson(String text) {
@@ -240,12 +239,12 @@ public abstract class AbstractInitializrIntegrationTests {
 			Path archiveFile = writeArchive(content);
 			Path project = this.folder.resolve("project");
 			switch (archiveType) {
-				case ZIP:
-					unzip(archiveFile, project);
-					break;
-				case TGZ:
-					untar(archiveFile, project);
-					break;
+			case ZIP:
+				unzip(archiveFile, project);
+				break;
+			case TGZ:
+				untar(archiveFile, project);
+				break;
 			}
 			return new ProjectStructure(project);
 		}
@@ -291,10 +290,8 @@ public abstract class AbstractInitializrIntegrationTests {
 	}
 
 	private Set<PosixFilePermission> getPosixFilePermissions(int unixMode) {
-		return Arrays.stream(BitMaskFilePermission.values())
-			.filter((permission) -> permission.permitted(unixMode))
-			.map(BitMaskFilePermission::getFilePermission)
-			.collect(Collectors.toSet());
+		return Arrays.stream(BitMaskFilePermission.values()).filter((permission) -> permission.permitted(unixMode))
+				.map(BitMaskFilePermission::getFilePermission).collect(Collectors.toSet());
 	}
 
 	private void applyPermissions(Path target, Set<PosixFilePermission> permissions) throws IOException {

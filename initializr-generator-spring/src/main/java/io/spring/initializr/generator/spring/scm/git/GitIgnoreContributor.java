@@ -16,6 +16,9 @@
 
 package io.spring.initializr.generator.spring.scm.git;
 
+import io.spring.initializr.generator.project.contributor.ProjectContributor;
+import io.spring.initializr.generator.project.contributor.SingleResourceProjectContributor;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -42,7 +45,11 @@ public class GitIgnoreContributor implements ProjectContributor {
 		if (this.gitIgnore.isEmpty()) {
 			return;
 		}
-		Path file = Files.createFile(projectRoot.resolve(".gitignore"));
+		Path output = projectRoot.resolve(".gitignore");
+		if (Files.exists(output)) {
+			return;
+		}
+		Path file = Files.createFile(output);
 		try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(file))) {
 			this.gitIgnore.write(writer);
 		}

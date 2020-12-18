@@ -56,9 +56,8 @@ public class DefaultProjectAssetGenerator implements ProjectAssetGenerator<Path>
 		ProjectDescription description = context.getBean(ProjectDescription.class);
 		Path projectRoot = resolveProjectDirectoryFactory(context).createProjectDirectory(description);
 		Path projectDirectory = initializerProjectDirectory(projectRoot, description);
-		List<ProjectContributor> contributors = context.getBeanProvider(ProjectContributor.class)
-			.orderedStream()
-			.toList();
+		List<ProjectContributor> contributors = context.getBeanProvider(ProjectContributor.class).orderedStream()
+				.toList();
 		for (ProjectContributor contributor : contributors) {
 			contributor.contribute(projectDirectory);
 		}

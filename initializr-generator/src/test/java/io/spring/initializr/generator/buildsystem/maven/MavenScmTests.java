@@ -41,11 +41,8 @@ class MavenScmTests {
 
 	@Test
 	void allElementsTest() {
-		MavenScm mavenScm = new MavenScm.Builder().connection("connection")
-			.developerConnection("developerConnection")
-			.url("url")
-			.tag("tag")
-			.build();
+		MavenScm mavenScm = new MavenScm.Builder().connection("connection").developerConnection("developerConnection")
+				.url("url").tag("tag").build();
 		assertThat(mavenScm.getConnection()).isEqualTo("connection");
 		assertThat(mavenScm.getDeveloperConnection()).isEqualTo("developerConnection");
 		assertThat(mavenScm.getTag()).isEqualTo("tag");

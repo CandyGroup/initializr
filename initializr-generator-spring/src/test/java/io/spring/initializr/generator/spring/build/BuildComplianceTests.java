@@ -84,9 +84,8 @@ class BuildComplianceTests extends AbstractComplianceTests {
 
 	private void testCurrentGenerationJar(Language language, BuildSystem build, String fileName) {
 		String path = "project/" + language + "/standard/" + getAssertFileName(fileName);
-		assertThat(generateProject(language, build, "2.4.1")).textFile(fileName)
-			.as("Resource " + path)
-			.hasSameContentAs(new ClassPathResource(path));
+		assertThat(generateProject(language, build, "2.4.1")).textFile(fileName).as("Resource " + path)
+				.hasSameContentAs(new ClassPathResource(path));
 	}
 
 	@ParameterizedTest
@@ -97,9 +96,8 @@ class BuildComplianceTests extends AbstractComplianceTests {
 
 	private void testNextGenerationJar(Language language, BuildSystem build, String fileName) {
 		String path = "project/" + language + "/next/" + getAssertFileName(fileName);
-		assertThat(generateProject(language, build, "3.0.0")).textFile(fileName)
-			.as("Resource " + path)
-			.hasSameContentAs(new ClassPathResource(path));
+		assertThat(generateProject(language, build, "3.0.0")).textFile(fileName).as("Resource " + path)
+				.hasSameContentAs(new ClassPathResource(path));
 	}
 
 	@ParameterizedTest
@@ -145,8 +143,8 @@ class BuildComplianceTests extends AbstractComplianceTests {
 				(description) -> description.addDependency("web", MetadataBuildItemMapper.toDependency(WEB)),
 				(projectGenerationContext) -> projectGenerationContext.registerBean(BuildCustomizer.class,
 						() -> (projectBuild) -> projectBuild.properties()
-							.version(VersionProperty.of("spring-foo.version", false), "0.1.0.RELEASE")
-							.version(VersionProperty.of("spring-bar.version"), "0.2.0.RELEASE")));
+								.version(VersionProperty.of("spring-foo.version", false), "0.1.0.RELEASE")
+								.version(VersionProperty.of("spring-bar.version"), "0.2.0.RELEASE")));
 		String path = "project/" + build + "/version-override-" + getAssertFileName(fileName);
 		assertThat(project).textFile(fileName).as("Resource " + path).hasSameContentAs(new ClassPathResource(path));
 	}
@@ -158,10 +156,8 @@ class BuildComplianceTests extends AbstractComplianceTests {
 		foo.setBom("the-bom");
 		BillOfMaterials bom = BillOfMaterials.create("org.acme", "foo-bom", "1.3.3");
 		bom.setVersionProperty("foo.version");
-		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("foo", foo)
-			.addBom("the-bom", bom)
-			.build();
+		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addDependencyGroup("foo", foo)
+				.addBom("the-bom", bom).build();
 		ProjectStructure project = generateProject(java, build, "2.4.1",
 				(description) -> description.addDependency("foo", MetadataBuildItemMapper.toDependency(foo)), metadata);
 		String path = "project/" + build + "/bom-property-" + getAssertFileName(fileName);
@@ -175,9 +171,7 @@ class BuildComplianceTests extends AbstractComplianceTests {
 		Dependency dataJpa = Dependency.withId("data-jpa", "org.springframework.boot", "spring-boot-starter-data-jpa");
 		foo.setScope(Dependency.SCOPE_COMPILE_ONLY);
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("core", "web", "data-jpa")
-			.addDependencyGroup("foo", foo)
-			.build();
+				.addDependencyGroup("core", "web", "data-jpa").addDependencyGroup("foo", foo).build();
 		ProjectStructure project = generateProject(java, build, "2.4.1", (description) -> {
 			description.addDependency("foo", MetadataBuildItemMapper.toDependency(foo));
 			description.addDependency("web", MetadataBuildItemMapper.toDependency(WEB));
@@ -195,9 +189,8 @@ class BuildComplianceTests extends AbstractComplianceTests {
 		Dependency dataJpa = Dependency.withId("data-jpa", "org.springframework.boot", "spring-boot-starter-data-jpa");
 		annotationProcessor.setScope(Dependency.SCOPE_ANNOTATION_PROCESSOR);
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("core", "web", "data-jpa")
-			.addDependencyGroup("configuration-processor", annotationProcessor)
-			.build();
+				.addDependencyGroup("core", "web", "data-jpa")
+				.addDependencyGroup("configuration-processor", annotationProcessor).build();
 		ProjectStructure project = generateProject(java, build, "2.4.1", (description) -> {
 			description.addDependency("configuration-processor",
 					MetadataBuildItemMapper.toDependency(annotationProcessor));
@@ -222,12 +215,8 @@ class BuildComplianceTests extends AbstractComplianceTests {
 		BillOfMaterials fooBom = BillOfMaterials.create("org.acme", "foo-bom", "1.0");
 		fooBom.setOrder(20);
 		fooBom.getAdditionalBoms().add("biz-bom");
-		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("foo", foo)
-			.addBom("foo-bom", fooBom)
-			.addBom("bar-bom", barBom)
-			.addBom("biz-bom", bizBom)
-			.build();
+		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addDependencyGroup("foo", foo)
+				.addBom("foo-bom", fooBom).addBom("bar-bom", barBom).addBom("biz-bom", bizBom).build();
 		ProjectStructure project = generateProject(java, build, "2.4.1",
 				(description) -> description.addDependency("foo", MetadataBuildItemMapper.toDependency(foo)), metadata);
 		String path = "project/" + build + "/bom-ordering-" + getAssertFileName(fileName);
@@ -241,11 +230,9 @@ class BuildComplianceTests extends AbstractComplianceTests {
 		foo.setRepository("foo-repository");
 		Dependency bar = Dependency.withId("bar", "org.acme", "bar");
 		bar.setRepository("bar-repository");
-		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", foo, bar)
-			.addReleasesRepository("foo-repository", "foo-repo", "https://example.com/foo")
-			.addSnapshotsRepository("bar-repository", "bar-repo", "https://example.com/bar")
-			.build();
+		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addDependencyGroup("test", foo, bar)
+				.addReleasesRepository("foo-repository", "foo-repo", "https://example.com/foo")
+				.addSnapshotsRepository("bar-repository", "bar-repo", "https://example.com/bar").build();
 		ProjectStructure project = generateProject(java, build, "2.4.1", (description) -> {
 			description.addDependency("foo", MetadataBuildItemMapper.toDependency(foo));
 			description.addDependency("bar", MetadataBuildItemMapper.toDependency(bar));
@@ -258,9 +245,8 @@ class BuildComplianceTests extends AbstractComplianceTests {
 	@MethodSource("parameters")
 	void repositoriesMilestone(BuildSystem build, String fileName) {
 		Dependency foo = Dependency.withId("foo", "org.acme", "foo");
-		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", foo)
-			.build();
+		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults().addDependencyGroup("test", foo)
+				.build();
 		ProjectStructure project = generateProject(java, build, "2.4.1", (description) -> {
 			description.setPlatformVersion(Version.parse("2.4.0-M1"));
 			description.addDependency("foo", MetadataBuildItemMapper.toDependency(foo));

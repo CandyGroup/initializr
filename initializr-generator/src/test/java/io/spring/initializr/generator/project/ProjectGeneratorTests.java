@@ -149,8 +149,7 @@ class ProjectGeneratorTests {
 		IOException exception = new IOException("test");
 		given(assetGenerator.generate(any())).willThrow(exception);
 		assertThatThrownBy(() -> generator.generate(new MutableProjectDescription(), assetGenerator))
-			.isInstanceOf(ProjectGenerationException.class)
-			.hasCause(exception);
+				.isInstanceOf(ProjectGenerationException.class).hasCause(exception);
 	}
 
 	@Test
@@ -161,8 +160,7 @@ class ProjectGeneratorTests {
 		});
 		ProjectAssetGenerator<?> assetGenerator = mock(ProjectAssetGenerator.class);
 		assertThatThrownBy(() -> generator.generate(new MutableProjectDescription(), assetGenerator))
-			.isInstanceOf(BeanDefinitionOverrideException.class)
-			.hasMessageContaining("testBean");
+				.isInstanceOf(BeanDefinitionOverrideException.class).hasMessageContaining("testBean");
 	}
 
 	@Test

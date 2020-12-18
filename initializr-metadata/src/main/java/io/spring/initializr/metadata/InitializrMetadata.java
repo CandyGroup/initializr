@@ -16,14 +16,14 @@
 
 package io.spring.initializr.metadata;
 
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionProperty;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionProperty;
 
 /**
  * Meta-data used to generate a project.
@@ -62,6 +62,8 @@ public class InitializrMetadata {
 	private final TextCapability version = new TextCapability("version", "Version", "project version");
 
 	private final TextCapability packageName = new PackageCapability(this.groupId, this.artifactId);
+
+	private final TextCapability ddl = new TextCapability("ddl", "ddl", "sql");
 
 	public InitializrMetadata() {
 		this(new InitializrConfiguration());
@@ -123,6 +125,10 @@ public class InitializrMetadata {
 		return this.packageName;
 	}
 
+	public TextCapability getDdl() {
+		return ddl;
+	}
+
 	/**
 	 * Merge this instance with the specified argument.
 	 * @param other the other instance
@@ -141,6 +147,7 @@ public class InitializrMetadata {
 		this.artifactId.merge(other.artifactId);
 		this.version.merge(other.version);
 		this.packageName.merge(other.packageName);
+		this.ddl.merge(other.ddl);
 	}
 
 	/**
@@ -201,10 +208,8 @@ public class InitializrMetadata {
 	 */
 	public void updateSpringBootVersions(List<DefaultMetadataElement> versionsMetadata) {
 		this.bootVersions.setContent(versionsMetadata);
-		List<Version> bootVersions = this.bootVersions.getContent()
-			.stream()
-			.map((it) -> Version.parse(it.getId()))
-			.collect(Collectors.toList());
+		List<Version> bootVersions = this.bootVersions.getContent().stream().map((it) -> Version.parse(it.getId()))
+				.collect(Collectors.toList());
 		VersionParser parser = new VersionParser(bootVersions);
 		this.dependencies.updateCompatibilityRange(parser);
 		this.configuration.getEnv().updateCompatibilityRange(parser);
@@ -253,6 +258,7 @@ public class InitializrMetadata {
 		defaults.put("name", this.name.getContent());
 		defaults.put("description", this.description.getContent());
 		defaults.put("packageName", this.packageName.getContent());
+		defaults.put("ddl", this.ddl.getContent());
 		return defaults;
 	}
 
@@ -298,7 +304,7 @@ public class InitializrMetadata {
 			}
 			else if (this.groupId.getContent() != null && this.artifactId.getContent() != null) {
 				return InitializrConfiguration
-					.cleanPackageName(this.groupId.getContent() + "." + this.artifactId.getContent());
+						.cleanPackageName(this.groupId.getContent() + "." + this.artifactId.getContent());
 			}
 			return null;
 		}

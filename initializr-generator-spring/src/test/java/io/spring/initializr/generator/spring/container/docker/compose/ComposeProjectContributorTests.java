@@ -50,8 +50,8 @@ class ComposeProjectContributorTests {
 		IndentingWriterFactory indentingWriterFactory = IndentingWriterFactory.create(new SimpleIndentStrategy("    "),
 				(factory) -> factory.indentingStrategy("yaml", new SimpleIndentStrategy("\t")));
 		ComposeFile composeFile = new ComposeFile();
-		composeFile.services()
-			.add("test", (service) -> service.imageAndTag("image:1.3.3").environment("a", "aa").environment("b", "bb"));
+		composeFile.services().add("test",
+				(service) -> service.imageAndTag("image:1.3.3").environment("a", "aa").environment("b", "bb"));
 		assertThat(generateComposeFile(composeFile, indentingWriterFactory)).isEqualToIgnoringNewLines("""
 				services:
 					test:

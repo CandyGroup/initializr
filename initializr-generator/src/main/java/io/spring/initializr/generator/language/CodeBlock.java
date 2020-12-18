@@ -90,27 +90,27 @@ public final class CodeBlock {
 		int argIndex = 0;
 		for (String part : this.parts) {
 			switch (part) {
-				case "$L" -> {
-					Object value = this.args.get(argIndex++);
-					if (value instanceof CodeBlock code) {
-						code.write(writer, options);
-					}
-					else {
-						writer.print(String.valueOf(value));
-					}
+			case "$L" -> {
+				Object value = this.args.get(argIndex++);
+				if (value instanceof CodeBlock code) {
+					code.write(writer, options);
 				}
-				case "$S" -> {
-					String value = (String) this.args.get(argIndex++);
-					String valueToEmit = (value != null) ? quote(value) : "null";
-					writer.print(valueToEmit);
+				else {
+					writer.print(String.valueOf(value));
 				}
-				case "$T" -> {
-					String className = (String) this.args.get(argIndex++);
-					writer.print(className);
-				}
-				case "$]" -> writer.println(options.statementSeparator());
-				case "$$" -> writer.print("$");
-				default -> writer.print(part);
+			}
+			case "$S" -> {
+				String value = (String) this.args.get(argIndex++);
+				String valueToEmit = (value != null) ? quote(value) : "null";
+				writer.print(valueToEmit);
+			}
+			case "$T" -> {
+				String className = (String) this.args.get(argIndex++);
+				writer.print(className);
+			}
+			case "$]" -> writer.println(options.statementSeparator());
+			case "$$" -> writer.print("$");
+			default -> writer.print(part);
 			}
 		}
 	}
@@ -242,8 +242,8 @@ public final class CodeBlock {
 					relativeParameterCount++;
 					if (index >= args.length) {
 						throw new IllegalArgumentException("Argument mismatch for '%s', expected at least %s %s, got %s"
-							.formatted(format, relativeParameterCount,
-									(relativeParameterCount > 1) ? "arguments" : "argument", args.length));
+								.formatted(format, relativeParameterCount,
+										(relativeParameterCount > 1) ? "arguments" : "argument", args.length));
 					}
 					addArgument(format, placeHolderType, args[index]);
 				}
@@ -264,11 +264,11 @@ public final class CodeBlock {
 
 		private void addArgument(String format, char c, Object arg) {
 			switch (c) {
-				case 'L' -> this.args.add(arg(arg));
-				case 'S' -> this.args.add(argToString(arg));
-				case 'T' -> this.args.add(argToType(arg));
-				default -> throw new IllegalArgumentException(
-						String.format("Unsupported placeholder '$%s' for '%s'", c, format));
+			case 'L' -> this.args.add(arg(arg));
+			case 'S' -> this.args.add(argToString(arg));
+			case 'T' -> this.args.add(argToType(arg));
+			default ->
+				throw new IllegalArgumentException(String.format("Unsupported placeholder '$%s' for '%s'", c, format));
 			}
 		}
 

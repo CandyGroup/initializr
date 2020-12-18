@@ -75,8 +75,7 @@ class ConditionalOnPlatformVersionTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("2.1.0.RELEASE"));
 		assertThat(candidatesFor(description, PlatformVersionTestConfiguration.class,
-				OneOrTwoPlatformVersionTestConfiguration.class))
-			.containsOnlyKeys("second", "firstOrSecond");
+				OneOrTwoPlatformVersionTestConfiguration.class)).containsOnlyKeys("second", "firstOrSecond");
 	}
 
 	@Test
@@ -84,8 +83,7 @@ class ConditionalOnPlatformVersionTests {
 		MutableProjectDescription description = new MutableProjectDescription();
 		description.setPlatformVersion(Version.parse("2.0.0.M2"));
 		assertThat(candidatesFor(description, PlatformVersionTestConfiguration.class,
-				OneOrTwoPlatformVersionTestConfiguration.class))
-			.containsOnlyKeys("second");
+				OneOrTwoPlatformVersionTestConfiguration.class)).containsOnlyKeys("second");
 	}
 
 	private Map<String, String> candidatesFor(MutableProjectDescription description, Class<?>... extraConfigurations) {

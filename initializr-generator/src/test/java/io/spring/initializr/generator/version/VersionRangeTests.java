@@ -156,35 +156,35 @@ class VersionRangeTests {
 	@Test
 	void toVersionRangeWithSimpleVersion() {
 		VersionRange range = new VersionParser(Collections.singletonList(Version.parse("1.5.6.RELEASE")))
-			.parseRange("1.3.5.RELEASE");
+				.parseRange("1.3.5.RELEASE");
 		assertThat(range.toRangeString()).isEqualTo("1.3.5.RELEASE");
 	}
 
 	@Test
 	void toVersionRangeWithVersionsIncluded() {
 		VersionRange range = new VersionParser(Collections.singletonList(Version.parse("1.5.6.RELEASE")))
-			.parseRange("[1.3.5.RELEASE,1.5.5.RELEASE]");
+				.parseRange("[1.3.5.RELEASE,1.5.5.RELEASE]");
 		assertThat(range.toRangeString()).isEqualTo("[1.3.5.RELEASE,1.5.5.RELEASE]");
 	}
 
 	@Test
 	void toVersionRangeWithLowerVersionExcluded() {
 		VersionRange range = new VersionParser(Collections.singletonList(Version.parse("1.5.6.RELEASE")))
-			.parseRange("(1.3.5.RELEASE,1.5.5.RELEASE]");
+				.parseRange("(1.3.5.RELEASE,1.5.5.RELEASE]");
 		assertThat(range.toRangeString()).isEqualTo("(1.3.5.RELEASE,1.5.5.RELEASE]");
 	}
 
 	@Test
 	void toVersionRangeWithHigherVersionExcluded() {
 		VersionRange range = new VersionParser(Collections.singletonList(Version.parse("1.5.6.RELEASE")))
-			.parseRange("[1.3.5.RELEASE,1.5.5.RELEASE)");
+				.parseRange("[1.3.5.RELEASE,1.5.5.RELEASE)");
 		assertThat(range.toRangeString()).isEqualTo("[1.3.5.RELEASE,1.5.5.RELEASE)");
 	}
 
 	@Test
 	void toVersionRangeWithVersionsExcluded() {
 		VersionRange range = new VersionParser(Collections.singletonList(Version.parse("1.5.6.RELEASE")))
-			.parseRange("(1.3.5.RELEASE,1.5.5.RELEASE)");
+				.parseRange("(1.3.5.RELEASE,1.5.5.RELEASE)");
 		assertThat(range.toRangeString()).isEqualTo("(1.3.5.RELEASE,1.5.5.RELEASE)");
 	}
 

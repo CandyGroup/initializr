@@ -40,7 +40,7 @@ import static org.mockito.Mockito.verify;
 class SourceCodeProjectGenerationConfigurationTests {
 
 	private final ProjectAssetTester projectTester = new ProjectAssetTester()
-		.withConfiguration(SourceCodeProjectGenerationConfiguration.class);
+			.withConfiguration(SourceCodeProjectGenerationConfiguration.class);
 
 	@Test
 	@SuppressWarnings("unchecked")
@@ -52,16 +52,16 @@ class SourceCodeProjectGenerationConfigurationTests {
 			return type;
 		});
 		assertThat(declaration.annotations().values()).singleElement()
-			.satisfies((annotation) -> assertThat(annotation.getClassName())
-				.isEqualTo(ClassName.of("org.springframework.boot.autoconfigure.SpringBootApplication")));
+				.satisfies((annotation) -> assertThat(annotation.getClassName())
+						.isEqualTo(ClassName.of("org.springframework.boot.autoconfigure.SpringBootApplication")));
 	}
 
 	@Test
 	void addsACustomizerThatAppliesTestAnnotationsOnTestClassWithJunit5() {
 		TypeDeclaration declaration = generateTestTypeDeclaration("2.2.0.RELEASE");
 		assertThat(declaration.annotations().values()).singleElement()
-			.satisfies((annotation) -> assertThat(annotation.getClassName())
-				.isEqualTo(ClassName.of("org.springframework.boot.test.context.SpringBootTest")));
+				.satisfies((annotation) -> assertThat(annotation.getClassName())
+						.isEqualTo(ClassName.of("org.springframework.boot.test.context.SpringBootTest")));
 	}
 
 	@SuppressWarnings("unchecked")

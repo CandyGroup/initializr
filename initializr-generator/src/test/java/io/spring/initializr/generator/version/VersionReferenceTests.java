@@ -73,13 +73,13 @@ class VersionReferenceTests {
 	@Test
 	void equalsWithDifferentProperty() {
 		assertThat(VersionReference.ofProperty("test.version"))
-			.isNotEqualTo(VersionReference.ofProperty("another.version"));
+				.isNotEqualTo(VersionReference.ofProperty("another.version"));
 	}
 
 	@Test
 	void equalsWithDifferentPropertyScope() {
 		assertThat(VersionReference.ofProperty(VersionProperty.of("test.version", false)))
-			.isNotEqualTo(VersionReference.ofProperty(VersionProperty.of("test.version", true)));
+				.isNotEqualTo(VersionReference.ofProperty(VersionProperty.of("test.version", true)));
 	}
 
 }

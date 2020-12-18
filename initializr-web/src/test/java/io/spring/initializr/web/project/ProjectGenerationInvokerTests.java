@@ -117,14 +117,10 @@ class ProjectGenerationInvokerTests {
 		request.initialize(metadata);
 		byte[] bytes = this.invoker.invokeBuildGeneration(request);
 		String content = new String(bytes);
-		new MavenBuildAssert(content).hasGroupId(request.getGroupId())
-			.hasArtifactId(request.getArtifactId())
-			.hasVersion(request.getVersion())
-			.doesNotHaveNode("/project/packaging")
-			.hasName(request.getName())
-			.hasDescription(request.getDescription())
-			.hasProperty("java.version", request.getJavaVersion())
-			.hasParent("org.springframework.boot", "spring-boot-starter-parent", request.getBootVersion());
+		new MavenBuildAssert(content).hasGroupId(request.getGroupId()).hasArtifactId(request.getArtifactId())
+				.hasVersion(request.getVersion()).doesNotHaveNode("/project/packaging").hasName(request.getName())
+				.hasDescription(request.getDescription()).hasProperty("java.version", request.getJavaVersion())
+				.hasParent("org.springframework.boot", "spring-boot-starter-parent", request.getBootVersion());
 		verifyProjectSuccessfulEventFor(request);
 	}
 
@@ -137,8 +133,7 @@ class ProjectGenerationInvokerTests {
 		byte[] bytes = this.invoker.invokeBuildGeneration(request);
 		String content = new String(bytes);
 		new GroovyDslGradleBuildAssert(content).hasVersion(request.getVersion())
-			.hasPlugin("org.springframework.boot", request.getBootVersion())
-			.hasToolchainForJava("17");
+				.hasPlugin("org.springframework.boot", request.getBootVersion()).hasToolchainForJava("17");
 		verifyProjectSuccessfulEventFor(request);
 	}
 

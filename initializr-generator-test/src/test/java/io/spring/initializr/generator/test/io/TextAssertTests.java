@@ -47,8 +47,8 @@ class TextAssertTests {
 		given(resource.isReadable()).willReturn(false);
 		given(resource.toString()).willReturn("project/does-not-exist");
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forContent("Hello")).hasSameContentAs(resource))
-			.withMessageContaining("project/does-not-exist");
+				.isThrownBy(() -> assertThat(forContent("Hello")).hasSameContentAs(resource))
+				.withMessageContaining("project/does-not-exist");
 	}
 
 	@Test
@@ -57,8 +57,8 @@ class TextAssertTests {
 		given(resource.isReadable()).willReturn(true);
 		given(resource.getInputStream()).willThrow(new IOException("Test exception"));
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forContent("Hello")).hasSameContentAs(resource))
-			.withMessageContaining("Cannot read content");
+				.isThrownBy(() -> assertThat(forContent("Hello")).hasSameContentAs(resource))
+				.withMessageContaining("Cannot read content");
 	}
 
 	@Test
@@ -79,9 +79,8 @@ class TextAssertTests {
 	@Test
 	void sameContentAsWithNonMatchingResource() {
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forContent("Test")).hasSameContentAs(createResource("Hello")))
-			.withMessageContaining("Test")
-			.withMessageContaining("Hello");
+				.isThrownBy(() -> assertThat(forContent("Test")).hasSameContentAs(createResource("Hello")))
+				.withMessageContaining("Test").withMessageContaining("Hello");
 	}
 
 	@Test
@@ -100,10 +99,8 @@ class TextAssertTests {
 			writer.println("Test");
 		}
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forContent(file)).hasSameContentAs(createResource("Hello")))
-			.withMessageContaining("Test")
-			.withMessageContaining("Hello")
-			.withMessageContaining(file.toString());
+				.isThrownBy(() -> assertThat(forContent(file)).hasSameContentAs(createResource("Hello")))
+				.withMessageContaining("Test").withMessageContaining("Hello").withMessageContaining(file.toString());
 	}
 
 	@Test
@@ -112,8 +109,8 @@ class TextAssertTests {
 		given(resource.isReadable()).willReturn(false);
 		given(resource.toString()).willReturn("project/does-not-exist");
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forContent("Hello")).contains(resource))
-			.withMessageContaining("project/does-not-exist");
+				.isThrownBy(() -> assertThat(forContent("Hello")).contains(resource))
+				.withMessageContaining("project/does-not-exist");
 	}
 
 	@Test
@@ -122,8 +119,8 @@ class TextAssertTests {
 		given(resource.isReadable()).willReturn(true);
 		given(resource.getInputStream()).willThrow(new IOException("Test exception"));
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forContent("Hello")).contains(resource))
-			.withMessageContaining("Cannot read content");
+				.isThrownBy(() -> assertThat(forContent("Hello")).contains(resource))
+				.withMessageContaining("Cannot read content");
 	}
 
 	@Test
@@ -144,9 +141,8 @@ class TextAssertTests {
 	@Test
 	void containsWithNonMatchingResource() {
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forContent("Test")).contains(createResource("Hello")))
-			.withMessageContaining("Test")
-			.withMessageContaining("Hello");
+				.isThrownBy(() -> assertThat(forContent("Test")).contains(createResource("Hello")))
+				.withMessageContaining("Test").withMessageContaining("Hello");
 	}
 
 	private AssertProvider<TextAssert> forContent(String content) {

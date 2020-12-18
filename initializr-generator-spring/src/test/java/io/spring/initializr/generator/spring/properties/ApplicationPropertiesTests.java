@@ -68,7 +68,7 @@ class ApplicationPropertiesTests {
 		ApplicationProperties properties = new ApplicationProperties();
 		properties.add("test", 1);
 		assertThatIllegalStateException().isThrownBy(() -> properties.add("test", 2))
-			.withMessage("Property 'test' already exists");
+				.withMessage("Property 'test' already exists");
 	}
 
 	private String write(ApplicationProperties properties) {

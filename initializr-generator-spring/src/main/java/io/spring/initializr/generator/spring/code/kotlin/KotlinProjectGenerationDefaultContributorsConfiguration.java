@@ -56,7 +56,7 @@ class KotlinProjectGenerationDefaultContributorsConfiguration {
 	TestApplicationTypeCustomizer<KotlinTypeDeclaration> junitJupiterTestMethodContributor() {
 		return (typeDeclaration) -> {
 			KotlinFunctionDeclaration function = KotlinFunctionDeclaration.function("contextLoads")
-				.body(CodeBlock.of(""));
+					.body(CodeBlock.of(""));
 			function.annotations().add(ClassName.of("org.junit.jupiter.api.Test"));
 			typeDeclaration.addFunctionDeclaration(function);
 		};
@@ -117,9 +117,8 @@ class KotlinProjectGenerationDefaultContributorsConfiguration {
 		MainCompilationUnitCustomizer<KotlinTypeDeclaration, KotlinCompilationUnit> mainFunctionContributor(
 				ProjectDescription description) {
 			return (compilationUnit) -> compilationUnit.addTopLevelFunction(KotlinFunctionDeclaration.function("main")
-				.parameters(Parameter.of("args", "Array<String>"))
-				.body(CodeBlock.ofStatement("$T<$L>(*args)", "org.springframework.boot.runApplication",
-						description.getApplicationName())));
+					.parameters(Parameter.of("args", "Array<String>")).body(CodeBlock.ofStatement("$T<$L>(*args)",
+							"org.springframework.boot.runApplication", description.getApplicationName())));
 		}
 
 	}
@@ -136,12 +135,12 @@ class KotlinProjectGenerationDefaultContributorsConfiguration {
 				ProjectDescription description) {
 			return (typeDeclaration) -> {
 				KotlinFunctionDeclaration configure = KotlinFunctionDeclaration.function("configure")
-					.modifiers(KotlinModifier.OVERRIDE)
-					.returning("org.springframework.boot.builder.SpringApplicationBuilder")
-					.parameters(
-							Parameter.of("application", "org.springframework.boot.builder.SpringApplicationBuilder"))
-					.body(CodeBlock.ofStatement("return application.sources($L::class.java)",
-							description.getApplicationName()));
+						.modifiers(KotlinModifier.OVERRIDE)
+						.returning("org.springframework.boot.builder.SpringApplicationBuilder")
+						.parameters(Parameter.of("application",
+								"org.springframework.boot.builder.SpringApplicationBuilder"))
+						.body(CodeBlock.ofStatement("return application.sources($L::class.java)",
+								description.getApplicationName()));
 				typeDeclaration.addFunctionDeclaration(configure);
 			};
 		}

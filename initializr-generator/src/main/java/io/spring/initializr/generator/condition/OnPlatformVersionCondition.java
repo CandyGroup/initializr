@@ -43,7 +43,7 @@ class OnPlatformVersionCondition extends ProjectGenerationCondition {
 		}
 		return Arrays.stream(
 				(String[]) metadata.getAnnotationAttributes(ConditionalOnPlatformVersion.class.getName()).get("value"))
-			.anyMatch((range) -> VersionParser.DEFAULT.parseRange(range).match(platformVersion));
+				.anyMatch((range) -> VersionParser.DEFAULT.parseRange(range).match(platformVersion));
 
 	}
 

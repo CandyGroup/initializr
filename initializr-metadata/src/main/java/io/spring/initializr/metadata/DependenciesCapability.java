@@ -65,8 +65,8 @@ public class DependenciesCapability extends ServiceCapability<List<DependencyGro
 	 * @return all dependencies
 	 */
 	public Collection<Dependency> getAll() {
-		return Collections
-			.unmodifiableCollection(this.indexedDependencies.values().stream().distinct().collect(Collectors.toList()));
+		return Collections.unmodifiableCollection(
+				this.indexedDependencies.values().stream().distinct().collect(Collectors.toList()));
 	}
 
 	public void validate() {
@@ -81,7 +81,7 @@ public class DependenciesCapability extends ServiceCapability<List<DependencyGro
 	public void merge(List<DependencyGroup> otherContent) {
 		otherContent.forEach((group) -> {
 			if (this.content.stream()
-				.noneMatch((it) -> group.getName() != null && group.getName().equals(it.getName()))) {
+					.noneMatch((it) -> group.getName() != null && group.getName().equals(it.getName()))) {
 				this.content.add(group);
 			}
 		});

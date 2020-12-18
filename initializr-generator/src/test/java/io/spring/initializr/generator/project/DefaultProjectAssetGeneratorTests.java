@@ -82,7 +82,7 @@ class DefaultProjectAssetGeneratorTests {
 				new DefaultProjectAssetGenerator().generate(context);
 			}
 		}).isInstanceOf(NoSuchBeanDefinitionException.class)
-			.hasMessageContaining(ProjectDirectoryFactory.class.getName());
+				.hasMessageContaining(ProjectDirectoryFactory.class.getName());
 	}
 
 	@Test

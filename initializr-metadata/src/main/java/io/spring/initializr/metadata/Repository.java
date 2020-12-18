@@ -132,10 +132,8 @@ public class Repository {
 	@Override
 	public String toString() {
 		return new StringJoiner(", ", Repository.class.getSimpleName() + "[", "]").add("name='" + this.name + "'")
-			.add("url=" + this.url)
-			.add("releasesEnabled=" + this.releasesEnabled)
-			.add("snapshotsEnabled=" + this.snapshotsEnabled)
-			.toString();
+				.add("url=" + this.url).add("releasesEnabled=" + this.releasesEnabled)
+				.add("snapshotsEnabled=" + this.snapshotsEnabled).toString();
 	}
 
 }

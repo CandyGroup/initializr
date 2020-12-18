@@ -56,16 +56,18 @@ class JvmModuleAssertTests {
 	void hasMainSourceWithNonMatchingExtension(@TempDir Path root) throws IOException {
 		createFile(root, "src/main/java/com/example/Test.other");
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forJavaProject(root)).hasMainSource("com.example", "Test"))
-			.withMessageContaining(String.format("Source '%s' not found in package '%s'", "Test.java", "com.example"));
+				.isThrownBy(() -> assertThat(forJavaProject(root)).hasMainSource("com.example", "Test"))
+				.withMessageContaining(
+						String.format("Source '%s' not found in package '%s'", "Test.java", "com.example"));
 	}
 
 	@Test
 	void hasMainSourceWithNonMatchingSourceDir(@TempDir Path root) throws IOException {
 		createFile(root, "src/main/groovy/com/example/Test.java");
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forJavaProject(root)).hasMainSource("com.example", "Test"))
-			.withMessageContaining(String.format("Source '%s' not found in package '%s'", "Test.java", "com.example"));
+				.isThrownBy(() -> assertThat(forJavaProject(root)).hasMainSource("com.example", "Test"))
+				.withMessageContaining(
+						String.format("Source '%s' not found in package '%s'", "Test.java", "com.example"));
 	}
 
 	@Test
@@ -77,7 +79,7 @@ class JvmModuleAssertTests {
 	@Test
 	void mainSourceWithMissingSource(@TempDir Path root) {
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forJavaProject(root)).mainSource("com.acme", "Test"));
+				.isThrownBy(() -> assertThat(forJavaProject(root)).mainSource("com.acme", "Test"));
 	}
 
 	@Test
@@ -89,7 +91,7 @@ class JvmModuleAssertTests {
 	@Test
 	void hasMainResourceWithMissingResource(@TempDir Path root) {
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forJavaProject(root)).hasMainResource("project/sample.xml"));
+				.isThrownBy(() -> assertThat(forJavaProject(root)).hasMainResource("project/sample.xml"));
 	}
 
 	@Test
@@ -108,16 +110,18 @@ class JvmModuleAssertTests {
 	void hasTestSourceWithNonMatchingExtension(@TempDir Path root) throws IOException {
 		createFile(root, "src/test/java/com/example/Test.other");
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forJavaProject(root)).hasTestSource("com.example", "Test"))
-			.withMessageContaining(String.format("Source '%s' not found in package '%s'", "Test.java", "com.example"));
+				.isThrownBy(() -> assertThat(forJavaProject(root)).hasTestSource("com.example", "Test"))
+				.withMessageContaining(
+						String.format("Source '%s' not found in package '%s'", "Test.java", "com.example"));
 	}
 
 	@Test
 	void hasTestSourceWithNonMatchingSourceDir(@TempDir Path root) throws IOException {
 		createFile(root, "src/test/groovy/com/example/Test.java");
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forJavaProject(root)).hasTestSource("com.example", "Test"))
-			.withMessageContaining(String.format("Source '%s' not found in package '%s'", "Test.java", "com.example"));
+				.isThrownBy(() -> assertThat(forJavaProject(root)).hasTestSource("com.example", "Test"))
+				.withMessageContaining(
+						String.format("Source '%s' not found in package '%s'", "Test.java", "com.example"));
 	}
 
 	@Test
@@ -129,7 +133,7 @@ class JvmModuleAssertTests {
 	@Test
 	void testSourceWithMissingSource(@TempDir Path root) {
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forJavaProject(root)).testSource("com.acme", "DemoTests"));
+				.isThrownBy(() -> assertThat(forJavaProject(root)).testSource("com.acme", "DemoTests"));
 	}
 
 	private AssertProvider<AbstractJvmModuleAssert<?>> forJavaProject(Path root) {

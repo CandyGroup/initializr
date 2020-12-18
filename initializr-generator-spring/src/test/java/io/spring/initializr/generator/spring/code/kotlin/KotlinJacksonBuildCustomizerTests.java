@@ -48,7 +48,7 @@ class KotlinJacksonBuildCustomizerTests {
 		description.setLanguage(new KotlinLanguage());
 		MavenBuild build = getCustomizedBuild(dependency, description);
 		io.spring.initializr.generator.buildsystem.Dependency jacksonKotlin = build.dependencies()
-			.get("jackson-module-kotlin");
+				.get("jackson-module-kotlin");
 		assertThat(jacksonKotlin.getArtifactId()).isEqualTo("jackson-module-kotlin");
 		assertThat(jacksonKotlin.getGroupId()).isEqualTo("com.fasterxml.jackson.module");
 	}
@@ -61,7 +61,7 @@ class KotlinJacksonBuildCustomizerTests {
 		description.setLanguage(new JavaLanguage());
 		MavenBuild build = getCustomizedBuild(dependency, description);
 		io.spring.initializr.generator.buildsystem.Dependency jacksonKotlin = build.dependencies()
-			.get("jackson-module-kotlin");
+				.get("jackson-module-kotlin");
 		assertThat(jacksonKotlin).isNull();
 	}
 
@@ -72,14 +72,13 @@ class KotlinJacksonBuildCustomizerTests {
 		description.setLanguage(new KotlinLanguage());
 		MavenBuild build = getCustomizedBuild(dependency, description);
 		io.spring.initializr.generator.buildsystem.Dependency jacksonKotlin = build.dependencies()
-			.get("jackson-module-kotlin");
+				.get("jackson-module-kotlin");
 		assertThat(jacksonKotlin).isNull();
 	}
 
 	private MavenBuild getCustomizedBuild(Dependency dependency, MutableProjectDescription description) {
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", dependency)
-			.build();
+				.addDependencyGroup("test", dependency).build();
 		KotlinJacksonBuildCustomizer customizer = new KotlinJacksonBuildCustomizer(metadata, description);
 		MavenBuild build = new MavenBuild(new MetadataBuildItemResolver(metadata, Version.parse("2.0.0.RELEASE")));
 		build.dependencies().add("foo");

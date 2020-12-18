@@ -16,19 +16,18 @@
 
 package io.spring.initializr.metadata;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
+
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.springframework.core.io.Resource;
-import org.springframework.util.StreamUtils;
-import org.springframework.util.StringUtils;
 
 /**
  * Builder for {@link InitializrMetadata}. Allows to read metadata from any arbitrary
@@ -178,6 +177,7 @@ public final class InitializrMetadataBuilder {
 			this.properties.getName().apply(metadata.getName());
 			this.properties.getDescription().apply(metadata.getDescription());
 			this.properties.getPackageName().apply(metadata.getPackageName());
+			this.properties.getDdl().apply(metadata.getDdl());
 		}
 
 	}

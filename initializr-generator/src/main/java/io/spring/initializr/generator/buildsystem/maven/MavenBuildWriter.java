@@ -170,7 +170,7 @@ public class MavenBuildWriter {
 		writeElement(writer, "properties", () -> {
 			properties.values().forEach((entry) -> writeSingleElement(writer, entry.getKey(), entry.getValue()));
 			properties.versions((VersionProperty::toStandardFormat))
-				.forEach((entry) -> writeSingleElement(writer, entry.getKey(), entry.getValue()));
+					.forEach((entry) -> writeSingleElement(writer, entry.getKey(), entry.getValue()));
 		});
 	}
 
@@ -278,10 +278,8 @@ public class MavenBuildWriter {
 
 	private Collection<Dependency> writeDependencies(IndentingWriter writer, DependencyContainer dependencies,
 			Predicate<DependencyScope> filter) {
-		Collection<Dependency> candidates = dependencies.items()
-			.filter((dep) -> filter.test(dep.getScope()))
-			.sorted(getDependencyComparator())
-			.toList();
+		Collection<Dependency> candidates = dependencies.items().filter((dep) -> filter.test(dep.getScope()))
+				.sorted(getDependencyComparator()).toList();
 		writeCollection(writer, candidates, this::writeDependency);
 		return candidates;
 	}
@@ -313,10 +311,10 @@ public class MavenBuildWriter {
 			return null;
 		}
 		return switch (type) {
-			case ANNOTATION_PROCESSOR, COMPILE, COMPILE_ONLY -> null;
-			case PROVIDED_RUNTIME -> "provided";
-			case RUNTIME -> "runtime";
-			case TEST_COMPILE, TEST_RUNTIME -> "test";
+		case ANNOTATION_PROCESSOR, COMPILE, COMPILE_ONLY -> null;
+		case PROVIDED_RUNTIME -> "provided";
+		case RUNTIME -> "runtime";
+		case TEST_COMPILE, TEST_RUNTIME -> "test";
 		};
 	}
 
@@ -332,9 +330,10 @@ public class MavenBuildWriter {
 		if (boms.isEmpty()) {
 			return;
 		}
-		writeElement(writer, "dependencyManagement", () -> writeCollectionElement(writer, "dependencies",
-				boms.items().sorted(Comparator.comparing(BillOfMaterials::getOrder)).collect(Collectors.toList()),
-				this::writeBom));
+		writeElement(writer, "dependencyManagement",
+				() -> writeCollectionElement(writer, "dependencies", boms.items()
+						.sorted(Comparator.comparing(BillOfMaterials::getOrder)).collect(Collectors.toList()),
+						this::writeBom));
 	}
 
 	private void writeBom(IndentingWriter writer, BillOfMaterials bom) {
@@ -672,12 +671,12 @@ public class MavenBuildWriter {
 		for (int i = 0; i < text.length(); i++) {
 			char character = text.charAt(i);
 			switch (character) {
-				case '\'' -> sb.append("&apos;");
-				case '\"' -> sb.append("&quot;");
-				case '<' -> sb.append("&lt;");
-				case '>' -> sb.append("&gt;");
-				case '&' -> sb.append("&amp;");
-				default -> sb.append(character);
+			case '\'' -> sb.append("&apos;");
+			case '\"' -> sb.append("&quot;");
+			case '<' -> sb.append("&lt;");
+			case '>' -> sb.append("&gt;");
+			case '&' -> sb.append("&amp;");
+			default -> sb.append(character);
 			}
 		}
 		return sb.toString();

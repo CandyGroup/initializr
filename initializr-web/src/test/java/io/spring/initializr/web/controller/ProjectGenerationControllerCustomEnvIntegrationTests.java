@@ -43,10 +43,9 @@ class ProjectGenerationControllerCustomEnvIntegrationTests extends AbstractIniti
 		assertThat(project).doesNotContainFiles("src/main/java/com/example/demo/DemoApplication.java",
 				"src/test/java/com/example/demo/DemoApplicationTests.java");
 		assertDoesNotHaveWebResources(project);
-		assertThat(project).mavenBuild()
-			.hasDependenciesSize(2)
-			.hasDependency(Dependency.createSpringBootStarter("data-jpa"))
-			.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST));
+		assertThat(project).mavenBuild().hasDependenciesSize(2)
+				.hasDependency(Dependency.createSpringBootStarter("data-jpa"))
+				.hasDependency(Dependency.createSpringBootStarter("test", Dependency.SCOPE_TEST));
 	}
 
 	@Test

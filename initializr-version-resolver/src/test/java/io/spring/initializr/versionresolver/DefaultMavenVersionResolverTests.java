@@ -72,8 +72,9 @@ class DefaultMavenVersionResolverTests {
 	@Test
 	void resolveDependenciesForNonExistentDependency() {
 		assertThatIllegalStateException()
-			.isThrownBy(() -> this.resolver.resolveDependencies("org.springframework.boot", "spring-boot-bom", "1.0"))
-			.withMessage("Bom 'org.springframework.boot:spring-boot-bom:1.0' could not be resolved");
+				.isThrownBy(
+						() -> this.resolver.resolveDependencies("org.springframework.boot", "spring-boot-bom", "1.0"))
+				.withMessage("Bom 'org.springframework.boot:spring-boot-bom:1.0' could not be resolved");
 	}
 
 	@Test
@@ -107,8 +108,8 @@ class DefaultMavenVersionResolverTests {
 	@Test
 	void resolvePluginsForNonExistentDependency() {
 		assertThatIllegalStateException()
-			.isThrownBy(() -> this.resolver.resolvePlugins("org.springframework.boot", "spring-boot-bom", "1.0"))
-			.withMessage("Pom 'org.springframework.boot:spring-boot-bom:1.0' could not be resolved");
+				.isThrownBy(() -> this.resolver.resolvePlugins("org.springframework.boot", "spring-boot-bom", "1.0"))
+				.withMessage("Pom 'org.springframework.boot:spring-boot-bom:1.0' could not be resolved");
 	}
 
 }

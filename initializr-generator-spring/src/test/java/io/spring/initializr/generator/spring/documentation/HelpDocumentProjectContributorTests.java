@@ -59,9 +59,8 @@ class HelpDocumentProjectContributorTests {
 	@Test
 	void helpDocumentWithLinksToGuide() throws IOException {
 		HelpDocument document = new HelpDocument(this.templateRenderer);
-		document.gettingStarted()
-			.addGuideLink("https://test.example.com", "test")
-			.addGuideLink("https://test2.example.com", "test2");
+		document.gettingStarted().addGuideLink("https://test.example.com", "test")
+				.addGuideLink("https://test2.example.com", "test2");
 		assertHelpDocument(document).containsExactly("# Getting Started", "", "### Guides",
 				"The following guides illustrate how to use some features concretely:", "",
 				"* [test](https://test.example.com)", "* [test2](https://test2.example.com)");
@@ -70,9 +69,8 @@ class HelpDocumentProjectContributorTests {
 	@Test
 	void helpDocumentWithLinksToReferenceDoc() throws IOException {
 		HelpDocument document = new HelpDocument(this.templateRenderer);
-		document.gettingStarted()
-			.addReferenceDocLink("https://test.example.com", "doc")
-			.addReferenceDocLink("https://test2.example.com", "doc2");
+		document.gettingStarted().addReferenceDocLink("https://test.example.com", "doc")
+				.addReferenceDocLink("https://test2.example.com", "doc2");
 		assertHelpDocument(document).containsExactly("# Getting Started", "", "### Reference Documentation",
 				"For further reference, please consider the following sections:", "",
 				"* [doc](https://test.example.com)", "* [doc2](https://test2.example.com)");
@@ -96,9 +94,8 @@ class HelpDocumentProjectContributorTests {
 	@Test
 	void helpDocumentWithLinksAndSimpleSection() throws IOException {
 		HelpDocument document = new HelpDocument(this.templateRenderer);
-		document.gettingStarted()
-			.addGuideLink("https://test.example.com", "test")
-			.addSection((writer) -> writer.println(String.format("# My test section%n%n    * Test")));
+		document.gettingStarted().addGuideLink("https://test.example.com", "test")
+				.addSection((writer) -> writer.println(String.format("# My test section%n%n    * Test")));
 		assertHelpDocument(document).containsExactly("# Getting Started", "", "### Guides",
 				"The following guides illustrate how to use some features concretely:", "",
 				"* [test](https://test.example.com)", "", "# My test section", "", "    * Test");

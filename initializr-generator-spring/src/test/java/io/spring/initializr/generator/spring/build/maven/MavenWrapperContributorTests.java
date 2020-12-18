@@ -45,7 +45,7 @@ class MavenWrapperContributorTests {
 		assertThat(projectDir.resolve("mvnw")).isRegularFile().isExecutable();
 		assertThat(projectDir.resolve("mvnw.cmd")).isRegularFile().isExecutable();
 		assertThat(projectDir.resolve(".mvn/wrapper/maven-wrapper.properties")).isRegularFile()
-			.satisfies(isNotExecutable());
+				.satisfies(isNotExecutable());
 	}
 
 	private Consumer<Path> isNotExecutable() {

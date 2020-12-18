@@ -194,11 +194,9 @@ public class JavaSourceCodeWriter implements SourceCodeWriter<JavaSourceCode> {
 
 	private void writeModifiers(IndentingWriter writer, Map<Predicate<Integer>, String> availableModifiers,
 			int declaredModifiers) {
-		String modifiers = availableModifiers.entrySet()
-			.stream()
-			.filter((entry) -> entry.getKey().test(declaredModifiers))
-			.map(Entry::getValue)
-			.collect(Collectors.joining(" "));
+		String modifiers = availableModifiers.entrySet().stream()
+				.filter((entry) -> entry.getKey().test(declaredModifiers)).map(Entry::getValue)
+				.collect(Collectors.joining(" "));
 		if (!modifiers.isEmpty()) {
 			writer.print(modifiers);
 			writer.print(" ");
@@ -225,10 +223,8 @@ public class JavaSourceCodeWriter implements SourceCodeWriter<JavaSourceCode> {
 				imports.addAll(methodDeclaration.getCode().getImports());
 			}
 		}
-		return imports.stream()
-			.filter((candidate) -> isImportCandidate(compilationUnit, candidate))
-			.sorted()
-			.collect(Collectors.toCollection(LinkedHashSet::new));
+		return imports.stream().filter((candidate) -> isImportCandidate(compilationUnit, candidate)).sorted()
+				.collect(Collectors.toCollection(LinkedHashSet::new));
 	}
 
 	private <T> List<String> appendImports(Stream<T> candidates, Function<T, Collection<String>> mapping) {

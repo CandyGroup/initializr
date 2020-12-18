@@ -199,8 +199,8 @@ public class GradleTask {
 
 		private static io.spring.initializr.generator.buildsystem.gradle.Attribute.Type toType(Type type) {
 			return switch (type) {
-				case SET -> io.spring.initializr.generator.buildsystem.gradle.Attribute.Type.SET;
-				case APPEND -> io.spring.initializr.generator.buildsystem.gradle.Attribute.Type.APPEND;
+			case SET -> io.spring.initializr.generator.buildsystem.gradle.Attribute.Type.SET;
+			case APPEND -> io.spring.initializr.generator.buildsystem.gradle.Attribute.Type.APPEND;
 			};
 		}
 

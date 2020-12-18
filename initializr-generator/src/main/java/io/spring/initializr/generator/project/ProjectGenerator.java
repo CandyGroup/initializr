@@ -154,7 +154,7 @@ public class ProjectGenerator {
 
 	ProjectGenerationConfigurationTypeFilter getProjectGenerationConfigurationExclusionFilter() {
 		List<ProjectGenerationConfigurationTypeFilter> filters = SpringFactoriesLoader
-			.loadFactories(ProjectGenerationConfigurationTypeFilter.class, getClass().getClassLoader());
+				.loadFactories(ProjectGenerationConfigurationTypeFilter.class, getClass().getClassLoader());
 		return ProjectGenerationConfigurationTypeFilter.allMatch(filters);
 	}
 
@@ -174,14 +174,13 @@ public class ProjectGenerator {
 		return () -> {
 			if (description instanceof MutableProjectDescription mutableDescription) {
 				ProjectDescriptionDiffFactory diffFactory = context.getBeanProvider(ProjectDescriptionDiffFactory.class)
-					.getIfAvailable(DefaultProjectDescriptionDiffFactory::new);
+						.getIfAvailable(DefaultProjectDescriptionDiffFactory::new);
 				// Create the diff here so that it takes a copy of the description
 				// immediately
 				ProjectDescriptionDiff diff = diffFactory.create(mutableDescription);
 				context.registerBean(ProjectDescriptionDiff.class, () -> diff);
-				context.getBeanProvider(ProjectDescriptionCustomizer.class)
-					.orderedStream()
-					.forEach((customizer) -> customizer.customize(mutableDescription));
+				context.getBeanProvider(ProjectDescriptionCustomizer.class).orderedStream()
+						.forEach((customizer) -> customizer.customize(mutableDescription));
 			}
 			return description;
 		};

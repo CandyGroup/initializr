@@ -122,7 +122,7 @@ public class GroovyDslGradleBuildWriter extends GradleBuildWriter {
 	protected void writeConfiguration(IndentingWriter writer, GradleConfiguration configuration) {
 		writer.println(configuration.getName() + " {");
 		writer.indented(() -> writer
-			.println(String.format("extendsFrom %s", String.join(", ", configuration.getExtendsFrom()))));
+				.println(String.format("extendsFrom %s", String.join(", ", configuration.getExtendsFrom()))));
 		writer.println("}");
 	}
 
@@ -140,8 +140,8 @@ public class GroovyDslGradleBuildWriter extends GradleBuildWriter {
 				+ ((type != null) ? "@" + type : "") + quoteStyle);
 		if (hasExclusions) {
 			writer.println(") {");
-			writer
-				.indented(() -> writeCollection(writer, dependency.getExclusions(), this::dependencyExclusionAsString));
+			writer.indented(
+					() -> writeCollection(writer, dependency.getExclusions(), this::dependencyExclusionAsString));
 			writer.println("}");
 		}
 		else {

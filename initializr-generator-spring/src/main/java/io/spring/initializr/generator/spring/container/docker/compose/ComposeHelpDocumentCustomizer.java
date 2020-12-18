@@ -43,16 +43,12 @@ public class ComposeHelpDocumentCustomizer implements HelpDocumentCustomizer {
 	public void customize(HelpDocument document) {
 		Map<String, Object> model = new HashMap<>();
 		if (this.composeFile.services().isEmpty()) {
-			document.getWarnings()
-				.addItem(
-						"No Docker Compose services found. As of now, the application won't start! Please add at least one service to the `compose.yaml` file.");
+			document.getWarnings().addItem(
+					"No Docker Compose services found. As of now, the application won't start! Please add at least one service to the `compose.yaml` file.");
 		}
 		else {
-			model.put("services",
-					this.composeFile.services()
-						.values()
-						.sorted(Comparator.comparing(ComposeService::getName))
-						.toList());
+			model.put("services", this.composeFile.services().values()
+					.sorted(Comparator.comparing(ComposeService::getName)).toList());
 		}
 		document.addSection("documentation/docker-compose", model);
 	}

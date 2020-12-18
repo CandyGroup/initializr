@@ -92,14 +92,14 @@ class DependencyTests {
 	@Test
 	void invalidDependency() {
 		assertThatExceptionOfType(InvalidInitializrMetadataException.class)
-			.isThrownBy(() -> new Dependency().resolve());
+				.isThrownBy(() -> new Dependency().resolve());
 	}
 
 	@Test
 	void invalidDependencyScope() {
 		Dependency dependency = Dependency.withId("web");
 		assertThatExceptionOfType(InvalidInitializrMetadataException.class)
-			.isThrownBy(() -> dependency.setScope("whatever"));
+				.isThrownBy(() -> dependency.setScope("whatever"));
 
 	}
 
@@ -108,7 +108,7 @@ class DependencyTests {
 		Dependency dependency = Dependency.withId("web");
 		dependency.setCompatibilityRange("A.B.C");
 		assertThatExceptionOfType(InvalidInitializrMetadataException.class).isThrownBy(dependency::resolve)
-			.withMessageContaining("A.B.C");
+				.withMessageContaining("A.B.C");
 	}
 
 	@Test
@@ -149,17 +149,16 @@ class DependencyTests {
 	void resolveInvalidMapping() {
 		Dependency dependency = Dependency.withId("web");
 		dependency.getMappings()
-			.add(Dependency.Mapping.create("foo-bar", null, null, "0.1.0.RELEASE", null, null, null));
+				.add(Dependency.Mapping.create("foo-bar", null, null, "0.1.0.RELEASE", null, null, null));
 		assertThatExceptionOfType(InvalidInitializrMetadataException.class).isThrownBy(dependency::resolve)
-			.withMessageContaining("foo-bar");
+				.withMessageContaining("foo-bar");
 	}
 
 	@Test
 	void resolveVersionRequirement() {
 		Dependency dependency = Dependency.withId("web");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "0.1.0.RELEASE", null, null,
-					null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"0.1.0.RELEASE", null, null, null));
 		dependency.resolve();
 		Dependency resolved = dependency.resolve(Version.parse("1.1.5.RELEASE"));
 		assertThat(resolved.getVersionRequirement()).isEqualTo(">=1.1.0.RELEASE and <1.2.0.RELEASE");
@@ -172,12 +171,10 @@ class DependencyTests {
 		dependency.getKeywords().addAll(Arrays.asList("foo", "bar"));
 		dependency.getAliases().add("the-web");
 		dependency.getFacets().add("web");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "0.1.0.RELEASE", null, null,
-					null));
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.2.0.RELEASE, 1.3.0.RELEASE)", null, null, "0.2.0.RELEASE", null, null,
-					null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"0.1.0.RELEASE", null, null, null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.2.0.RELEASE, 1.3.0.RELEASE)", null, null,
+				"0.2.0.RELEASE", null, null, null));
 		dependency.resolve();
 
 		validateResolvedWebDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "org.springframework.boot",
@@ -195,12 +192,10 @@ class DependencyTests {
 		dependency.getKeywords().addAll(Arrays.asList("foo", "bar"));
 		dependency.getAliases().add("the-web");
 		dependency.getFacets().add("web");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", "org.spring.boot", null, null, null, null,
-					null));
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.2.0.RELEASE, 1.3.0.RELEASE)", null, "starter-web", null, null, null,
-					null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", "org.spring.boot",
+				null, null, null, null, null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.2.0.RELEASE, 1.3.0.RELEASE)", null, "starter-web",
+				null, null, null, null));
 		dependency.resolve();
 
 		validateResolvedWebDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "org.spring.boot",
@@ -218,12 +213,10 @@ class DependencyTests {
 		dependency.getKeywords().addAll(Arrays.asList("foo", "bar"));
 		dependency.getAliases().add("the-web");
 		dependency.getFacets().add("web");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.1.x.RELEASE]", null, null, "0.1.0.RELEASE", null, null,
-					null));
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.x.BUILD-SNAPSHOT, 1.2.0.RELEASE)", null, null, "0.2.0.RELEASE", null,
-					null, null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.1.x.RELEASE]", null, null,
+				"0.1.0.RELEASE", null, null, null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.x.BUILD-SNAPSHOT, 1.2.0.RELEASE)", null, null,
+				"0.2.0.RELEASE", null, null, null));
 		dependency.resolve();
 
 		dependency.updateCompatibilityRange(new VersionParser(
@@ -250,11 +243,10 @@ class DependencyTests {
 	@Test
 	void resolveMatchingWithCustomGroupId() {
 		Dependency dependency = Dependency.withId("foo", "com.acme", "foo", "0.3.0.RELEASE");
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"1.0.0.RELEASE", null, null, null));
 		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "1.0.0.RELEASE", null, null,
-					null));
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.2.0.RELEASE, 1.3.0.RELEASE)", null, "bar", null, null, null, null));
+				.add(Dependency.Mapping.create("[1.2.0.RELEASE, 1.3.0.RELEASE)", null, "bar", null, null, null, null));
 		dependency.resolve();
 		validateResolvedDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "foo", "com.acme", "foo",
 				"1.0.0.RELEASE", true, null, null);
@@ -265,9 +257,8 @@ class DependencyTests {
 	@Test
 	void resolveMatchingWithMappingThatDisablesStarter() {
 		Dependency dependency = Dependency.withId("foo", "com.acme", "foo", "0.3.0.RELEASE");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "1.0.0.RELEASE", false, null,
-					null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"1.0.0.RELEASE", false, null, null));
 		dependency.resolve();
 		validateResolvedDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "foo", "com.acme", "foo",
 				"1.0.0.RELEASE", false, null, null);
@@ -277,9 +268,8 @@ class DependencyTests {
 	void resolveMatchingWithMappingThatEnablesStarter() {
 		Dependency dependency = Dependency.withId("foo", "com.acme", "foo", "0.3.0.RELEASE");
 		dependency.setStarter(false);
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "1.0.0.RELEASE", true, null,
-					null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"1.0.0.RELEASE", true, null, null));
 		dependency.resolve();
 		validateResolvedDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "foo", "com.acme", "foo",
 				"1.0.0.RELEASE", true, null, null);
@@ -289,9 +279,8 @@ class DependencyTests {
 	void resolveMatchingWithMappingWithCustomBom() {
 		Dependency dependency = Dependency.withId("foo", "com.acme", "foo", "0.3.0.RELEASE");
 		dependency.setBom("basic-bom");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "1.0.0.RELEASE", null,
-					"my-bom", null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"1.0.0.RELEASE", null, "my-bom", null));
 		dependency.resolve();
 		validateResolvedDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "foo", "com.acme", "foo",
 				"1.0.0.RELEASE", true, "my-bom", null);
@@ -300,9 +289,8 @@ class DependencyTests {
 	@Test
 	void resolveMatchingWithMappingWithBom() {
 		Dependency dependency = Dependency.withId("foo", "com.acme", "foo", "0.3.0.RELEASE");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "1.0.0.RELEASE", true,
-					"basic-bom", null));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"1.0.0.RELEASE", true, "basic-bom", null));
 		dependency.resolve();
 		validateResolvedDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "foo", "com.acme", "foo",
 				"1.0.0.RELEASE", true, "basic-bom", null);
@@ -312,9 +300,8 @@ class DependencyTests {
 	void resolveMatchingWithMappingWithCustomRepository() {
 		Dependency dependency = Dependency.withId("foo", "com.acme", "foo", "0.3.0.RELEASE");
 		dependency.setRepository("basic-repository");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "1.0.0.RELEASE", null, null,
-					"my-repository"));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"1.0.0.RELEASE", null, null, "my-repository"));
 		dependency.resolve();
 		validateResolvedDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "foo", "com.acme", "foo",
 				"1.0.0.RELEASE", true, null, "my-repository");
@@ -323,9 +310,8 @@ class DependencyTests {
 	@Test
 	void resolveMatchingWithMappingWithRepository() {
 		Dependency dependency = Dependency.withId("foo", "com.acme", "foo", "0.3.0.RELEASE");
-		dependency.getMappings()
-			.add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null, "1.0.0.RELEASE", true, null,
-					"basic-repository"));
+		dependency.getMappings().add(Dependency.Mapping.create("[1.1.0.RELEASE, 1.2.0.RELEASE)", null, null,
+				"1.0.0.RELEASE", true, null, "basic-repository"));
 		dependency.resolve();
 		validateResolvedDependency(dependency.resolve(Version.parse("1.1.5.RELEASE")), "foo", "com.acme", "foo",
 				"1.0.0.RELEASE", true, null, "basic-repository");

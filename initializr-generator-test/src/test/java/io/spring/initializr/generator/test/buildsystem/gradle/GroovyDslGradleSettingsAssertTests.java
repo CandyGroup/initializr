@@ -44,7 +44,7 @@ class GroovyDslGradleSettingsAssertTests {
 	@Test
 	void hasProjectNameWithWrongValue() {
 		assertThatExceptionOfType(AssertionError.class)
-			.isThrownBy(() -> assertThat(forSampleGradleSettings()).hasProjectName("another-project"));
+				.isThrownBy(() -> assertThat(forSampleGradleSettings()).hasProjectName("another-project"));
 	}
 
 	private AssertProvider<GroovyDslGradleSettingsAssert> forSampleGradleSettings() {

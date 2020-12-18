@@ -88,7 +88,7 @@ class LinkTests {
 		Link link = Link.create("reference", "https://example.com/{a}/2/{b}");
 		link.resolve();
 		assertThatIllegalArgumentException().isThrownBy(() -> link.expand(Collections.singletonMap("a", "test")))
-			.withMessageContaining("missing value for 'b'");
+				.withMessageContaining("missing value for 'b'");
 	}
 
 }

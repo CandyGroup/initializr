@@ -35,10 +35,8 @@ public class InitializrMetadataKotlinVersionResolver implements KotlinVersionRes
 
 	@Override
 	public String resolveKotlinVersion(ProjectDescription description) {
-		return this.metadata.getConfiguration()
-			.getEnv()
-			.getKotlin()
-			.resolveKotlinVersion(description.getPlatformVersion());
+		return this.metadata.getConfiguration().getEnv().getKotlin()
+				.resolveKotlinVersion(description.getPlatformVersion());
 	}
 
 }

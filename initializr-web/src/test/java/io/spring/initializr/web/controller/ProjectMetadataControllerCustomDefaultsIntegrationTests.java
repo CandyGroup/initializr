@@ -52,8 +52,7 @@ class ProjectMetadataControllerCustomDefaultsIntegrationTests extends AbstractFu
 	void initializeRemoteConfig() throws Exception {
 		InitializrMetadata localMetadata = this.metadataProvider.get();
 		InitializrMetadata metadata = InitializrMetadataBuilder.create()
-			.withInitializrMetadata(new UrlResource(createUrl("/metadata/config")))
-			.build();
+				.withInitializrMetadata(new UrlResource(createUrl("/metadata/config"))).build();
 		// Basic assertions
 		assertThat(metadata.getDependencies().getContent()).hasSameSizeAs(localMetadata.getDependencies().getContent());
 		assertThat(metadata.getTypes().getContent()).hasSameSizeAs(localMetadata.getTypes().getContent());

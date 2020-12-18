@@ -49,45 +49,42 @@ import static org.mockito.Mockito.mock;
 class InitializrStatsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-		.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, InitializrAutoConfiguration.class,
-				RestTemplateAutoConfiguration.class, InitializrStatsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, InitializrAutoConfiguration.class,
+					RestTemplateAutoConfiguration.class, InitializrStatsAutoConfiguration.class));
 
 	@Test
 	void autoConfigRegistersProjectGenerationStatPublisher() {
 		this.contextRunner.withPropertyValues("initializr.stats.elastic.uri=http://localhost:9200")
-			.run((context) -> assertThat(context).hasSingleBean(ProjectGenerationStatPublisher.class));
+				.run((context) -> assertThat(context).hasSingleBean(ProjectGenerationStatPublisher.class));
 	}
 
 	@Test
 	void autoConfigRegistersRetryTemplate() {
 		this.contextRunner.withPropertyValues("initializr.stats.elastic.uri=http://localhost:9200")
-			.run((context) -> assertThat(context).hasSingleBean(RetryTemplate.class));
+				.run((context) -> assertThat(context).hasSingleBean(RetryTemplate.class));
 	}
 
 	@Test
 	void statsRetryTemplateConditionalOnMissingBean() {
 		this.contextRunner.withUserConfiguration(CustomStatsRetryTemplateConfiguration.class)
-			.withPropertyValues("initializr.stats.elastic.uri=http://localhost:9200")
-			.run((context) -> {
-				assertThat(context).hasSingleBean(RetryTemplate.class);
-				RetryTemplate retryTemplate = context.getBean(RetryTemplate.class);
-				ExponentialBackOffPolicy backOffPolicy = (ExponentialBackOffPolicy) ReflectionTestUtils
-					.getField(retryTemplate, "backOffPolicy");
-				assertThat(backOffPolicy.getMultiplier()).isEqualTo(10);
-			});
+				.withPropertyValues("initializr.stats.elastic.uri=http://localhost:9200").run((context) -> {
+					assertThat(context).hasSingleBean(RetryTemplate.class);
+					RetryTemplate retryTemplate = context.getBean(RetryTemplate.class);
+					ExponentialBackOffPolicy backOffPolicy = (ExponentialBackOffPolicy) ReflectionTestUtils
+							.getField(retryTemplate, "backOffPolicy");
+					assertThat(backOffPolicy.getMultiplier()).isEqualTo(10);
+				});
 	}
 
 	@Test
 	void customRestTemplateBuilderIsUsed() {
 		this.contextRunner.withUserConfiguration(CustomRestTemplateConfiguration.class)
-			.withPropertyValues("initializr.stats.elastic.uri=http://localhost:9200")
-			.run((context) -> {
-				assertThat(context).hasSingleBean(ProjectGenerationStatPublisher.class);
-				RestTemplate restTemplate = (RestTemplate) new DirectFieldAccessor(
-						context.getBean(ProjectGenerationStatPublisher.class))
-					.getPropertyValue("restTemplate");
-				assertThat(restTemplate.getErrorHandler()).isSameAs(CustomRestTemplateConfiguration.errorHandler);
-			});
+				.withPropertyValues("initializr.stats.elastic.uri=http://localhost:9200").run((context) -> {
+					assertThat(context).hasSingleBean(ProjectGenerationStatPublisher.class);
+					RestTemplate restTemplate = (RestTemplate) new DirectFieldAccessor(
+							context.getBean(ProjectGenerationStatPublisher.class)).getPropertyValue("restTemplate");
+					assertThat(restTemplate.getErrorHandler()).isSameAs(CustomRestTemplateConfiguration.errorHandler);
+				});
 	}
 
 	@Test
@@ -98,7 +95,7 @@ class InitializrStatsAutoConfigurationTests {
 	@Test
 	void shouldBackOffIfElasticUriIsEmpty() {
 		this.contextRunner.withPropertyValues("initializr.stats.elastic.uri=")
-			.run((context) -> assertThat(context).doesNotHaveBean(ProjectGenerationStatPublisher.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ProjectGenerationStatPublisher.class));
 	}
 
 	@Configuration

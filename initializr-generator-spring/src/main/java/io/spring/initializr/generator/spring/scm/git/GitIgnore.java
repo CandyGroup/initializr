@@ -81,9 +81,8 @@ public class GitIgnore {
 		}
 		else {
 			return this.sections.stream()
-				.filter((section) -> section.name != null && section.name.equalsIgnoreCase(sectionName))
-				.findAny()
-				.orElse(null);
+					.filter((section) -> section.name != null && section.name.equalsIgnoreCase(sectionName)).findAny()
+					.orElse(null);
 		}
 	}
 

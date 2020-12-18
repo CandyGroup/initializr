@@ -67,7 +67,7 @@ public class ProjectGeneratorTester extends AbstractProjectGenerationTester<Proj
 
 	public <T> T generate(MutableProjectDescription description, ProjectAssetGenerator<T> projectAssetGenerator) {
 		return invokeProjectGeneration(description, (contextInitializer) -> new ProjectGenerator(contextInitializer)
-			.generate(description, projectAssetGenerator));
+				.generate(description, projectAssetGenerator));
 	}
 
 }

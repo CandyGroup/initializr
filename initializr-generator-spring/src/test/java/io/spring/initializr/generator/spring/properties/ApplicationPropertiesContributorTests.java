@@ -40,7 +40,7 @@ class ApplicationPropertiesContributorTests {
 	void applicationConfigurationWithDefaultSettings() throws IOException {
 		new ApplicationPropertiesContributor(new ApplicationProperties()).contribute(this.directory);
 		assertThat(new ProjectStructure(this.directory)).textFile("src/main/resources/application.properties")
-			.isEmpty();
+				.isEmpty();
 	}
 
 	@Test
@@ -49,9 +49,8 @@ class ApplicationPropertiesContributorTests {
 		properties.add("spring.application.name", "test");
 		ApplicationPropertiesContributor contributor = new ApplicationPropertiesContributor(properties);
 		contributor.contribute(this.directory);
-		assertThat(new ProjectStructure(this.directory)).textFile("src/main/resources/application.properties")
-			.lines()
-			.contains("spring.application.name=test");
+		assertThat(new ProjectStructure(this.directory)).textFile("src/main/resources/application.properties").lines()
+				.contains("spring.application.name=test");
 	}
 
 }

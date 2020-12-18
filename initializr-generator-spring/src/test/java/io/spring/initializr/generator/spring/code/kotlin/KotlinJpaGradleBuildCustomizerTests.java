@@ -69,11 +69,10 @@ class KotlinJpaGradleBuildCustomizerTests {
 		assertThat(build.extensions().values()).singleElement().satisfies((extension) -> {
 			assertThat(extension.getName()).isEqualTo("allOpen");
 			assertThat(extension.getInvocations())
-				.filteredOn((invocation) -> Objects.equals(invocation.getTarget(), "annotation"))
-				.extracting("arguments")
-				.containsExactlyInAnyOrder(List.of("\"jakarta.persistence.Entity\""),
-						List.of("\"jakarta.persistence.MappedSuperclass\""),
-						List.of("\"jakarta.persistence.Embeddable\""));
+					.filteredOn((invocation) -> Objects.equals(invocation.getTarget(), "annotation"))
+					.extracting("arguments").containsExactlyInAnyOrder(List.of("\"jakarta.persistence.Entity\""),
+							List.of("\"jakarta.persistence.MappedSuperclass\""),
+							List.of("\"jakarta.persistence.Embeddable\""));
 		});
 	}
 
@@ -82,15 +81,13 @@ class KotlinJpaGradleBuildCustomizerTests {
 		Dependency dependency = Dependency.withId("foo");
 		GradleBuild build = getCustomizedBuild(dependency);
 		assertThat(build.extensions().values())
-			.filteredOn((extension) -> Objects.equals(extension.getName(), "allOpen"))
-			.isEmpty();
+				.filteredOn((extension) -> Objects.equals(extension.getName(), "allOpen")).isEmpty();
 		assertThat(build.extensions().values()).isEmpty();
 	}
 
 	private GradleBuild getCustomizedBuild(Dependency dependency) {
 		InitializrMetadata metadata = InitializrMetadataTestBuilder.withDefaults()
-			.addDependencyGroup("test", dependency)
-			.build();
+				.addDependencyGroup("test", dependency).build();
 		SimpleKotlinProjectSettings settings = new SimpleKotlinProjectSettings("1.2.70");
 		MutableProjectDescription projectDescription = new MutableProjectDescription();
 		projectDescription.setPlatformVersion(Version.parse("1.0.0"));

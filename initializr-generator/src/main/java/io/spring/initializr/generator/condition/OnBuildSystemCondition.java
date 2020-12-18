@@ -36,7 +36,7 @@ class OnBuildSystemCondition extends ProjectGenerationCondition {
 	protected boolean matches(ProjectDescription description, ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
 		MultiValueMap<String, Object> attributes = metadata
-			.getAllAnnotationAttributes(ConditionalOnBuildSystem.class.getName());
+				.getAllAnnotationAttributes(ConditionalOnBuildSystem.class.getName());
 		String buildSystemId = (String) attributes.getFirst("value");
 		String dialect = (String) attributes.getFirst("dialect");
 		BuildSystem buildSystem = description.getBuildSystem();

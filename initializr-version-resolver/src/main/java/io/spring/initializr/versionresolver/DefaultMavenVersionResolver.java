@@ -73,16 +73,13 @@ class DefaultMavenVersionResolver implements MavenVersionResolver {
 	private static final Log logger = LogFactory.getLog(DefaultMavenVersionResolver.class);
 
 	private static final RemoteRepository mavenCentral = new RemoteRepository.Builder("central", "default",
-			"https://repo1.maven.org/maven2")
-		.build();
+			"https://repo1.maven.org/maven2").build();
 
 	private static final RemoteRepository springMilestones = new RemoteRepository.Builder("spring-milestones",
-			"default", "https://repo.spring.io/milestone")
-		.build();
+			"default", "https://repo.spring.io/milestone").build();
 
 	private static final RemoteRepository springSnapshots = new RemoteRepository.Builder("spring-snapshots", "default",
-			"https://repo.spring.io/snapshot")
-		.build();
+			"https://repo.spring.io/snapshot").build();
 
 	private static final List<RemoteRepository> repositories = Arrays.asList(mavenCentral, springMilestones,
 			springSnapshots);
@@ -112,11 +109,8 @@ class DefaultMavenVersionResolver implements MavenVersionResolver {
 	public Map<String, String> resolveDependencies(String groupId, String artifactId, String version) {
 		ArtifactDescriptorResult bom = resolveBom(groupId, artifactId, version);
 		Map<String, String> managedVersions = new HashMap<>();
-		bom.getManagedDependencies()
-			.stream()
-			.map(Dependency::getArtifact)
-			.forEach((artifact) -> managedVersions.putIfAbsent(artifact.getGroupId() + ":" + artifact.getArtifactId(),
-					artifact.getVersion()));
+		bom.getManagedDependencies().stream().map(Dependency::getArtifact).forEach((artifact) -> managedVersions
+				.putIfAbsent(artifact.getGroupId() + ":" + artifact.getArtifactId(), artifact.getVersion()));
 		return managedVersions;
 	}
 
@@ -124,11 +118,8 @@ class DefaultMavenVersionResolver implements MavenVersionResolver {
 	public Map<String, String> resolvePlugins(String groupId, String artifactId, String version) {
 		Model model = buildEffectiveModel(groupId, artifactId, version);
 		Map<String, String> managedPluginVersions = new HashMap<>();
-		model.getBuild()
-			.getPluginManagement()
-			.getPlugins()
-			.forEach((plugin) -> managedPluginVersions.putIfAbsent(plugin.getGroupId() + ":" + plugin.getArtifactId(),
-					plugin.getVersion()));
+		model.getBuild().getPluginManagement().getPlugins().forEach((plugin) -> managedPluginVersions
+				.putIfAbsent(plugin.getGroupId() + ":" + plugin.getArtifactId(), plugin.getVersion()));
 		return managedPluginVersions;
 	}
 

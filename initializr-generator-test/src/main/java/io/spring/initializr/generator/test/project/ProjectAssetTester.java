@@ -119,10 +119,9 @@ public class ProjectAssetTester extends AbstractProjectGenerationTester<ProjectA
 	private ProjectAssetGenerator<ProjectStructure> runAllAvailableContributors() {
 		return (context) -> {
 			Path projectDirectory = context.getBean(ProjectDirectoryFactory.class)
-				.createProjectDirectory(context.getBean(ProjectDescription.class));
+					.createProjectDirectory(context.getBean(ProjectDescription.class));
 			List<ProjectContributor> projectContributors = context.getBeanProvider(ProjectContributor.class)
-				.orderedStream()
-				.collect(Collectors.toList());
+					.orderedStream().collect(Collectors.toList());
 			for (ProjectContributor projectContributor : projectContributors) {
 				projectContributor.contribute(projectDirectory);
 			}

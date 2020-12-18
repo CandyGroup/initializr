@@ -39,13 +39,13 @@ public class SourceCodeProjectGenerationConfiguration {
 	@Bean
 	public MainApplicationTypeCustomizer<TypeDeclaration> springBootApplicationAnnotator() {
 		return (typeDeclaration) -> typeDeclaration.annotations()
-			.add(ClassName.of("org.springframework.boot.autoconfigure.SpringBootApplication"));
+				.add(ClassName.of("org.springframework.boot.autoconfigure.SpringBootApplication"));
 	}
 
 	@Bean
 	public TestApplicationTypeCustomizer<TypeDeclaration> junitJupiterSpringBootTestTypeCustomizer() {
 		return (typeDeclaration) -> typeDeclaration.annotations()
-			.add(ClassName.of("org.springframework.boot.test.context.SpringBootTest"));
+				.add(ClassName.of("org.springframework.boot.test.context.SpringBootTest"));
 	}
 
 	/**

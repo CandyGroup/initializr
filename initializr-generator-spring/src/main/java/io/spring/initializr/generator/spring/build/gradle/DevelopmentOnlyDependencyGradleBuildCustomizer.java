@@ -44,8 +44,8 @@ public class DevelopmentOnlyDependencyGradleBuildCustomizer implements BuildCust
 	public void customize(GradleBuild build) {
 		Dependency dependency = build.dependencies().get(this.dependencyId);
 		if (dependency != null) {
-			build.dependencies()
-				.add(this.dependencyId, GradleDependency.from(dependency).configuration("developmentOnly"));
+			build.dependencies().add(this.dependencyId,
+					GradleDependency.from(dependency).configuration("developmentOnly"));
 		}
 	}
 

@@ -78,9 +78,8 @@ public class ProjectGenerationStatPublisher {
 			}
 			json = toJson(document);
 
-			RequestEntity<String> request = RequestEntity.post(this.requestUrl)
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(json);
+			RequestEntity<String> request = RequestEntity.post(this.requestUrl).contentType(MediaType.APPLICATION_JSON)
+					.body(json);
 
 			this.retryTemplate.execute((context) -> {
 				this.restTemplate.exchange(request, String.class);

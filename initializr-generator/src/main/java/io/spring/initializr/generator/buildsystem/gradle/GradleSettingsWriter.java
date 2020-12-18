@@ -73,9 +73,8 @@ public abstract class GradleSettingsWriter {
 		writer.println("resolutionStrategy {");
 		writer.indented(() -> {
 			writer.println("eachPlugin {");
-			writer.indented(() -> build.getSettings()
-				.getPluginMappings()
-				.forEach((pluginMapping) -> writePluginMapping(writer, pluginMapping)));
+			writer.indented(() -> build.getSettings().getPluginMappings()
+					.forEach((pluginMapping) -> writePluginMapping(writer, pluginMapping)));
 			writer.println("}");
 		});
 		writer.println("}");

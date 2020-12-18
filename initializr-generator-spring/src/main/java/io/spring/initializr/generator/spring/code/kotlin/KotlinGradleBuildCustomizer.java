@@ -45,8 +45,8 @@ class KotlinGradleBuildCustomizer implements BuildCustomizer<GradleBuild> {
 	@Override
 	public void customize(GradleBuild build) {
 		build.plugins().add("org.jetbrains.kotlin.jvm", (plugin) -> plugin.setVersion(this.settings.getVersion()));
-		build.plugins()
-			.add("org.jetbrains.kotlin.plugin.spring", (plugin) -> plugin.setVersion(this.settings.getVersion()));
+		build.plugins().add("org.jetbrains.kotlin.plugin.spring",
+				(plugin) -> plugin.setVersion(this.settings.getVersion()));
 		customizeCompilerOptions(build);
 	}
 
