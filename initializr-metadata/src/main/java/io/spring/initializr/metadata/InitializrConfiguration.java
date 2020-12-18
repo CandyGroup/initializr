@@ -16,26 +16,19 @@
 
 package io.spring.initializr.metadata;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.lang.model.SourceVersion;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.spring.initializr.generator.version.InvalidVersionException;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.Version.Format;
 import io.spring.initializr.generator.version.VersionParser;
 import io.spring.initializr.generator.version.VersionRange;
-
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.util.StringUtils;
+
+import javax.lang.model.SourceVersion;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 /**
  * Various configuration options used by the service.
@@ -45,7 +38,7 @@ import org.springframework.util.StringUtils;
  */
 public class InitializrConfiguration {
 
-	/**
+    /**
 	 * Environment options.
 	 */
 	@NestedConfigurationProperty
@@ -541,9 +534,13 @@ public class InitializrConfiguration {
 			 * @return the parent POM
 			 */
 			public ParentPom resolveParentPom(String bootVersion) {
-				return (StringUtils.hasText(this.parent.groupId) ? this.parent
-						: new ParentPom(DEFAULT_PARENT_GROUP_ID, DEFAULT_PARENT_ARTIFACT_ID, bootVersion));
-			}
+                if (StringUtils.hasText(this.parent.groupId)) {
+                    return this.parent;
+                }
+                ParentPom parentPom = new ParentPom(DEFAULT_PARENT_GROUP_ID, DEFAULT_PARENT_ARTIFACT_ID, bootVersion);
+                parentPom.setIncludeSpringBootBom(this.parent.includeSpringBootBom);
+                return parentPom;
+            }
 
 			/**
 			 * Check if the specified {@link ParentPom} is the default spring boot starter
@@ -567,29 +564,29 @@ public class InitializrConfiguration {
 				 */
 				private String groupId;
 
-				/**
-				 * Parent pom artifactId.
-				 */
-				private String artifactId;
+                /**
+                 * Parent pom artifactId.
+                 */
+                private String artifactId;
 
-				/**
-				 * Parent pom version.
-				 */
-				private String version;
+                /**
+                 * Parent pom version.
+                 */
+                private String version;
 
-				/**
-				 * Add the "spring-boot-dependencies" BOM to the project.
-				 */
-				private boolean includeSpringBootBom;
+                /**
+                 * Add the "spring-boot-dependencies" BOM to the project.
+                 */
+                private boolean includeSpringBootBom = true;
 
-				public ParentPom(String groupId, String artifactId, String version) {
-					this.groupId = groupId;
-					this.artifactId = artifactId;
-					this.version = version;
-				}
+                public ParentPom(String groupId, String artifactId, String version) {
+                    this.groupId = groupId;
+                    this.artifactId = artifactId;
+                    this.version = version;
+                }
 
-				public ParentPom() {
-				}
+                public ParentPom() {
+                }
 
 				public String getGroupId() {
 					return this.groupId;

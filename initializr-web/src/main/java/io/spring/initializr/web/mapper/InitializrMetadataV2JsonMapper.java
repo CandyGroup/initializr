@@ -16,10 +16,6 @@
 
 package io.spring.initializr.web.mapper;
 
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -27,22 +23,15 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.spring.initializr.generator.version.Version;
 import io.spring.initializr.generator.version.Version.Format;
 import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.metadata.DefaultMetadataElement;
-import io.spring.initializr.metadata.DependenciesCapability;
-import io.spring.initializr.metadata.Dependency;
-import io.spring.initializr.metadata.DependencyGroup;
-import io.spring.initializr.metadata.Describable;
-import io.spring.initializr.metadata.InitializrMetadata;
-import io.spring.initializr.metadata.MetadataElement;
-import io.spring.initializr.metadata.SingleSelectCapability;
-import io.spring.initializr.metadata.TextCapability;
-import io.spring.initializr.metadata.Type;
-import io.spring.initializr.metadata.TypeCapability;
-
+import io.spring.initializr.metadata.*;
 import org.springframework.hateoas.TemplateVariable;
 import org.springframework.hateoas.TemplateVariables;
 import org.springframework.hateoas.UriTemplate;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * A {@link InitializrMetadataJsonMapper} handling the metadata format for v2.
@@ -52,24 +41,25 @@ import org.springframework.util.StringUtils;
  */
 public class InitializrMetadataV2JsonMapper implements InitializrMetadataJsonMapper {
 
-	private static final JsonNodeFactory nodeFactory = JsonNodeFactory.instance;
+    private static final JsonNodeFactory nodeFactory = JsonNodeFactory.instance;
 
 	private final TemplateVariables templateVariables;
 
 	public InitializrMetadataV2JsonMapper() {
-		this.templateVariables = new TemplateVariables(
-				new TemplateVariable("dependencies", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("packaging", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("javaVersion", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("language", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("bootVersion", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("groupId", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("artifactId", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("version", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("name", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("description", TemplateVariable.VariableType.REQUEST_PARAM),
-				new TemplateVariable("packageName", TemplateVariable.VariableType.REQUEST_PARAM));
-	}
+        this.templateVariables = new TemplateVariables(
+                new TemplateVariable("dependencies", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("packaging", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("javaVersion", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("language", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("bootVersion", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("groupId", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("artifactId", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("version", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("name", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("description", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("packageName", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("ddl", TemplateVariable.VariableType.REQUEST_PARAM));
+    }
 
 	protected JsonNodeFactory nodeFactory() {
 		return nodeFactory;
@@ -77,22 +67,23 @@ public class InitializrMetadataV2JsonMapper implements InitializrMetadataJsonMap
 
 	@Override
 	public String write(InitializrMetadata metadata, String appUrl) {
-		ObjectNode delegate = nodeFactory.objectNode();
-		links(delegate, metadata.getTypes().getContent(), appUrl);
-		dependencies(delegate, metadata.getDependencies());
-		type(delegate, metadata.getTypes());
-		singleSelect(delegate, metadata.getPackagings());
-		singleSelect(delegate, metadata.getJavaVersions());
-		singleSelect(delegate, metadata.getLanguages());
-		singleSelect(delegate, metadata.getBootVersions(), this::mapVersionMetadata, this::formatVersion);
-		text(delegate, metadata.getGroupId());
-		text(delegate, metadata.getArtifactId());
-		text(delegate, metadata.getVersion());
-		text(delegate, metadata.getName());
-		text(delegate, metadata.getDescription());
-		text(delegate, metadata.getPackageName());
-		return delegate.toString();
-	}
+        ObjectNode delegate = nodeFactory.objectNode();
+        links(delegate, metadata.getTypes().getContent(), appUrl);
+        dependencies(delegate, metadata.getDependencies());
+        type(delegate, metadata.getTypes());
+        singleSelect(delegate, metadata.getPackagings());
+        singleSelect(delegate, metadata.getJavaVersions());
+        singleSelect(delegate, metadata.getLanguages());
+        singleSelect(delegate, metadata.getBootVersions(), this::mapVersionMetadata, this::formatVersion);
+        text(delegate, metadata.getGroupId());
+        text(delegate, metadata.getArtifactId());
+        text(delegate, metadata.getVersion());
+        text(delegate, metadata.getName());
+        text(delegate, metadata.getDescription());
+        text(delegate, metadata.getPackageName());
+        text(delegate, metadata.getDdl());
+        return delegate.toString();
+    }
 
 	protected ObjectNode links(ObjectNode parent, List<Type> types, String appUrl) {
 		ObjectNode content = nodeFactory.objectNode();

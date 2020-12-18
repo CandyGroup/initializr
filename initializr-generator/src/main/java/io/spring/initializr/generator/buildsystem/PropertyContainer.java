@@ -16,14 +16,14 @@
 
 package io.spring.initializr.generator.buildsystem;
 
+import io.spring.initializr.generator.version.VersionProperty;
+
 import java.util.AbstractMap.SimpleEntry;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
-
-import io.spring.initializr.generator.version.VersionProperty;
 
 /**
  * A container for properties. Arbitrary properties can be specified as well as ones that
@@ -33,17 +33,18 @@ import io.spring.initializr.generator.version.VersionProperty;
  */
 public class PropertyContainer {
 
-	private final Map<String, String> properties = new TreeMap<>();
+    private final Map<String, String> properties = new LinkedHashMap<>();
 
-	private final Map<VersionProperty, String> versions = new TreeMap<>();
+    private final Map<VersionProperty, String> versions = new LinkedHashMap<>();
 
-	/**
-	 * Specify if this container is empty.
-	 * @return {@code true} if no property is registered
-	 */
-	public boolean isEmpty() {
-		return this.properties.isEmpty() && this.versions.isEmpty();
-	}
+    /**
+     * Specify if this container is empty.
+     *
+     * @return {@code true} if no property is registered
+     */
+    public boolean isEmpty() {
+        return this.properties.isEmpty() && this.versions.isEmpty();
+    }
 
 	/**
 	 * Specify if this container has a property with the specified name.

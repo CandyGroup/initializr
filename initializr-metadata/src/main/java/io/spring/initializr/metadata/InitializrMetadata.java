@@ -16,14 +16,14 @@
 
 package io.spring.initializr.metadata;
 
+import io.spring.initializr.generator.version.Version;
+import io.spring.initializr.generator.version.VersionParser;
+import io.spring.initializr.generator.version.VersionProperty;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import io.spring.initializr.generator.version.Version;
-import io.spring.initializr.generator.version.VersionParser;
-import io.spring.initializr.generator.version.VersionProperty;
 
 /**
  * Meta-data used to generate a project.
@@ -53,33 +53,35 @@ public class InitializrMetadata {
 
 	private final TextCapability name = new TextCapability("name", "Name", "project name (infer application name)");
 
-	private final TextCapability description = new TextCapability("description", "Description", "project description");
+    private final TextCapability description = new TextCapability("description", "Description", "project description");
 
-	private final TextCapability groupId = new TextCapability("groupId", "Group", "project coordinates");
+    private final TextCapability groupId = new TextCapability("groupId", "Group", "project coordinates");
 
-	private final TextCapability artifactId = new ArtifactIdCapability(this.name);
+    private final TextCapability artifactId = new ArtifactIdCapability(this.name);
 
-	private final TextCapability version = new TextCapability("version", "Version", "project version");
+    private final TextCapability version = new TextCapability("version", "Version", "project version");
 
-	private final TextCapability packageName = new PackageCapability(this.groupId, this.artifactId);
+    private final TextCapability packageName = new PackageCapability(this.groupId, this.artifactId);
 
-	public InitializrMetadata() {
-		this(new InitializrConfiguration());
-	}
+    private final TextCapability ddl = new TextCapability("ddl", "ddl", "sql");
 
-	protected InitializrMetadata(InitializrConfiguration configuration) {
-		this.configuration = configuration;
-	}
+    public InitializrMetadata() {
+        this(new InitializrConfiguration());
+    }
 
-	public InitializrConfiguration getConfiguration() {
-		return this.configuration;
-	}
+    protected InitializrMetadata(InitializrConfiguration configuration) {
+        this.configuration = configuration;
+    }
 
-	public DependenciesCapability getDependencies() {
-		return this.dependencies;
-	}
+    public InitializrConfiguration getConfiguration() {
+        return this.configuration;
+    }
 
-	public TypeCapability getTypes() {
+    public DependenciesCapability getDependencies() {
+        return this.dependencies;
+    }
+
+    public TypeCapability getTypes() {
 		return this.types;
 	}
 
@@ -105,52 +107,58 @@ public class InitializrMetadata {
 
 	public TextCapability getDescription() {
 		return this.description;
-	}
+    }
 
-	public TextCapability getGroupId() {
-		return this.groupId;
-	}
+    public TextCapability getGroupId() {
+        return this.groupId;
+    }
 
-	public TextCapability getArtifactId() {
-		return this.artifactId;
-	}
+    public TextCapability getArtifactId() {
+        return this.artifactId;
+    }
 
-	public TextCapability getVersion() {
-		return this.version;
-	}
+    public TextCapability getVersion() {
+        return this.version;
+    }
 
-	public TextCapability getPackageName() {
-		return this.packageName;
-	}
+    public TextCapability getPackageName() {
+        return this.packageName;
+    }
 
-	/**
-	 * Merge this instance with the specified argument.
-	 * @param other the other instance
-	 */
-	public void merge(InitializrMetadata other) {
-		this.configuration.merge(other.configuration);
-		this.dependencies.merge(other.dependencies);
-		this.types.merge(other.types);
-		this.bootVersions.merge(other.bootVersions);
-		this.packagings.merge(other.packagings);
-		this.javaVersions.merge(other.javaVersions);
-		this.languages.merge(other.languages);
-		this.name.merge(other.name);
-		this.description.merge(other.description);
-		this.groupId.merge(other.groupId);
-		this.artifactId.merge(other.artifactId);
-		this.version.merge(other.version);
-		this.packageName.merge(other.packageName);
-	}
+    public TextCapability getDdl() {
+        return ddl;
+    }
 
-	/**
-	 * Validate the metadata.
-	 */
-	public void validate() {
-		this.configuration.validate();
-		this.dependencies.validate();
+    /**
+     * Merge this instance with the specified argument.
+     *
+     * @param other the other instance
+     */
+    public void merge(InitializrMetadata other) {
+        this.configuration.merge(other.configuration);
+        this.dependencies.merge(other.dependencies);
+        this.types.merge(other.types);
+        this.bootVersions.merge(other.bootVersions);
+        this.packagings.merge(other.packagings);
+        this.javaVersions.merge(other.javaVersions);
+        this.languages.merge(other.languages);
+        this.name.merge(other.name);
+        this.description.merge(other.description);
+        this.groupId.merge(other.groupId);
+        this.artifactId.merge(other.artifactId);
+        this.version.merge(other.version);
+        this.packageName.merge(other.packageName);
+        this.ddl.merge(other.ddl);
+    }
 
-		Map<String, Repository> repositories = this.configuration.getEnv().getRepositories();
+    /**
+     * Validate the metadata.
+     */
+    public void validate() {
+        this.configuration.validate();
+        this.dependencies.validate();
+
+        Map<String, Repository> repositories = this.configuration.getEnv().getRepositories();
 		Map<String, BillOfMaterials> boms = this.configuration.getEnv().getBoms();
 		for (Dependency dependency : this.dependencies.getAll()) {
 			if (dependency.getBom() != null && !boms.containsKey(dependency.getBom())) {
@@ -239,19 +247,20 @@ public class InitializrMetadata {
 	 * @return the default capabilities
 	 */
 	public Map<String, Object> defaults() {
-		Map<String, Object> defaults = new LinkedHashMap<>();
-		defaults.put("type", defaultId(this.types));
-		defaults.put("bootVersion", defaultId(this.bootVersions));
-		defaults.put("packaging", defaultId(this.packagings));
-		defaults.put("javaVersion", defaultId(this.javaVersions));
-		defaults.put("language", defaultId(this.languages));
-		defaults.put("groupId", this.groupId.getContent());
-		defaults.put("artifactId", this.artifactId.getContent());
-		defaults.put("version", this.version.getContent());
-		defaults.put("name", this.name.getContent());
-		defaults.put("description", this.description.getContent());
-		defaults.put("packageName", this.packageName.getContent());
-		return defaults;
+        Map<String, Object> defaults = new LinkedHashMap<>();
+        defaults.put("type", defaultId(this.types));
+        defaults.put("bootVersion", defaultId(this.bootVersions));
+        defaults.put("packaging", defaultId(this.packagings));
+        defaults.put("javaVersion", defaultId(this.javaVersions));
+        defaults.put("language", defaultId(this.languages));
+        defaults.put("groupId", this.groupId.getContent());
+        defaults.put("artifactId", this.artifactId.getContent());
+        defaults.put("version", this.version.getContent());
+        defaults.put("name", this.name.getContent());
+        defaults.put("description", this.description.getContent());
+        defaults.put("packageName", this.packageName.getContent());
+        defaults.put("ddl", this.ddl.getContent());
+        return defaults;
 	}
 
 	private static String defaultId(Defaultable<? extends DefaultMetadataElement> element) {
